@@ -53,3 +53,39 @@ CREATE TABLE Cita (
     FOREIGN KEY (MedicoID) REFERENCES Medico(MedicoID)
 );
 
+CREATE TABLE Distrito (
+    DistritoID INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(100) NOT NULL
+);
+CREATE TABLE Canton (
+    CantonID INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(100) NOT NULL,
+    DistritoID INT,
+    FOREIGN KEY (DistritoID) REFERENCES Distrito(DistritoID)
+);
+CREATE TABLE Provincia (
+    ProvinciaID INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(100) NOT NULL,
+    CantonID INT,
+    FOREIGN KEY (CantonID) REFERENCES Canton(CantonID)
+);
+
+CREATE TABLE Historial (
+    PacienteID INT,
+    Nombre VARCHAR(100) NOT NULL,
+    Apellido VARCHAR(100) NOT NULL,
+    Edad INT NOT NULL,
+    Genero VARCHAR(10) NOT NULL,
+    Antecedentes VARCHAR(1000),
+    Tratamiento VARCHAR(1000),
+    Habitos VARCHAR(1000),
+    Notas Varchar (500),
+    Consultas Varchar(1000),
+    FOREIGN KEY (PacienteID) REFERENCES Paciente(PacienteID)
+);
+
+
+
+
+
+
