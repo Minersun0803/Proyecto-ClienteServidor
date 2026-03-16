@@ -1,7 +1,7 @@
 
 package com.mycompany.proyecto;
 
-//Prueba
+
 public abstract class Inventario  {
     protected String detalles;
     protected int cantidad;
