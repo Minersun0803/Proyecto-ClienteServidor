@@ -3,7 +3,6 @@ package com.mycompany.proyecto;
 
 
 public class Provedor extends Inventario {
-    private int ID;
     private String Nombre;
     private String Cedula;
     private String Producto;
@@ -11,16 +10,10 @@ public class Provedor extends Inventario {
     private int Cantidad;
 
     public Provedor(String detalles, int cantidad, int id_producto, String producto) {
-        super(detalles, cantidad, id_producto, producto);
+        super(detalles, cantidad,producto);
     }
 
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+ 
 
     public String getNombre() {
         return Nombre;

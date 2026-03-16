@@ -4,7 +4,6 @@ package com.mycompany.proyecto;
  * Persona
  */
 public abstract class Persona {
-    protected int id;
     protected String Nombre;
     protected String Apellidos;
     protected String Cedula;
@@ -12,8 +11,7 @@ public abstract class Persona {
     protected String Correo;
     protected String Ubicacion;
 
-    public Persona(int id, String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion) {
-        this.id = id;
+    public Persona(String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion) {
         this.Nombre = Nombre;
         this.Apellidos = Apellidos;
         this.Cedula = Cedula;
@@ -29,13 +27,7 @@ public abstract class Persona {
         return super.toString(); 
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getNombre() {
         return Nombre;

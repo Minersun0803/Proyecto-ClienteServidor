@@ -5,13 +5,11 @@ package com.mycompany.proyecto;
 public abstract class Inventario  {
     protected String detalles;
     protected int cantidad;
-    protected int id_producto;
     protected String producto;
 
-    public Inventario(String detalles, int cantidad, int id_producto, String producto) {
+    public Inventario(String detalles, int cantidad,String producto) {
         this.detalles = detalles;
         this.cantidad = cantidad;
-        this.id_producto = id_producto;
         this.producto = producto;
     }
 
@@ -31,13 +29,7 @@ public abstract class Inventario  {
         this.cantidad = cantidad;
     }
 
-    public int getId_producto() {
-        return id_producto;
-    }
 
-    public void setId_producto(int id_producto) {
-        this.id_producto = id_producto;
-    }
 
     public String getProducto() {
         return producto;
