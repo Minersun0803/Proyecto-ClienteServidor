@@ -17,7 +17,7 @@ public class Cita extends Paciente {
 
     public Cita(String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion) {
         super(Nombre, Apellidos, Cedula, Telefono, Correo, Ubicacion);
-    }//Prueba de git sjkjsakjs
+    }
     
     public int getMes() {
         return mes;
