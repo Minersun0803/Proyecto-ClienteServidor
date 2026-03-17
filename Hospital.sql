@@ -10,7 +10,7 @@ CREATE TABLE Person (
     Telefono VARCHAR(15),
     Correo VARCHAR(100),
     Direccion VARCHAR(255),
-    Contraseña VARCHAR(255) NOT NULL,
+    Contraseña VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Medico (
