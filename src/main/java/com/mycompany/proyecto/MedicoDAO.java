@@ -38,7 +38,7 @@ public class MedicoDAO {
                         rs.getString("Especialidad")));
             }
 
-        } catch (Exception ex) { // ← este es el único cambio
+        } catch (Exception ex) { 
             ex.printStackTrace();
         }
 
