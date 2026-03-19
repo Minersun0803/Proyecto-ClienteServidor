@@ -10,40 +10,38 @@ package com.mycompany.proyecto;
  */
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MedicoDAO {
-    //Mostrar Medicos
 
-    public void listMedicos() {
+    public List<Medico> listMedicos() {
+        List<Medico> lista = new ArrayList<>();
         String sql = """
-SELECT p.FirstName, p.LastName, p.Cedula, p.Telefono, p.Correo, p.Direccion, m.Especialidad
-                                 FROM Person p
-                                 INNER JOIN Medico m ON p.PersonID = m.PersonID
+                SELECT m.MedicoID, p.FirstName, p.LastName, p.Cedula,
+                       p.Telefono, p.Correo, m.Especialidad
+                FROM Person p
+                INNER JOIN Medico m ON p.PersonID = m.PersonID
                 """;
 
-        try (Connection con = Conexion.conectar(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        try (Connection con = new ConexionSQL().conectarSQL();
+             Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
-                Medico medico = new Medico(
-                        rs.getString("FirtName"),
+                lista.add(new Medico(
+                        rs.getInt("MedicoID"),
+                        rs.getString("FirstName"),
                         rs.getString("LastName"),
-                        rs.getString("Cedula"),
+                        rs.getInt("Cedula"),
                         rs.getString("Telefono"),
                         rs.getString("Correo"),
-                        rs.getString("Direccion"));
-
-                //Ver especilidad
-                System.out.println("Médico: " + medico.getNombre()
-                        + " " + medico.getApellidos()
-                        + "| Especilidad: " + rs.getString("Especialidad"));
-
-                lista.add(medico);
+                        rs.getString("Especialidad")));
             }
 
-        } catch (SQLException ex) {
+        } catch (Exception ex) { // ← este es el único cambio
             ex.printStackTrace();
         }
+
         return lista;
     }
-
 }
