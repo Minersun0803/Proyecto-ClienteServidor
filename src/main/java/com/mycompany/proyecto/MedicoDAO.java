@@ -32,7 +32,7 @@ public class MedicoDAO {
                         rs.getInt("MedicoID"),
                         rs.getString("FirstName"),
                         rs.getString("LastName"),
-                        rs.getInt("Cedula"),
+                        rs.getString("Cedula"),
                         rs.getString("Telefono"),
                         rs.getString("Correo"),
                         rs.getString("Especialidad")));
