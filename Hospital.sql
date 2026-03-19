@@ -7,7 +7,7 @@ CREATE TABLE Person (
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     Cedula INT NOT NULL UNIQUE,
-    AñoNacimiento INT NOT NULL, --Poner una rango entre 1 año a 80 años --:)
+    AñoNacimiento INT NOT NULL, -- Poner una rango entre 1 año a 80 años
     Telefono VARCHAR(15),
     Correo VARCHAR(100),
     Direccion VARCHAR(255),
