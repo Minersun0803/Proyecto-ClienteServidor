@@ -8,7 +8,6 @@ package Conexiones;
  *
  * @author Eduardo Corrales
  */
-import Conexiones.ConexionSQL;
 import Objects.Medico;
 import java.sql.*;
 import java.util.ArrayList;
