@@ -1,4 +1,4 @@
-package com.mycompany.proyecto;
+package Interfaz;
 
 public class Estado_Cita extends javax.swing.JFrame {
     

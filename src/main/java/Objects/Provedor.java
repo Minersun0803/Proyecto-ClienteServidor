@@ -1,5 +1,5 @@
 
-package com.mycompany.proyecto;
+package Objects;
 
 
 public class Provedor extends Inventario {

@@ -1,4 +1,4 @@
-package com.mycompany.proyecto;
+package Objects;
 
 public enum Estado_Cuarto {
     Ocupado,Desocupado,Limpiando
