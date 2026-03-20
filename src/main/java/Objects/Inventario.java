@@ -1,5 +1,5 @@
 
-package com.mycompany.proyecto;
+package Objects;
 
 
 public abstract class Inventario  {

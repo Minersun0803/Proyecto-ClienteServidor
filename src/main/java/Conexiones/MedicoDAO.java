@@ -2,12 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.proyecto;
+package Conexiones;
 
 /**
  *
  * @author Eduardo Corrales
  */
+import Conexiones.ConexionSQL;
+import Objects.Medico;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

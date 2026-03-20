@@ -1,4 +1,4 @@
-package com.mycompany.proyecto;
+package Objects;
 /**
  *
  * Persona
