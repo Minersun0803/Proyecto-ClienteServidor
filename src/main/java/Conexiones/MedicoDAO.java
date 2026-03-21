@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Conexiones;
 
-/**
- *
- * @author Eduardo Corrales
- */
+
 import Objects.Medico;
 import java.sql.*;
 import java.util.ArrayList;
@@ -44,5 +38,116 @@ public class MedicoDAO {
         }
 
         return lista;
+    }
+    
+    public boolean AgregarMedico(Medico medico){
+        ConexionSQL conexionSQL = new ConexionSQL();
+        
+        try{    
+            String sqlPerson = "INSERT INTO person (FirstName, LastName, Cedula, Telefono, Correo,Especialidad) "
+                    + "VALUES(?,?,?,?,?,?)";
+            
+            String sqlMedico ="INSERT INTO Medico(MedicoID,Especialidad)"+"VALUES(?,?)";
+            
+            PreparedStatement psPerson = conexionSQL.conectarSQL().prepareStatement(sqlPerson, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement psMedico = conexionSQL.conectarSQL().prepareStatement(sqlMedico);
+            
+            //Instertar person
+            
+            
+            psPerson.setString(1, medico.getNombre());
+            psPerson.setString(2, medico.getApellidos());
+            psPerson.setString(3, medico.getCedula());
+            psPerson.setString(4, medico.getTelefono());
+            psPerson.setString(5, medico.getCorreo());
+            psPerson.setString(6, medico.getUbicacion());
+            
+            psMedico.executeUpdate();
+            
+            ResultSet rs = psPerson.getGeneratedKeys();
+            if (rs.next()) {
+                int personID = rs.getInt(1);
+                 // Insertar en Paciente
+                psMedico.setInt(1, personID);
+                psMedico.executeUpdate();
+            }
+            
+            return true;
+            
+            
+        } catch (Exception ex) {
+            System.out.println("Exception Listar Productos: " + ex.getMessage());
+        }finally{
+            conexionSQL.desconectarSQL();
+        }
+        return false;
+    }
+    
+    public boolean EditarMedico(Medico medico){
+        ConexionSQL conexionSQL = new ConexionSQL();
+        
+        try{    
+            String sqlPerson = """
+                         UPDATE Medico SET
+                         FirstName  = ?,
+                         LastName  = ?,
+                         Telefono   = ?,
+                         Correo   = ?,
+                         Especialidad = ?
+                         WHERE codigo = ?
+                         """;
+            String sqlMedico ="""
+                              UPDATE Medico SET
+                              Especialidad = ?,
+                              WHERE MedicoID= ?
+                              """;
+            
+            PreparedStatement psPerson = conexionSQL.conectarSQL().prepareStatement(sqlPerson, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement psMedico = conexionSQL.conectarSQL().prepareStatement(sqlMedico);
+            
+            psPerson.setString(1, medico.getNombre());
+            psPerson.setString(1, medico.getNombre());
+            psPerson.setString(2, medico.getApellidos());
+            psPerson.setString(3, medico.getCedula());
+            psPerson.setString(4, medico.getTelefono());
+            psPerson.setString(5, medico.getCorreo());
+            psPerson.setString(6, medico.getUbicacion());
+            psPerson.setInt(7, medico.getMedicoID());
+            
+            psPerson.executeUpdate();
+            return true;
+            
+        } catch (Exception ex) {
+            System.out.println("Exception Listar Productos: " + ex.getMessage());
+        }finally{
+            conexionSQL.desconectarSQL();
+        }
+        return false;
+    
+    
+    }
+    public boolean EliminarMedico(int codigo){
+        ConexionSQL conexionSQL = new ConexionSQL();
+        
+        try{    
+            String sqlPerson = "DELETE FROM Person WHERE PersonID=1";
+            String sqlMedico = "DELETE FROM Medico WHERE MedicoID=1";
+            
+            PreparedStatement psPerson = conexionSQL.conectarSQL().prepareStatement(sqlPerson);
+            PreparedStatement psMedico = conexionSQL.conectarSQL().prepareStatement(sqlMedico);
+            psPerson.setInt(1,codigo);
+            psMedico.setInt(1,codigo);
+            
+            psPerson.executeUpdate();
+            psMedico.executeUpdate();
+            return true;
+            
+            
+        } catch (Exception ex) {
+            System.out.println("Exception Listar Productos: " + ex.getMessage());
+        }finally{
+            conexionSQL.desconectarSQL();
+        }
+        return false;
     }
 }
