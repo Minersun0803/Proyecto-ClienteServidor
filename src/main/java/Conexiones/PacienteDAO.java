@@ -85,7 +85,7 @@ public class PacienteDAO {
         }
     }
 
-    // 🔹 ELIMINAR PACIENTE
+    // Metodo Eliominar pacientes
     public boolean EliminarPaciente(int pacienteID) {
 
         String sql = "DELETE FROM Paciente WHERE PacienteID = ?";
@@ -103,7 +103,7 @@ public class PacienteDAO {
         }
     }
 
-    // Actualizar paciente
+    // Actualizar pacientes
     
     public boolean EditarPaciente(Paciente paciente) {
 
