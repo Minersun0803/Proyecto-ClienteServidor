@@ -18,6 +18,8 @@ public class Medico extends Persona {
         this.medicoID = medicoID;
         this.especialidad = Especialidad;
     }
+    
+    
 
     public int getMedicoID() {
         return medicoID;
