@@ -1,8 +1,17 @@
-C:\Users\User\OneDrive\Documents\NetBeansProjects\Proyecto\src\main\java\com\mycompany\proyecto\Cita.java
-C:\Users\User\OneDrive\Documents\NetBeansProjects\Proyecto\src\main\java\com\mycompany\proyecto\Hospital.java
-C:\Users\User\OneDrive\Documents\NetBeansProjects\Proyecto\src\main\java\com\mycompany\proyecto\Inventario.java
-C:\Users\User\OneDrive\Documents\NetBeansProjects\Proyecto\src\main\java\com\mycompany\proyecto\Medico.java
-C:\Users\User\OneDrive\Documents\NetBeansProjects\Proyecto\src\main\java\com\mycompany\proyecto\Paciente.java
-C:\Users\User\OneDrive\Documents\NetBeansProjects\Proyecto\src\main\java\com\mycompany\proyecto\Persona.java
-C:\Users\User\OneDrive\Documents\NetBeansProjects\Proyecto\src\main\java\com\mycompany\proyecto\Provedor.java
-C:\Users\User\OneDrive\Documents\NetBeansProjects\Proyecto\src\main\java\com\mycompany\proyecto\Proyecto.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\com\mycompany\proyecto\Hospital.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Conexiones\ConexionSQL.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Conexiones\MedicoDAO.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Conexiones\PacienteDAO.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Interfaz\Estado_Cita.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Interfaz\Hospital_Menú.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Interfaz\Pantalla_Inicio.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Interfaz\Registro.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Interfaz\Sistema_Inventario.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Cita.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Estado_Cuarto.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Inventario.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Medico.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Paciente.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Persona.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Provedor.java
+C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Ubicación.java
