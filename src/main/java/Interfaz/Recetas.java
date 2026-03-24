@@ -8,14 +8,14 @@ package Interfaz;
  *
  * @author Eduardo Corrales
  */
-public class MenuFarmacia extends javax.swing.JFrame {
+public class Recetas extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuFarmacia.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Recetas.class.getName());
 
     /**
-     * Creates new form MenuFarmacia
+     * Creates new form Recetas
      */
-    public MenuFarmacia() {
+    public Recetas() {
         initComponents();
     }
 
@@ -29,41 +29,66 @@ public class MenuFarmacia extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Inventario = new javax.swing.JButton();
-        jSalir = new javax.swing.JButton();
-        jRecetas1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jRecetas = new javax.swing.JTable();
+        jProcesar = new javax.swing.JButton();
+        jRechazar = new javax.swing.JButton();
+        jAtras = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Inventario.setText("Consultar Inventario");
-        Inventario.addActionListener(this::InventarioActionPerformed);
+        jRecetas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Receta", "Descripcion"
+            }
+        ));
+        jScrollPane1.setViewportView(jRecetas);
 
-        jSalir.setText("Salir");
+        jProcesar.setText("Procesar");
 
-        jRecetas1.setText("Recetas");
+        jRechazar.setText("Rechazar");
+
+        jAtras.setText("< Atras");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRecetas1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Inventario))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jProcesar)
+                            .addComponent(jRechazar)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jAtras))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(Inventario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jRecetas1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jAtras)
+                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jProcesar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(jRechazar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -85,10 +110,6 @@ public class MenuFarmacia extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void InventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InventarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_InventarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,13 +133,16 @@ public class MenuFarmacia extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MenuFarmacia().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new Recetas().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Inventario;
+    private javax.swing.JButton jAtras;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton jRecetas1;
-    private javax.swing.JButton jSalir;
+    private javax.swing.JButton jProcesar;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JTable jRecetas;
+    private javax.swing.JButton jRechazar;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
