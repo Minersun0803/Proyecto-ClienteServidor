@@ -81,7 +81,6 @@ CREATE TABLE Historial (
     Tratamiento VARCHAR(1000),
     Habitos VARCHAR(1000),
     Notas Varchar (500),
-    Consultas Varchar(1000),
     FOREIGN KEY (PacienteID) REFERENCES Paciente(PacienteID)
 );
 
