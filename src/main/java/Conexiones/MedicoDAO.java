@@ -1,6 +1,6 @@
-
 package Conexiones;
 
+// Hola
 
 import Objects.Medico;
 import java.sql.*;

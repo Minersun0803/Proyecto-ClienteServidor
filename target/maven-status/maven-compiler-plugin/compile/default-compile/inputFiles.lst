@@ -1,17 +1,27 @@
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\com\mycompany\proyecto\Hospital.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Conexiones\ConexionSQL.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Conexiones\MedicoDAO.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Conexiones\PacienteDAO.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Interfaz\Estado_Cita.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Interfaz\Hospital_Menú.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Interfaz\Pantalla_Inicio.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Interfaz\Registro.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Interfaz\Sistema_Inventario.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Cita.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Estado_Cuarto.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Inventario.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Medico.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Paciente.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Persona.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Provedor.java
-C:\Users\adria\OneDrive\Documentos\Programacion Cliente-Servidor\Proyecto-ClienteServidor\src\main\java\Objects\Ubicación.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\com\mycompany\proyecto\Hospital.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Conexiones\ConexionSQL.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Conexiones\MedicoDAO.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Conexiones\PacienteDAO.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\Citas_Paciente.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\CitasMedico.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\Estado_Cita.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\Historial_Paciente_Doctor.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\HistorialPaciente.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\Hospital_Menú.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\InicioSesion.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\MenuMedico.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\NuevaCitaMedicina.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\NuevaCitaOdologia.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\Pantalla_Inicio.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\Recetas_Paciente.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\Registro.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\Servicios.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Interfaz\Sistema_Inventario.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Objects\Cita.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Objects\Estado_Cuarto.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Objects\Inventario.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Objects\Medico.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Objects\Paciente.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Objects\Persona.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Objects\Provedor.java
+C:\Users\Usuario\Documents\NetBeansProjects\Proyecto-ClienteServidor\src\main\java\Objects\Ubicación.java
