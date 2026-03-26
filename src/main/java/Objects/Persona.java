@@ -24,7 +24,7 @@ public abstract class Persona {
 
     @Override
     public String toString() {//mostrar
-        return super.toString(); 
+        return Nombre + " " + Apellidos; 
     }
 
 

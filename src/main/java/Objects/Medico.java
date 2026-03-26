@@ -1,16 +1,15 @@
 package Objects;
 
-public class Medico extends Persona {
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+
+public class Medico extends Persona implements Runnable{
 
     private int medicoID;
     private String especialidad;
-
-    //Contructor para insertar un medico nuevo
-
-    public Medico(String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion) {
-        super(Nombre, Apellidos, Cedula, Telefono, Correo, Ubicacion);
-    }
-
+    
+    private JProgressBar barra;
+    private JLabel label;
 
     //Contructor para mostrar medico nuevo
     public Medico(int medicoID, String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Especialidad) {
@@ -19,8 +18,6 @@ public class Medico extends Persona {
         this.especialidad = Especialidad;
     }
     
-    
-
     public int getMedicoID() {
         return medicoID;
     }
@@ -35,6 +32,36 @@ public class Medico extends Persona {
 
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
+    }
+
+    public JProgressBar getBarra() {
+        return barra;
+    }
+
+    public void setBarra(JProgressBar barra) {
+        this.barra = barra;
+    }
+
+    public JLabel getLabel() {
+        return label;
+    }
+
+    public void setLabel(JLabel label) {
+        this.label = label;
+    }
+    
+    @Override
+    public void run() {
+        for (int i = 0; i < 100; i++) {
+            barra.setValue(i);
+            label.setText(getNombre()+ " Atendiendo a un paciente......");
+            
+            try {
+               Thread.sleep(50);
+            } catch (InterruptedException ex) {
+            }
+        }
+        label.setText(getNombre() + " Cita finalizada con exito");
     }
 
 }
