@@ -38,7 +38,6 @@ CREATE TABLE Provedor (ProvedorID INT PRIMARY KEY AUTO_INCREMENT,
     Nombre VARCHAR(100) NOT NULL,
     Cedula INT NOT NULL UNIQUE, 
     Producto VARCHAR(100) NOT NULL,
-    Precio DOUBLE NOT NULL,
     Cantidad INT NOT NULL,
     ProductoID INT,
     FOREIGN KEY (ProductoID) REFERENCES Inventario(ProductoID)
