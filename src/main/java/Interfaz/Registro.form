@@ -130,7 +130,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtConstraseña" min="-2" pref="304" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRegistro" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="Direccion" min="-2" max="-2" attributes="0"/>
@@ -201,7 +201,7 @@
                           <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRegistro" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -271,24 +271,12 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTelefono">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelefonoActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtApellido2">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtApellido2ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtConstrase&#xf1;a">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtConstrase&#xf1;aActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCorreo">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCorreoActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
@@ -299,9 +287,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCedula">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCedulaActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBoxProvincia">
           <Properties>
@@ -318,12 +303,12 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="jRegistro">
           <Properties>
             <Property name="text" type="java.lang.String" value="Registrse"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRegistroActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="Direccion">
@@ -437,9 +422,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxDistritoActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>

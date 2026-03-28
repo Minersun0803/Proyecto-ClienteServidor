@@ -4,12 +4,16 @@
  */
 package Interfaz;
 
+import Objects.Paciente;
+import javax.swing.JOptionPane;
+import Conexiones.PacienteDAO;
+
 /**
  *
  * @author User
  */
 public class Registro extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Registro.class.getName());
 
     /**
@@ -19,6 +23,8 @@ public class Registro extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
+
+    boolean ingresar = true;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,7 +54,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
         jComboBoxProvincia = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        jRegistro = new javax.swing.JButton();
         Direccion = new javax.swing.JLabel();
         jaños = new javax.swing.JComboBox<>();
         jComboBoxDistrito = new javax.swing.JComboBox<>();
@@ -82,23 +88,13 @@ public class Registro extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Correo Electronico");
 
-        txtTelefono.addActionListener(this::txtTelefonoActionPerformed);
-
-        txtApellido2.addActionListener(this::txtApellido2ActionPerformed);
-
-        txtConstraseña.addActionListener(this::txtConstraseñaActionPerformed);
-
-        txtCorreo.addActionListener(this::txtCorreoActionPerformed);
-
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Año de nacimiento");
 
-        txtCedula.addActionListener(this::txtCedulaActionPerformed);
-
         jComboBoxProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("Registrse");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jRegistro.setText("Registrse");
+        jRegistro.addActionListener(this::jRegistroActionPerformed);
 
         Direccion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Direccion.setText("Direccion");
@@ -106,7 +102,6 @@ public class Registro extends javax.swing.JFrame {
         jaños.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1946", "1947", "1948", "1949", "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026" }));
 
         jComboBoxDistrito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxDistrito.addActionListener(this::jComboBoxDistritoActionPerformed);
 
         jComboBoxCanton.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -150,7 +145,7 @@ public class Registro extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtConstraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(jRegistro))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Direccion)
                         .addGap(18, 18, 18)
@@ -206,7 +201,7 @@ public class Registro extends javax.swing.JFrame {
                             .addComponent(txtConstraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(48, 48, 48))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(jRegistro)
                         .addGap(22, 22, 22))))
         );
 
@@ -245,39 +240,65 @@ public class Registro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+    private void jRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
 
-    private void txtApellido2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellido2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellido2ActionPerformed
+        try {
+            while (true) {
+                String contraseña = txtConstraseña.getText();
 
-    private void txtConstraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConstraseñaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtConstraseñaActionPerformed
+                // Expresión regular: mínimo 8 caracteres, al menos una mayúscula, una minúscula, un número y un símbolo
+                String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
 
-    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCorreoActionPerformed
+                if (!contraseña.matches(regex)) {
+                    JOptionPane.showMessageDialog(this,
+                            "La contraseña debe tener mínimo 8 caracteres, incluir mayúsculas, minúsculas, números y símbolos.");
+                    return; // rompe el flujo si no es válida
+                }
 
-    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCedulaActionPerformed
+                // Si la contraseña es válida, salimos del while
+                break;
+            }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+            // Capturar los demás datos
+            String nombre = txtNombre.getText();
+            String apellido1 = txtApellido1.getText();
+            String apellido2 = txtApellido2.getText();
+            String apellidos = apellido1 + " " + apellido2;
+            String cedula = txtCedula.getText();
+            String telefono = txtTelefono.getText();
+            String correo = txtCorreo.getText();
+            int añoNacimiento = Integer.parseInt(jaños.getSelectedItem().toString());
 
-    private void jComboBoxDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDistritoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxDistritoActionPerformed
+            String provincia = jComboBoxProvincia.getSelectedItem().toString();
+            String canton = jComboBoxCanton.getSelectedItem().toString();
+            String distrito = jComboBoxDistrito.getSelectedItem().toString();
+            String ubicacion = provincia + ", " + canton + ", " + distrito;
+
+            Paciente paciente = new Paciente(nombre, apellidos, cedula, telefono, correo, ubicacion, txtConstraseña.getText(), añoNacimiento);
+
+            PacienteDAO dao = new PacienteDAO();
+            boolean activo = dao.AgregarPaciente(paciente);
+
+            if (activo) {
+                JOptionPane.showMessageDialog(this, "Persona registrada con éxito");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al registrar paciente.");
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+        }
+
+
+    }//GEN-LAST:event_jRegistroActionPerformed
 
     private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
         // TODO add your handling code here:
-           Pantalla_Inicio pantalla_Inicio = new Pantalla_Inicio();
+        Pantalla_Inicio pantalla_Inicio = new Pantalla_Inicio();
         pantalla_Inicio.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_jAtrasActionPerformed
 
@@ -310,7 +331,6 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel Direccion;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jAtras;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBoxCanton;
     private javax.swing.JComboBox<String> jComboBoxDistrito;
     private javax.swing.JComboBox<String> jComboBoxProvincia;
@@ -324,6 +344,7 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jRegistro;
     private javax.swing.JComboBox<String> jaños;
     private javax.swing.JTextField txtApellido1;
     private javax.swing.JTextField txtApellido2;
