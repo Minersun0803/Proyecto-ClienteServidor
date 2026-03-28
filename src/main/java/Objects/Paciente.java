@@ -7,7 +7,6 @@ public class Paciente extends Persona {
         
         
         //Constructor para insertar un paciente nuevo
-
     public Paciente(String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion) {
         super(Nombre, Apellidos, Cedula, Telefono, Correo, Ubicacion);
     }

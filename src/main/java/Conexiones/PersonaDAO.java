@@ -12,6 +12,8 @@ public class PersonaDAO {
     
     public boolean IniciarSesion(String cedula ) {
         
+        return false;
+        
     }
     
     

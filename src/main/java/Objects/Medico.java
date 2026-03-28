@@ -1,5 +1,8 @@
 package Objects;
 
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+
 public class Medico extends Persona {
 
     private int medicoID;
@@ -32,6 +35,14 @@ public class Medico extends Persona {
 
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
+    }
+
+    void setBarra(JProgressBar jProgressBar) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void setLabel(JLabel jLabel) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
