@@ -4,7 +4,12 @@
  */
 package Interfaz;
 
+import Conexiones.ConexionSQL;
 import Conexiones.PersonaDAO;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author Eduardo Corrales
  */
 public class InicioSesion extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InicioSesion.class.getName());
 
     /**
@@ -119,6 +124,7 @@ public class InicioSesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
@@ -130,29 +136,67 @@ public class InicioSesion extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
         try {
-        String usuario = txtUsuario.getText();
-        String contraseña = new String(txtConstraseña.getPassword()); // mejor que getText()
+            String usuario = txtUsuario.getText(); // aquí debe ser la cédula
+            String contraseña = new String(txtConstraseña.getPassword());
 
-        PersonaDAO dao = new PersonaDAO();
-        boolean acceso = dao.IniciarSesion(usuario, contraseña);
+            PersonaDAO dao = new PersonaDAO();
+            boolean acceso = dao.IniciarSesion(usuario, contraseña);
 
-        if (acceso) {
-            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
-            // Aquí podrías abrir otra ventana o menú principal
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+            if (acceso) {
+                ConexionSQL con = new ConexionSQL();
+                Connection conexion = con.conectarSQL();
+                String cedulaBuscada = usuario;
+
+                // Consulta primero en doctor
+                String sqlDoctor = "SELECT m.Especialidad "
+                        + "FROM Medico m INNER JOIN Persona p ON m.PersonaID = p.PersonaID "
+                        + "WHERE p.Cedula = ?";
+                PreparedStatement psDoctor = conexion.prepareStatement(sqlDoctor);
+                psDoctor.setString(1, cedulaBuscada);
+                ResultSet rsDoctor = psDoctor.executeQuery();
+
+                if (rsDoctor.next()) {
+                    String especialidad = rsDoctor.getString("Especialidad");
+                    if ("Farmaceutico".equalsIgnoreCase(especialidad)) {
+                        new MenuFarmacia().setVisible(true);
+                    } else {
+                        new MenuMedico().setVisible(true);
+                    }
+                    this.dispose();
+                } else {
+                    // Si no está en doctor, buscar en paciente
+                    String sqlPaciente = "SELECT p.PacienteID "
+                            + "FROM Paciente p INNER JOIN Persona pe ON p.PersonaID = pe.PersonaID "
+                            + "WHERE pe.Cedula = ?";
+                    PreparedStatement psPaciente = conexion.prepareStatement(sqlPaciente);
+                    psPaciente.setString(1, cedulaBuscada);
+                    ResultSet rsPaciente = psPaciente.executeQuery();
+
+                    if (rsPaciente.next()) {
+                        new Hospital_Menú().setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+                    }
+
+                    rsPaciente.close();
+                    psPaciente.close();
+                }
+
+                rsDoctor.close();
+                psDoctor.close();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
-    }
-            
+
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
         // TODO add your handling code here:
         Pantalla_Inicio pantalla_Inicio = new Pantalla_Inicio();
         pantalla_Inicio.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_jAtrasActionPerformed
 
