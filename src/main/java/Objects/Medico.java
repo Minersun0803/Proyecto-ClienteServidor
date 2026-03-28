@@ -17,6 +17,12 @@ public class Medico extends Persona implements Runnable{
         this.medicoID = medicoID;
         this.especialidad = Especialidad;
     }
+
+    //crear medico
+    public Medico(String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Especialidad) {
+        super(Nombre, Apellidos, Cedula, Telefono, Correo, "");
+        this.especialidad = Especialidad;
+    }
     
     public int getMedicoID() {
         return medicoID;

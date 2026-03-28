@@ -11,13 +11,22 @@ public class Cita extends Paciente {
     private String lugar;
     private String hora;
     private String String;
-    private String Profecion;
+    private String Profesion;
     private String especialidad;
-    private Estado_Cuarto EstadoC;
 
-    public Cita(String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion) {
-        super(Nombre, Apellidos, Cedula, Telefono, Correo, Ubicacion);
-    }
+public Cita(String nombre, String apellidos, String cedula, String telefono, String correo, String ubicacion,
+            int mes, int dia, int anio, String consulta, String lugar, String hora,
+            String profesion, String especialidad) {
+    super(nombre, apellidos, cedula, telefono, correo, ubicacion);
+    this.mes = mes;
+    this.dia = dia;
+    this.Año = anio;
+    this.consulta = consulta;
+    this.lugar = lugar;
+    this.hora = hora;
+    this.Profesion = profesion;
+    this.especialidad = especialidad;
+}
     
     public int getMes() {
         return mes;
@@ -75,12 +84,12 @@ public class Cita extends Paciente {
         this.String = String;
     }
 
-    public String getProfecion() {
-        return Profecion;
+    public String getProfesion() {
+        return Profesion;
     }
 
-    public void setProfecion(String Profecion) {
-        this.Profecion = Profecion;
+    public void setProfesion(String Profesion) {
+        this.Profesion = Profesion;
     }
 
     public String getEspecialidad() {
@@ -91,12 +100,6 @@ public class Cita extends Paciente {
         this.especialidad = especialidad;
     }
 
-    public Estado_Cuarto getEstadoC() {
-        return EstadoC;
-    }
 
-    public void setEstadoC(Estado_Cuarto EstadoC) {
-        this.EstadoC = EstadoC;
-    }
 
 }

@@ -76,7 +76,7 @@ public class MedicoDAO {
             
             
         } catch (Exception ex) {
-            System.out.println("Exception Listar Productos: " + ex.getMessage());
+            System.out.println("Exception Listar Medicos: " + ex.getMessage());
         }finally{
             conexionSQL.desconectarSQL();
         }
@@ -118,7 +118,7 @@ public class MedicoDAO {
             return true;
             
         } catch (Exception ex) {
-            System.out.println("Exception Listar Productos: " + ex.getMessage());
+            System.out.println("Exception Listar Medicos: " + ex.getMessage());
         }finally{
             conexionSQL.desconectarSQL();
         }

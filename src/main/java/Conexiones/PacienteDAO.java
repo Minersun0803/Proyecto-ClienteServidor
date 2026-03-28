@@ -85,7 +85,7 @@ public class PacienteDAO {
         }
     }
 
-    // Metodo Eliominar pacientes
+    // Metodo Eliminar pacientes
     public boolean EliminarPaciente(int pacienteID) {
 
         String sql = "DELETE FROM Paciente WHERE PacienteID = ?";
