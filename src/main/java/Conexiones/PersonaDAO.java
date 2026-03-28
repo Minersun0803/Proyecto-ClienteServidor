@@ -15,10 +15,15 @@ import javax.swing.JOptionPane;
  */
 public class PersonaDAO {
 
-    public boolean IniciarSesion(String cedula, String contraseña) {
+    ConexionSQL conexion = new ConexionSQL();
+    
+
+    public boolean IniciarSesion(String cedula, String contraseña) throws Exception {
         boolean acceso = false;
+        PreparedStatement ps = null;
+        
         try {
-            PreparedStatement ps = ConexionSQL.conectarSQL()
+            ps = conexion.conectarSQL()
                     .prepareStatement("SELECT * FROM Persona WHERE Cedula = ? AND Contraseña = ?");
 
             ps.setString(1, cedula);       // primer parámetro
@@ -34,11 +39,9 @@ public class PersonaDAO {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al iniciar sesión: " + ex.getMessage());
         } finally {
-            ConexionSQL.desconectarSQL();
+            conexion.desconectarSQL();
         }
         return acceso;
     }
-
-
 
 }

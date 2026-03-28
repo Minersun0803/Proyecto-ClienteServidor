@@ -43,6 +43,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
 
         jRegistro.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jRegistro.setText("Registrarse");
+        jRegistro.addActionListener(this::jRegistroActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,7 +78,23 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
 
     private void jIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIniciarSesionActionPerformed
         // TODO add your handling code here:
+            // Abrir la ventana de InicioSesion
+    InicioSesion inicioSesion = new InicioSesion();
+    inicioSesion.setVisible(true);
+
+    // Cerrar la ventana actual (Pantalla_Inicio)
+    this.dispose();
     }//GEN-LAST:event_jIniciarSesionActionPerformed
+
+    private void jRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroActionPerformed
+        // TODO add your handling code here:
+            // Abrir la ventana de Registro
+    Registro registro = new Registro();
+    registro.setVisible(true);
+
+    // Cerrar la ventana actual (Pantalla_Inicio)
+    this.dispose();
+    }//GEN-LAST:event_jRegistroActionPerformed
 
     /**
      * @param args the command line arguments

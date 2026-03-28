@@ -48,6 +48,7 @@ public class InicioSesion extends javax.swing.JFrame {
         jConstraseñaLabel.setText("Contraseña");
 
         jAtras.setText("<Atras");
+        jAtras.addActionListener(this::jAtrasActionPerformed);
 
         btnIniciarSesion.setText("Iniciar sesion");
         btnIniciarSesion.addActionListener(this::btnIniciarSesionActionPerformed);
@@ -145,6 +146,14 @@ public class InicioSesion extends javax.swing.JFrame {
     }
             
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
+        // TODO add your handling code here:
+        Pantalla_Inicio pantalla_Inicio = new Pantalla_Inicio();
+        pantalla_Inicio.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_jAtrasActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,6 +1,5 @@
 Objects\Medico.class
 Interfaz\Citas_Paciente.class
-Objects\Estado_Cuarto.class
 Interfaz\Registro.class
 Conexiones\PacienteDAO.class
 Objects\Provedor.class
@@ -8,6 +7,7 @@ Interfaz\HistorialPaciente.class
 Interfaz\Estado_Cita$1.class
 Objects\Persona.class
 Objects\Ubicación.class
+Interfaz\Recetas.class
 Interfaz\CitasMedico.class
 Conexiones\MedicoDAO.class
 Interfaz\InicioSesion.class
@@ -15,11 +15,14 @@ Interfaz\Estado_Cita.class
 Interfaz\Sistema_Inventario$1.class
 Interfaz\Hospital_Menú.class
 Conexiones\ConexionSQL.class
+Interfaz\MenuFarmacia.class
 com\mycompany\proyecto\Hospital.class
 Interfaz\NuevaCitaOdologia.class
 Interfaz\Pantalla_Inicio.class
+Conexiones\PersonaDAO.class
 Interfaz\Servicios.class
 Objects\Paciente.class
+Objects\Gestion.class
 Interfaz\Recetas_Paciente.class
 Objects\Cita.class
 Objects\Inventario.class
