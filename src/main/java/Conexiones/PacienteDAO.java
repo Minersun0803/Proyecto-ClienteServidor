@@ -14,8 +14,8 @@ public class PacienteDAO {
         String sql = """
                 SELECT pa.PacienteID, p.FirstName, p.LastName, p.Cedula,
                        p.Telefono, p.Correo, p.Ubicacion
-                FROM Person p
-                INNER JOIN Paciente pa ON p.PersonID = pa.PersonID
+                FROM Persona p
+                INNER JOIN Paciente pa ON p.PersonaID = pa.PersonaID
                 """;
 
         try (Connection con = new ConexionSQL().conectarSQL();
@@ -45,7 +45,7 @@ public class PacienteDAO {
     public boolean AgregarPaciente(Paciente paciente) {
 
         String sqlPerson = """
-                INSERT INTO Person (FirstName, LastName, Cedula, Telefono, Correo, Ubicacion)
+                INSERT INTO Persona (FirstName, LastName, Cedula, Telefono, Correo, Ubicacion)
                 VALUES (?, ?, ?, ?, ?, ?)
                 """;
 
@@ -108,8 +108,8 @@ public class PacienteDAO {
     public boolean EditarPaciente(Paciente paciente) {
 
         String sql = """
-                UPDATE Person p
-                INNER JOIN Paciente pa ON p.PersonID = pa.PersonID
+                UPDATE Persona p
+                INNER JOIN Paciente pa ON p.PersonaID = pa.PersonaID
                 SET p.FirstName = ?, p.LastName = ?, p.Cedula = ?, 
                     p.Telefono = ?, p.Correo = ?, p.Ubicacion = ?
                 WHERE pa.PacienteID = ?

@@ -1,33 +1,64 @@
 package Objects;
+
 /**
  *
  * Persona
  */
+
 public abstract class Persona {
+        
+
+    protected int IDPersona;
     protected String Nombre;
     protected String Apellidos;
     protected String Cedula;
     protected String Telefono;
     protected String Correo;
     protected String Ubicacion;
+    protected String Contraseña;
+    protected int AñoNacimiento;
 
-    public Persona(String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion) {
+    //mostar persona
+    public Persona(int IDPersona, String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion, String Contraseña, int AñoNacimiento) {
+        this.IDPersona = IDPersona;
         this.Nombre = Nombre;
         this.Apellidos = Apellidos;
         this.Cedula = Cedula;
         this.Telefono = Telefono;
         this.Correo = Correo;
         this.Ubicacion = Ubicacion;
+        this.Contraseña = Contraseña;
+        this.AñoNacimiento = AñoNacimiento;
     }
+    
+    //Crear persona
+    public Persona(String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion, String Contraseña, int AñoNacimiento) {
+        this.Nombre = Nombre;
+        this.Apellidos = Apellidos;
+        this.Cedula = Cedula;
+        this.Telefono = Telefono;
+        this.Correo = Correo;
+        this.Ubicacion = Ubicacion;
+        this.Contraseña = Contraseña;
+        this.AñoNacimiento = AñoNacimiento;
+    }
+
+
 
     
 
     @Override
     public String toString() {//mostrar
-        return Nombre + " " + Apellidos; 
+        return Nombre + " " + Apellidos;
     }
 
+    public int getIDPersona() {
+        return IDPersona;
+    }
 
+    public void setIDPersona(int IDPersona) {
+        this.IDPersona = IDPersona;
+    }
 
     public String getNombre() {
         return Nombre;
@@ -76,9 +107,23 @@ public abstract class Persona {
     public void setUbicacion(String Ubicacion) {
         this.Ubicacion = Ubicacion;
     }
-    
-    
-    
+
+    public String getContraseña() {
+        return Contraseña;
+    }
+
+    public void setContraseña(String Contraseña) {
+        this.Contraseña = Contraseña;
+    }
+
+    public int getAñoNacimiento() {
+        return AñoNacimiento;
+    }
+
+    public void setAñoNacimiento(int AñoNacimiento) {
+        this.AñoNacimiento = AñoNacimiento;
+    }
+
     
     
 }
