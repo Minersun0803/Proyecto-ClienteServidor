@@ -10,20 +10,20 @@ CREATE TABLE Persona (
     AñoNacimiento INT NOT NULL, -- Poner una rango entre 1 año a 80 años
     Telefono VARCHAR(15),
     Correo VARCHAR(100),
-    Direccion VARCHAR(255),
+    Ubicacion VARCHAR(255),
     Contraseña VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Medico (
     MedicoID INT PRIMARY KEY AUTO_INCREMENT,
-    PersonID INT,
+    PersonaID INT,
     Especialidad VARCHAR(100),
     FOREIGN KEY (PersonaID) REFERENCES Persona(PersonaID)
 );
 
 CREATE TABLE Paciente (
     PacienteID INT PRIMARY KEY AUTO_INCREMENT,
-    PersonID INT,
+    PersonaID INT,
     FOREIGN KEY (PersonaID) REFERENCES Persona(PersonaID)
 );
 
