@@ -42,6 +42,7 @@ public class MenuMedico extends javax.swing.JFrame {
         Consulta.setText("Consultar Historial");
 
         jSalir.setText("Salir");
+        jSalir.addActionListener(this::jSalirActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,6 +87,14 @@ public class MenuMedico extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
+        // TODO add your handling code here:
+        Pantalla_Inicio pantalla_Inicio = new Pantalla_Inicio();
+        pantalla_Inicio.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_jSalirActionPerformed
 
     /**
      * @param args the command line arguments
