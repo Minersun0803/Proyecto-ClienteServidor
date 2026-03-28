@@ -31,7 +31,7 @@ CREATE TABLE Paciente (
 CREATE TABLE Inventario (ProductoID INT PRIMARY KEY AUTO_INCREMENT, 
     Nombre VARCHAR(100) NOT NULL, 
     Descripcion VARCHAR(255) NOT NULL, 
-    Cantidad INT NOT NULL,
+    Cantidad INT NOT NULL
 );
 
 CREATE TABLE Provedor (ProvedorID INT PRIMARY KEY AUTO_INCREMENT, 
