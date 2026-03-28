@@ -9,8 +9,8 @@ public class Medico extends Persona {
     private String especialidad;
 
     //Contructor para mostrar medico 
-    public Medico(int medicoID, String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Especialidad) {
-        super(Nombre, Apellidos, Cedula, Telefono, Correo);
+    public Medico(int medicoID, String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion, String Contraseña, int AñoNacimiento, String Especialidad) {
+        super(Nombre, Apellidos, Cedula, Telefono, Correo, Ubicacion, Contraseña, AñoNacimiento);
         this.medicoID = medicoID;
         this.especialidad = Especialidad;
     }
@@ -20,6 +20,14 @@ public class Medico extends Persona {
         super(Nombre, Apellidos, Cedula, Telefono, Correo, Ubicacion, Contraseña, AñoNacimiento);
         this.especialidad = especialidad;
     }
+    
+    // para listar
+    public Medico(int medicoID, String nombre, String apellidos, String cedula,
+              String telefono, String correo, String especialidad) {
+    super(nombre, apellidos, cedula, telefono, correo, null, null, 0);
+    this.medicoID = medicoID;
+    this.especialidad = especialidad;
+}
 
     public int getMedicoID() {
         return medicoID;
@@ -38,11 +46,11 @@ public class Medico extends Persona {
     }
 
     void setBarra(JProgressBar jProgressBar) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     void setLabel(JLabel jLabel) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

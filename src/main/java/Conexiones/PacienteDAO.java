@@ -12,15 +12,13 @@ public class PacienteDAO {
         List<Paciente> lista = new ArrayList<>();
 
         String sql = """
-                SELECT pa.PacienteID, p.FirstName, p.LastName, p.Cedula,
-                       p.Telefono, p.Correo, p.Ubicacion
+               SELECT pa.PacienteID, p.FirstName, p.LastName, p.Cedula,
+                       p.Telefono, p.Correo, p.Ubicacion, p.Contraseña, p.AñoNacimiento
                 FROM Persona p
-                INNER JOIN Paciente pa ON p.PersonaID = pa.PersonaID
+                INNER JOIN Paciente pa ON p.PersonaID = pa.PersonaID;
                 """;
 
-        try (Connection con = new ConexionSQL().conectarSQL();
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+        try (Connection con = new ConexionSQL().conectarSQL(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
                 lista.add(new Paciente(
@@ -30,7 +28,9 @@ public class PacienteDAO {
                         rs.getString("Cedula"),
                         rs.getString("Telefono"),
                         rs.getString("Correo"),
-                        rs.getString("Ubicacion")
+                        rs.getString("Ubicacion"),
+                        rs.getString("Contraseña"),
+                        rs.getInt("AñoNacimiento")
                 ));
             }
 
@@ -45,18 +45,16 @@ public class PacienteDAO {
     public boolean AgregarPaciente(Paciente paciente) {
 
         String sqlPerson = """
-                INSERT INTO Persona (FirstName, LastName, Cedula, Telefono, Correo, Ubicacion)
-                VALUES (?, ?, ?, ?, ?, ?)
+INSERT INTO Persona (FirstName, LastName, Cedula, Telefono, Correo, Ubicacion, Contraseña, AñoNacimiento)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
         String sqlPaciente = """
-                INSERT INTO Paciente (PersonID)
-                VALUES (?)
+                INSERT INTO Paciente (PersonaID)
+                    VALUES (?)
                 """;
 
-        try (Connection con = new ConexionSQL().conectarSQL();
-             PreparedStatement psPerson = con.prepareStatement(sqlPerson, Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement psPaciente = con.prepareStatement(sqlPaciente)) {
+        try (Connection con = new ConexionSQL().conectarSQL(); PreparedStatement psPerson = con.prepareStatement(sqlPerson, Statement.RETURN_GENERATED_KEYS); PreparedStatement psPaciente = con.prepareStatement(sqlPaciente)) {
 
             // Insertar en Person
             psPerson.setString(1, paciente.getNombre());
@@ -90,8 +88,7 @@ public class PacienteDAO {
 
         String sql = "DELETE FROM Paciente WHERE PacienteID = ?";
 
-        try (Connection con = new ConexionSQL().conectarSQL();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = new ConexionSQL().conectarSQL(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, pacienteID);
             ps.executeUpdate();
@@ -104,7 +101,6 @@ public class PacienteDAO {
     }
 
     // Actualizar pacientes
-    
     public boolean EditarPaciente(Paciente paciente) {
 
         String sql = """
@@ -115,8 +111,7 @@ public class PacienteDAO {
                 WHERE pa.PacienteID = ?
                 """;
 
-        try (Connection con = new ConexionSQL().conectarSQL();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = new ConexionSQL().conectarSQL(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, paciente.getNombre());
             ps.setString(2, paciente.getApellidos());

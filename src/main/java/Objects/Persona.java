@@ -42,6 +42,15 @@ public abstract class Persona {
         this.Contraseña = Contraseña;
         this.AñoNacimiento = AñoNacimiento;
     }
+    
+    //Mostar persona medico
+    public Persona(String Nombre, String Apellidos, String Cedula, String Telefono, String Correo) {
+    this.Nombre = Nombre;
+    this.Apellidos = Apellidos;
+    this.Cedula = Cedula;
+    this.Telefono = Telefono;
+    this.Correo = Correo;
+}
 
 
 

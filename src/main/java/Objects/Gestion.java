@@ -1,4 +1,3 @@
-
 package Objects;
 
 import Conexiones.ConexionSQL;
@@ -11,21 +10,18 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
-
 public class Gestion {
-    
-    public List<Medico>ListaMedicos(){
-        ArrayList<Medico>lista=new ArrayList<>();
+
+    public List<Medico> ListaMedicos() {
+        ArrayList<Medico> lista = new ArrayList<>();
         String sql = """
                 SELECT m.MedicoID, p.FirstName, p.LastName, p.Cedula,
                        p.Telefono, p.Correo, m.Especialidad
-                FROM Person p
-                INNER JOIN Medico m ON p.PersonID = m.PersonID
+                FROM Persona p
+                INNER JOIN Medico m ON p.PersonaID = m.PersonaID
                 """;
-    
-        try (Connection con = new ConexionSQL().conectarSQL();
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+
+        try (Connection con = new ConexionSQL().conectarSQL(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
                 lista.add(new Medico(
@@ -38,23 +34,21 @@ public class Gestion {
                         rs.getString("Especialidad")));
             }
 
-        } catch (Exception ex) { 
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
         return lista;
     }
-    
-    public static ArrayList<Medico> generarChefs(JComponent components[]) {
-        ArrayList<Medico>medicos=new ArrayList<>();//trae de la base de datos
-//        chefs.add(new Chef("Goedon Ramsay",(JProgressBar)components[0],(JLabel)components[3]));
-//        chefs.add(new Chef("Julia Child",(JProgressBar)components[1],(JLabel)components[4]));
-//        chefs.add(new Chef("Ricardo Muñoz",(JProgressBar)components[2],(JLabel)components[5]));
-        for (int i = 0; i < medicos.size()&& i < 3 ; i++) {//agarra los primeros 3 medicos.
-            medicos.get(i).setBarra((JProgressBar)components[i]);
-            medicos.get(i).setLabel((JLabel)components[i+3]);
+
+    public static ArrayList<Medico> generarMedicos(JComponent components[]) {
+        Gestion gestion = new Gestion();
+        ArrayList<Medico> medicos = new ArrayList<>(gestion.ListaMedicos());
+        for (int i = 0; i < medicos.size() && i < 3; i++) {
+            medicos.get(i).setBarra((JProgressBar) components[i]);
+            medicos.get(i).setLabel((JLabel) components[i + 3]);
         }
         return medicos;
+
     }
-        
 }
