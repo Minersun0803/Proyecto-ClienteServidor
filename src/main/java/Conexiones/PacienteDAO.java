@@ -63,6 +63,8 @@ INSERT INTO Persona (FirstName, LastName, Cedula, Telefono, Correo, Ubicacion, C
             psPerson.setString(4, paciente.getTelefono());
             psPerson.setString(5, paciente.getCorreo());
             psPerson.setString(6, paciente.getUbicacion());
+            psPerson.setString(7, paciente.getContraseña());
+            psPerson.setInt(8, paciente.getAñoNacimiento());
 
             psPerson.executeUpdate();
 
