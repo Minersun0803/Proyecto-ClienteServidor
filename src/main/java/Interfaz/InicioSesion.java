@@ -4,6 +4,9 @@
  */
 package Interfaz;
 
+import Conexiones.PersonaDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Eduardo Corrales
@@ -33,8 +36,8 @@ public class InicioSesion extends javax.swing.JFrame {
         jConstraseñaLabel = new javax.swing.JLabel();
         jAtras = new javax.swing.JButton();
         btnIniciarSesion = new javax.swing.JButton();
-        jUsuario = new javax.swing.JTextField();
-        jContraseña = new javax.swing.JPasswordField();
+        txtUsuario = new javax.swing.JTextField();
+        txtConstraseña = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,6 +50,11 @@ public class InicioSesion extends javax.swing.JFrame {
         jAtras.setText("<Atras");
 
         btnIniciarSesion.setText("Iniciar sesion");
+        btnIniciarSesion.addActionListener(this::btnIniciarSesionActionPerformed);
+
+        txtUsuario.addActionListener(this::txtUsuarioActionPerformed);
+
+        txtConstraseña.addActionListener(this::txtConstraseñaActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -67,8 +75,8 @@ public class InicioSesion extends javax.swing.JFrame {
                             .addComponent(jConstraseñaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtConstraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -79,11 +87,11 @@ public class InicioSesion extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jUsuarioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(70, 70, 70)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jConstraseñaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtConstraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addComponent(btnIniciarSesion)
                 .addGap(101, 101, 101))
@@ -108,6 +116,35 @@ public class InicioSesion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void txtConstraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConstraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtConstraseñaActionPerformed
+
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+        // TODO add your handling code here:
+        try {
+        String usuario = txtUsuario.getText();
+        String contraseña = new String(txtConstraseña.getPassword()); // mejor que getText()
+
+        PersonaDAO dao = new PersonaDAO();
+        boolean acceso = dao.IniciarSesion(usuario, contraseña);
+
+        if (acceso) {
+            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
+            // Aquí podrías abrir otra ventana o menú principal
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+        }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+    }
+            
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,9 +175,9 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JButton jAtras;
     private javax.swing.JLabel jConstraseñaLabel;
-    private javax.swing.JPasswordField jContraseña;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jUsuario;
     private javax.swing.JLabel jUsuarioLabel;
+    private javax.swing.JPasswordField txtConstraseña;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

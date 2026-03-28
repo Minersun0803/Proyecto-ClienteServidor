@@ -64,8 +64,8 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jContraseña" min="-2" pref="204" max="-2" attributes="0"/>
-                              <Component id="jUsuario" min="-2" pref="204" max="-2" attributes="0"/>
+                              <Component id="txtConstraseña" min="-2" pref="204" max="-2" attributes="0"/>
+                              <Component id="txtUsuario" min="-2" pref="204" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -81,12 +81,12 @@
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jUsuarioLabel" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jUsuario" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="txtUsuario" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jConstraseñaLabel" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="jContraseña" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="txtConstraseña" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="86" max="32767" attributes="0"/>
                   <Component id="btnIniciarSesion" min="-2" max="-2" attributes="0"/>
@@ -121,10 +121,19 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Iniciar sesion"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIniciarSesionActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jUsuario">
+        <Component class="javax.swing.JTextField" name="txtUsuario">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUsuarioActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="jContrase&#xf1;a">
+        <Component class="javax.swing.JPasswordField" name="txtConstrase&#xf1;a">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtConstrase&#xf1;aActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
