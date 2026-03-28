@@ -2,8 +2,8 @@ CREATE DATABASE Hospital;
 
 USE Hospital;
 
-CREATE TABLE Person (
-    PersonID INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Persona (
+    PersonaID INT PRIMARY KEY AUTO_INCREMENT,
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     Cedula INT NOT NULL UNIQUE,
@@ -18,13 +18,13 @@ CREATE TABLE Medico (
     MedicoID INT PRIMARY KEY AUTO_INCREMENT,
     PersonID INT,
     Especialidad VARCHAR(100),
-    FOREIGN KEY (PersonID) REFERENCES Person(PersonID)
+    FOREIGN KEY (PersonaID) REFERENCES Persona(PersonaID)
 );
 
 CREATE TABLE Paciente (
     PacienteID INT PRIMARY KEY AUTO_INCREMENT,
     PersonID INT,
-    FOREIGN KEY (PersonID) REFERENCES Person(PersonID)
+    FOREIGN KEY (PersonaID) REFERENCES Persona(PersonaID)
 );
 
 
@@ -83,15 +83,15 @@ CREATE TABLE Historial (
     FOREIGN KEY (PacienteID) REFERENCES Paciente(PacienteID)
 );
 
-INSERT INTO Person (FirstName, LastName, Cedula, AñoNacimiento, Telefono, Correo, Direccion, Contraseña) VALUES
+INSERT INTO Persona (FirstName, LastName, Cedula, AñoNacimiento, Telefono, Correo, Direccion, Contraseña) VALUES
 ('Juan', 'Perez', 12345678, 1980, '555-1234', 'juan.perez@email.com', '123 Main St', 'password123');
 
-INSERT INTO Person (FirstName, LastName, Cedula, AñoNacimiento, Telefono, Correo, Direccion, Contraseña) VALUES
+INSERT INTO Persona (FirstName, LastName, Cedula, AñoNacimiento, Telefono, Correo, Direccion, Contraseña) VALUES
 ('Maria', 'Gomez', 87654321, 1990, '555-5678', 'maria.gomez@email.com', '456 Oak Ave', 'password456');
 
-INSERT INTO Medico (PersonID, Especialidad) VALUES
+INSERT INTO Medico (PersonaID, Especialidad) VALUES
 (1, 'Cardiología');
-INSERT INTO Paciente (PersonID) VALUES
+INSERT INTO Paciente (PersonaID) VALUES
 (2);
 
 INSERT INTO Inventario (Nombre, Descripcion, Cantidad) VALUES
