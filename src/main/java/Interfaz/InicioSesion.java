@@ -173,7 +173,7 @@ public class InicioSesion extends javax.swing.JFrame {
                     ResultSet rsPaciente = psPaciente.executeQuery();
 
                     if (rsPaciente.next()) {
-                        new Hospital_Menú().setVisible(true);
+                        new PacienteMenu().setVisible(true);
                         this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");

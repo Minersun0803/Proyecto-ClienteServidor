@@ -8,14 +8,14 @@ package Interfaz;
  *
  * @author User
  */
-public class Hospital_Menú extends javax.swing.JFrame {
+public class PacienteMenu extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Hospital_Menú.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PacienteMenu.class.getName());
 
     /**
      * Creates new form Hospital_Menú
      */
-    public Hospital_Menú() {
+    public PacienteMenu() {
         initComponents();
     }
 
@@ -116,7 +116,7 @@ public class Hospital_Menú extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Hospital_Menú().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new PacienteMenu().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
