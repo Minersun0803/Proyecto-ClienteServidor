@@ -52,6 +52,7 @@ CREATE TABLE Cita (
     MedicoID INT,
     Fecha varchar(10) NOT NULL,
     Hora varchar(5) NOT NULL,
+    Direccion VARCHAR(255) NOT NULL,
     FOREIGN KEY (PacienteID) REFERENCES Paciente(PacienteID),
     FOREIGN KEY (MedicoID) REFERENCES Medico(MedicoID)
 );
