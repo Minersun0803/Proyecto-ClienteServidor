@@ -39,6 +39,7 @@ public class MenuFarmacia extends javax.swing.JFrame {
         Inventario.addActionListener(this::InventarioActionPerformed);
 
         jSalir.setText("Salir");
+        jSalir.addActionListener(this::jSalirActionPerformed);
 
         jRecetas1.setText("Recetas");
 
@@ -89,6 +90,14 @@ public class MenuFarmacia extends javax.swing.JFrame {
     private void InventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InventarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_InventarioActionPerformed
+
+    private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
+        // TODO add your handling code here:
+        Pantalla_Inicio pantalla_Inicio = new Pantalla_Inicio();
+        pantalla_Inicio.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_jSalirActionPerformed
 
     /**
      * @param args the command line arguments
