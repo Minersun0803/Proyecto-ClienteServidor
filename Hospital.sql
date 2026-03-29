@@ -50,8 +50,8 @@ CREATE TABLE Cita (
     CitaID INT PRIMARY KEY AUTO_INCREMENT,
     PacienteID INT,
     MedicoID INT,
-    Fecha DATETIME NOT NULL,
-    Motivo TEXT,
+    Fecha varchar(10) NOT NULL,
+    Hora varchar(5) NOT NULL,
     FOREIGN KEY (PacienteID) REFERENCES Paciente(PacienteID),
     FOREIGN KEY (MedicoID) REFERENCES Medico(MedicoID)
 );
