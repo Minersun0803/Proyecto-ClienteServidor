@@ -93,7 +93,7 @@ public class MenuFarmacia extends javax.swing.JFrame {
 
     private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
         // TODO add your handling code here:
-        Pantalla_Inicio pantalla_Inicio = new Pantalla_Inicio();
+        _01PantallaInicio pantalla_Inicio = new _01PantallaInicio();
         pantalla_Inicio.setVisible(true);
 
         this.dispose();

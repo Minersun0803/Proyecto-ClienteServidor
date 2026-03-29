@@ -16,14 +16,14 @@ import javax.swing.JOptionPane;
  *
  * @author Eduardo Corrales
  */
-public class InicioSesion extends javax.swing.JFrame {
+public class _03InicioSesion extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InicioSesion.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_03InicioSesion.class.getName());
 
     /**
      * Creates new form InicioSesion
      */
-    public InicioSesion() {
+    public _03InicioSesion() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -160,7 +160,7 @@ public class InicioSesion extends javax.swing.JFrame {
                     if ("Farmaceutico".equalsIgnoreCase(especialidad)) {
                         new MenuFarmacia().setVisible(true);
                     } else {
-                        new MenuMedico().setVisible(true);
+                        new _05MenuMedico().setVisible(true);
                     }
                     this.dispose();
                 } else {
@@ -173,7 +173,7 @@ public class InicioSesion extends javax.swing.JFrame {
                     ResultSet rsPaciente = psPaciente.executeQuery();
 
                     if (rsPaciente.next()) {
-                        new PacienteMenu().setVisible(true);
+                        new _04PacienteMenu().setVisible(true);
                         this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
@@ -194,7 +194,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
     private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
         // TODO add your handling code here:
-        Pantalla_Inicio pantalla_Inicio = new Pantalla_Inicio();
+        _01PantallaInicio pantalla_Inicio = new _01PantallaInicio();
         pantalla_Inicio.setVisible(true);
 
         this.dispose();
@@ -222,7 +222,7 @@ public class InicioSesion extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new InicioSesion().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _03InicioSesion().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

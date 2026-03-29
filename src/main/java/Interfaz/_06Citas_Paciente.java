@@ -8,14 +8,14 @@ package Interfaz;
  *
  * @author Eduardo Corrales
  */
-public class Citas_Paciente extends javax.swing.JFrame {
+public class _06Citas_Paciente extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Citas_Paciente.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_06Citas_Paciente.class.getName());
 
     /**
      * Creates new form Citas_Paciente
      */
-    public Citas_Paciente() {
+    public _06Citas_Paciente() {
         initComponents();
     }
 
@@ -34,7 +34,7 @@ public class Citas_Paciente extends javax.swing.JFrame {
         jTablaCitas = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jNuevaCita = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jAtras = new javax.swing.JButton();
         jDetalles = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,8 +71,8 @@ public class Citas_Paciente extends javax.swing.JFrame {
         jNuevaCita.setText("Nueva Cita");
         jNuevaCita.addActionListener(this::jNuevaCitaActionPerformed);
 
-        jButton2.setText("Atras");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        jAtras.setText("<Atras");
+        jAtras.addActionListener(this::jAtrasActionPerformed);
 
         jDetalles.setText("Detalles");
         jDetalles.addActionListener(this::jDetallesActionPerformed);
@@ -85,7 +85,7 @@ public class Citas_Paciente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jNuevaCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jAtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -97,7 +97,7 @@ public class Citas_Paciente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jDetalles)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(jAtras)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -142,11 +142,17 @@ public class Citas_Paciente extends javax.swing.JFrame {
 
     private void jNuevaCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNuevaCitaActionPerformed
         // TODO add your handling code here:
+        _07NuevaCitaMedicina nuevaCitaMedicina = new _07NuevaCitaMedicina();
+        nuevaCitaMedicina.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_jNuevaCitaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        new _04PacienteMenu().setVisible(true);
+                        this.dispose();
+    }//GEN-LAST:event_jAtrasActionPerformed
 
     private void jDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDetallesActionPerformed
         // TODO add your handling code here:
@@ -174,11 +180,11 @@ public class Citas_Paciente extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Citas_Paciente().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _06Citas_Paciente().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jAtras;
     private javax.swing.JButton jDetalles;
     private javax.swing.JButton jNuevaCita;
     private javax.swing.JPanel jPanel1;

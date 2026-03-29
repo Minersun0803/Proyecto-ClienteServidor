@@ -6,16 +6,16 @@ package Interfaz;
 
 /**
  *
- * @author Eduardo Corrales
+ * @author User
  */
-public class MenuMedico extends javax.swing.JFrame {
+public class _04PacienteMenu extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuMedico.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_04PacienteMenu.class.getName());
 
     /**
-     * Creates new form MenuMedico
+     * Creates new form Hospital_Menú
      */
-    public MenuMedico() {
+    public _04PacienteMenu() {
         initComponents();
     }
 
@@ -29,17 +29,16 @@ public class MenuMedico extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jRecetas = new javax.swing.JButton();
         jCitas = new javax.swing.JButton();
-        Consulta = new javax.swing.JButton();
         jSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Buenas Doctor"));
+        jRecetas.setText("Recetas");
 
-        jCitas.setText("Citas ");
-
-        Consulta.setText("Consultar Historial");
+        jCitas.setText("Citas");
+        jCitas.addActionListener(this::jCitasActionPerformed);
 
         jSalir.setText("Salir");
         jSalir.addActionListener(this::jSalirActionPerformed);
@@ -49,23 +48,23 @@ public class MenuMedico extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(115, 115, 115)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Consulta)
-                    .addComponent(jCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRecetas, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE)
+                .addComponent(jCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jRecetas, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -89,13 +88,23 @@ public class MenuMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
-        // TODO add your handling code here:
-        Pantalla_Inicio pantalla_Inicio = new Pantalla_Inicio();
+        // TODO add your handling code here
+      _01PantallaInicio pantalla_Inicio = new _01PantallaInicio();
         pantalla_Inicio.setVisible(true);
 
         this.dispose();
     }//GEN-LAST:event_jSalirActionPerformed
 
+    private void jCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCitasActionPerformed
+        // TODO add your handling code here:
+        _06Citas_Paciente citas_Paciente = new _06Citas_Paciente();
+        citas_Paciente.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_jCitasActionPerformed
+
+    
+    //No se encuntra del de receta paciente, despues lo busco.
     /**
      * @param args the command line arguments
      */
@@ -118,13 +127,13 @@ public class MenuMedico extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MenuMedico().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _04PacienteMenu().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Consulta;
     private javax.swing.JButton jCitas;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jRecetas;
     private javax.swing.JButton jSalir;
     // End of variables declaration//GEN-END:variables
 }

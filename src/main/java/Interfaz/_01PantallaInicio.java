@@ -8,14 +8,14 @@ package Interfaz;
  *
  * @author User
  */
-public class Pantalla_Inicio extends javax.swing.JFrame {
+public class _01PantallaInicio extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Pantalla_Inicio.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_01PantallaInicio.class.getName());
 
     /**
      * Creates new form Pantalla_Inicio
      */
-    public Pantalla_Inicio() {
+    public _01PantallaInicio() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -79,21 +79,21 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
 
     private void jIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIniciarSesionActionPerformed
         // TODO add your handling code here:
-            // Abrir la ventana de InicioSesion
-    InicioSesion inicioSesion = new InicioSesion();
+            // Abrir la ventana de _03InicioSesion
+    _03InicioSesion inicioSesion = new _03InicioSesion();
     inicioSesion.setVisible(true);
 
-    // Cerrar la ventana actual (Pantalla_Inicio)
+    // Cerrar la ventana actual (_01PantallaInicio)
     this.dispose();
     }//GEN-LAST:event_jIniciarSesionActionPerformed
 
     private void jRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroActionPerformed
         // TODO add your handling code here:
-            // Abrir la ventana de Registro
-    Registro registro = new Registro();
+            // Abrir la ventana de _02Registro
+    _02Registro registro = new _02Registro();
     registro.setVisible(true);
 
-    // Cerrar la ventana actual (Pantalla_Inicio)
+    // Cerrar la ventana actual (_01PantallaInicio)
     this.dispose();
     }//GEN-LAST:event_jRegistroActionPerformed
 
@@ -119,7 +119,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Pantalla_Inicio().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _01PantallaInicio().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

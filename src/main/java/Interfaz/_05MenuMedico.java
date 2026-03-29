@@ -8,14 +8,14 @@ package Interfaz;
  *
  * @author Eduardo Corrales
  */
-public class NuevaCitaMedicina extends javax.swing.JFrame {
+public class _05MenuMedico extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(NuevaCitaMedicina.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_05MenuMedico.class.getName());
 
     /**
-     * Creates new form NuevaCitaMedicina
+     * Creates new form MenuMedico
      */
-    public NuevaCitaMedicina() {
+    public _05MenuMedico() {
         initComponents();
     }
 
@@ -29,67 +29,58 @@ public class NuevaCitaMedicina extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jAgendar = new javax.swing.JButton();
-        jAtras = new javax.swing.JButton();
+        jCitas = new javax.swing.JButton();
+        Consulta = new javax.swing.JButton();
+        jSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Dia", "Hora"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Buenas Doctor"));
 
-        jAgendar.setText("Agendar");
+        jCitas.setText("Citas ");
+        jCitas.addActionListener(this::jCitasActionPerformed);
 
-        jAtras.setText("< Atras");
+        Consulta.setText("Consultar Historial");
+
+        jSalir.setText("Salir");
+        jSalir.addActionListener(this::jSalirActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(115, 115, 115)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jAgendar))
-                    .addComponent(jAtras))
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Consulta)
+                    .addComponent(jCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jAtras)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jAgendar)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -97,6 +88,22 @@ public class NuevaCitaMedicina extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
+        // TODO add your handling code here:
+        _01PantallaInicio pantalla_Inicio = new _01PantallaInicio();
+        pantalla_Inicio.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_jSalirActionPerformed
+
+    private void jCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCitasActionPerformed
+        // TODO add your handling code here:
+        _08CitasMedico citasMedico = new _08CitasMedico();
+        citasMedico.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_jCitasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,14 +127,13 @@ public class NuevaCitaMedicina extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new NuevaCitaMedicina().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _05MenuMedico().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jAgendar;
-    private javax.swing.JButton jAtras;
+    private javax.swing.JButton Consulta;
+    private javax.swing.JButton jCitas;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton jSalir;
     // End of variables declaration//GEN-END:variables
 }

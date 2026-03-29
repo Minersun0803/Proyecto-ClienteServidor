@@ -12,14 +12,14 @@ import Conexiones.PacienteDAO;
  *
  * @author User
  */
-public class Registro extends javax.swing.JFrame {
+public class _02Registro extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Registro.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_02Registro.class.getName());
 
     /**
      * Creates new form Registro
      */
-    public Registro() {
+    public _02Registro() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -280,7 +280,7 @@ public class Registro extends javax.swing.JFrame {
 
     private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
         // TODO add your handling code here:
-        Pantalla_Inicio pantalla_Inicio = new Pantalla_Inicio();
+        _01PantallaInicio pantalla_Inicio = new _01PantallaInicio();
         pantalla_Inicio.setVisible(true);
 
         this.dispose();
@@ -308,7 +308,7 @@ public class Registro extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Registro().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _02Registro().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
