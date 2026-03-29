@@ -97,6 +97,8 @@ INSERT INTO Persona (FirstName, LastName, Cedula, AñoNacimiento, Telefono, Corr
 
 INSERT INTO Medico (PersonaID, Especialidad) VALUES
 (4, 'Farmaceutico');
+
+
 INSERT INTO Paciente (PersonaID) VALUES
 (2);
 
