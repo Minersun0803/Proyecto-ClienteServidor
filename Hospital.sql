@@ -19,12 +19,15 @@ CREATE TABLE Medico (
     PersonaID INT,
     Especialidad VARCHAR(100),
     FOREIGN KEY (PersonaID) REFERENCES Persona(PersonaID)
+
 );
 
 CREATE TABLE Paciente (
     PacienteID INT PRIMARY KEY AUTO_INCREMENT,
     PersonaID INT,
+
     FOREIGN KEY (PersonaID) REFERENCES Persona(PersonaID)
+  
 );
 
 
@@ -87,13 +90,13 @@ CREATE TABLE Historial (
 );
 
 INSERT INTO Persona (FirstName, LastName, Cedula, AñoNacimiento, Telefono, Correo, Direccion, Contraseña) VALUES
-('Juan', 'Perez', 12345678, 1980, '555-1234', 'juan.perez@email.com', '123 Main St', 'password123');
+('Juan', 'Perez', 87654321, 1980, '555-1234', 'juan.perez@email.com', '123 Main St', 'password123');
 
 INSERT INTO Persona (FirstName, LastName, Cedula, AñoNacimiento, Telefono, Correo, Direccion, Contraseña) VALUES
 ('Maria', 'Gomez', 87654321, 1990, '555-5678', 'maria.gomez@email.com', '456 Oak Ave', 'password456');
 
 INSERT INTO Medico (PersonaID, Especialidad) VALUES
-(1, 'Cardiología');
+(4, 'Farmaceutico');
 INSERT INTO Paciente (PersonaID) VALUES
 (2);
 
