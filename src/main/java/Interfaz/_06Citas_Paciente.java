@@ -7,35 +7,34 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class _06Citas_Paciente extends javax.swing.JFrame {
-    
+
     private int pacienteID;
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_06Citas_Paciente.class.getName());
 
     public _06Citas_Paciente(int pacienteID) {
-       initComponents();
-    setLocationRelativeTo(null); // centrar ventana
+        this.pacienteID = pacienteID;
+        initComponents();
+        setLocationRelativeTo(null); // centrar ventana
 
-    // Configuración de la tabla
-    tbCitas.setRowHeight(25);
-    tbCitas.getTableHeader().setReorderingAllowed(false);
-    tbCitas.getTableHeader().setFont(new Font("Verdana", Font.PLAIN, 18));
-    tbCitas.getTableHeader().setForeground(new Color(102, 153, 0));
+        // Configuración de la tabla
+        tbCitas.setRowHeight(25);
+        tbCitas.getTableHeader().setReorderingAllowed(false);
+        tbCitas.getTableHeader().setFont(new Font("Verdana", Font.PLAIN, 18));
+        tbCitas.getTableHeader().setForeground(new Color(102, 153, 0));
 
-    DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tbCitas.getTableHeader().getDefaultRenderer();
-    renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tbCitas.getTableHeader().getDefaultRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-    // Cargar datos desde la BD
-    cargarCitas(); 
-    
+        // Cargar datos desde la BD
+        cargarCitas();
 
-    // Dejar limpio el formulario
-    limpiar();
+        // Dejar limpio el formulario
+        limpiar();
 
     }
-    
-    
-        public void limpiar() {
+
+    public void limpiar() {
         txtdia.setText("");
         txthora.setText("");
         txtmedico.setText("");
@@ -45,7 +44,7 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
         jNuevaCita.setEnabled(true);
         jCancelacion.setEnabled(false);
         jAtras.setEnabled(true);
-        
+
     }
 
     public void cargarCitas() {
@@ -232,44 +231,41 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jNuevaCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNuevaCitaActionPerformed
-        
+
         _07NuevaCitaMedicina nuevaCitaMedicina = new _07NuevaCitaMedicina(pacienteID);
         nuevaCitaMedicina.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_jNuevaCitaActionPerformed
 
     private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
-        
+
         new _04PacienteMenu(pacienteID).setVisible(true);
-                        this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jAtrasActionPerformed
 
     private void tbCitasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCitasMousePressed
-       
+
         int fila = tbCitas.getSelectedRow();
 
-        txtdia.setText(tbCitas.getValueAt(fila, 0).toString());
-        txthora.setText(tbCitas.getValueAt(fila, 1).toString());
-        txtmedico.setText(tbCitas.getValueAt(fila, 2).toString());
-        txtlugar.setText(tbCitas.getValueAt(fila, 3).toString());
-        
+        txtdia.setText(tbCitas.getValueAt(fila, 2).toString());    // FECHA
+        txthora.setText(tbCitas.getValueAt(fila, 3).toString());   // HORA
+        txtmedico.setText(tbCitas.getValueAt(fila, 1).toString()); // MÉDICO
+        txtlugar.setText(tbCitas.getValueAt(fila, 4).toString());
 
-
-        
         jNuevaCita.setEnabled(false);
         jCancelacion.setEnabled(true);
         jAtras.setEnabled(true);
-        
+
     }//GEN-LAST:event_tbCitasMousePressed
 
     private void jLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLimpiarActionPerformed
-        
+
         limpiar();
     }//GEN-LAST:event_jLimpiarActionPerformed
 
     public static void main(String args[]) {
-        
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 

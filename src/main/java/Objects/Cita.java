@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Cita {
 
     private int citaID;
@@ -48,45 +47,43 @@ public class Cita {
         modelo.addColumn("HORA");
         modelo.addColumn("DIRECCIÓN");
 
-String datos[] = new String[5];
+        String datos[] = new String[5];
 
-    try {
-        PreparedStatement ps = conexionSQL.conectarSQL().prepareStatement(
-            "SELECT c.CitaID, " +
-            "CONCAT(pm.FirstName, ' ', pm.LastName) AS NombreMedico, " +
-            "c.Fecha, c.Hora, c.Direccion " +
-            "FROM Cita c " +
-            "JOIN Medico m ON c.MedicoID = m.MedicoID " +
-            "JOIN Persona pm ON m.PersonaID = pm.PersonaID " +
-            "WHERE c.PacienteID = ?" // <-- filtro por paciente
-        );
+        try {
+            PreparedStatement ps = conexionSQL.conectarSQL().prepareStatement(
+                    "SELECT c.CitaID, "
+                    + "CONCAT(pm.FirstName, ' ', pm.LastName) AS NombreMedico, "
+                    + "c.Fecha, c.Hora, c.Direccion "
+                    + "FROM Cita c "
+                    + "JOIN Medico m ON c.MedicoID = m.MedicoID "
+                    + "JOIN Persona pm ON m.PersonaID = pm.PersonaID "
+                    + "WHERE c.PacienteID = ?"
+            );
 
-        ps.setInt(1, pacienteID); // <-- asignar el ID
+            ps.setInt(1, pacienteID); // <-- asignar el ID
 
-        ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-        while (rs.next()) {
-            datos[0] = rs.getString("CitaID");
-            datos[1] = rs.getString("NombreMedico");
-            datos[2] = rs.getString("Fecha");
-            datos[3] = rs.getString("Hora");
-            datos[4] = rs.getString("Direccion");
-            modelo.addRow(datos);
+            while (rs.next()) {
+                datos[0] = rs.getString("CitaID");
+                datos[1] = rs.getString("NombreMedico"); // nombre en lugar de ID
+                datos[2] = rs.getString("Fecha");
+                datos[3] = rs.getString("Hora");
+                datos[4] = rs.getString("Direccion");
+                modelo.addRow(datos);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(frame, "No se pudieron cargar las citas.");
+            System.out.println("Exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(frame, "No se pudo establecer conexión con la base de datos.");
+        } finally {
+            conexionSQL.desconectarSQL();
         }
 
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(frame, "No se pudieron cargar las citas.");
-        System.out.println("Exception: " + ex.getMessage());
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(frame, "No se pudo establecer conexión con la base de datos.");
-    } finally {
-        conexionSQL.desconectarSQL();
+        return modelo;
     }
-
-    return modelo;
-}
-
-
 
     public int getCitaID() {
         return citaID;

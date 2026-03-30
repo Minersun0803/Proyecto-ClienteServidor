@@ -18,7 +18,8 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
         this.pacienteID = pacienteID;
         initComponents();
         setLocationRelativeTo(null);
-        cargarMedicos(); // carga médicos desde la BD
+        cargarMedicos();// carga médicos desde la BD
+        cargarArreglos();
     }
 
     @SuppressWarnings("unchecked")
@@ -129,6 +130,53 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
         }
     }
 
+    public void cargarArreglos() {
+            String[] dias = {"01", "02", "03", "04",
+                     "05", "06", "07", "08",
+                     "09", "10", "11", "12",
+                     "13", "14", "15", "16",
+                     "17", "18", "19", "20",
+                     "21", "22", "23", "24",
+                     "25", "26", "27", "28",
+                     "29", "30"};
+
+    String[] horas = {
+        "09:00", "09:30", "10:00", "10:30",
+        "11:00", "11:30", "12:00", "12:30",
+        "13:00", "13:30", "14:00", "14:30",
+        "15:00", "15:30", "16:00", "16:30",
+        "17:00", "17:30"
+    };
+
+    String[] meses = {"01","02","03","04","05","06",
+                      "07","08","09","10","11","12"};
+    String[] años  = {"2026","2027","2028","2029","2030"};
+
+    javax.swing.table.DefaultTableModel modelo = 
+        new javax.swing.table.DefaultTableModel();
+    modelo.addColumn("Dia");
+    modelo.addColumn("Hora");
+
+    // Solo 4 combinaciones aleatorias
+    Random rand = new Random();
+    java.util.Set<String> usadas = new java.util.HashSet<>();
+    int count = 0;
+
+    while (count < 4) {
+        String dia  = dias[rand.nextInt(dias.length)];
+        String hora = horas[rand.nextInt(horas.length)];
+        String clave = dia + hora; // evitar duplicados
+
+        if (!usadas.contains(clave)) {
+            usadas.add(clave);
+            modelo.addRow(new Object[]{dia, hora});
+            count++;
+        }
+    }
+
+    jTable1.setModel(modelo);
+}
+
     private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
 
         _06Citas_Paciente citas_Paciente = new _06Citas_Paciente(pacienteID);
@@ -156,11 +204,11 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
 
         // Generar año y mes aleatorio
         Random rand = new Random();
-        int mes = rand.nextInt(12); // 1-12
+        String[] meses = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
         String[] años = {"2026", "2027", "2028", "2029", "2030"};
+        String mes = meses[rand.nextInt(meses.length)];
         String año = años[rand.nextInt(años.length)];
-
-        String fecha = String.format("%s-%02d-%s", año, mes, dia);
+        String fecha = año + "-" + mes + "-" + dia;
 
         // Seleccionar médico aleatorio
         int indice = rand.nextInt(medicos.size());
