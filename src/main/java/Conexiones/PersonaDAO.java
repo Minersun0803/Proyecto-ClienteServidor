@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Conexiones;
 
 import Red.AuthResultado;
@@ -11,21 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Eduardo Corrales
- */
 public class PersonaDAO {
 
     ConexionSQL conexion = new ConexionSQL();
-    
 
     public boolean IniciarSesion(String cedula, String contraseña) throws Exception {
         AuthResultado resultado = iniciarSesionClienteServidor(cedula, contraseña);
         return resultado.isValido();
     }
-    
-        public AuthResultado iniciarSesionClienteServidor(String cedula, String contraseña) throws Exception {
+
+    public AuthResultado iniciarSesionClienteServidor(String cedula, String contraseña) throws Exception {
         String sql = """
                 SELECT p.PersonaID,
                        m.MedicoID,
@@ -37,8 +28,7 @@ public class PersonaDAO {
                 WHERE p.Cedula = ? AND p.Contraseña = ?
                 """;
 
-        try (Connection con = new ConexionSQL().conectarSQL();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = new ConexionSQL().conectarSQL(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, cedula);
             ps.setString(2, contraseña);
@@ -51,7 +41,7 @@ public class PersonaDAO {
 
                     if (rs.getObject("PacienteID") != null) {
                         int pacienteID = rs.getInt("PacienteID"); // <-- obtenerlo del ResultSet
-    return new AuthResultado(true, "PACIENTE", null, pacienteID); // <-- pasarlo
+                        return new AuthResultado(true, "PACIENTE", null, pacienteID); // <-- pasarlo
                     }
                 }
             }
@@ -64,8 +54,3 @@ public class PersonaDAO {
         }
     }
 }
-
-    
-    
-
-
