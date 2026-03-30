@@ -1,18 +1,26 @@
 package Interfaz;
 
+import Conexiones.ConexionSQL;
+import java.util.Random;
+import java.sql.*;
+import javax.swing.JOptionPane;
+
 public class _07NuevaCitaMedicina extends javax.swing.JFrame {
-    
+
     private int pacienteID;
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_07NuevaCitaMedicina.class.getName());
+
+    //Lista de medico cargados desde la base de datos
+    private java.util.List<Object[]> medicos = new java.util.ArrayList<>();
 
     public _07NuevaCitaMedicina(int pacienteID) {
         this.pacienteID = pacienteID;
         initComponents();
         setLocationRelativeTo(null);
-        
+        cargarMedicos(); // carga médicos desde la BD
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -94,22 +102,130 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void cargarMedicos() {
+        ConexionSQL conexionSQL = new ConexionSQL();
+        try {
+            Connection con = conexionSQL.conectarSQL();
+            String sql
+                    = "SELECT m.MedicoID, CONCAT(p.FirstName, ' ', p.LastName) AS Nombre "
+                    + "FROM Medico m JOIN Persona p ON m.PersonaID = p.PersonaID "
+                    + "WHERE m.Especialidad != 'Farmaceutico'";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                medicos.add(new Object[]{
+                    rs.getInt("MedicoID"),
+                    rs.getString("Nombre")
+                });
+            }
+
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar médicos: " + ex.getMessage());
+        } finally {
+            conexionSQL.desconectarSQL();
+        }
+    }
+
     private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
-        
+
         _06Citas_Paciente citas_Paciente = new _06Citas_Paciente(pacienteID);
         citas_Paciente.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_jAtrasActionPerformed
 
     private void jAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAgendarActionPerformed
-      
-        //Agregar logica para agregar una cita nueva.
-        
+
+        if (medicos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay médicos disponibles.");
+            return;
+        }
+
+        int fila = jTable1.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un día y hora en la tabla.");
+            return;
+        }
+
+        // Obtener valores seleccionados de la tabla
+        String dia = (String) jTable1.getValueAt(fila, 0);
+        String hora = (String) jTable1.getValueAt(fila, 1);
+
+        // Generar año y mes aleatorio
+        Random rand = new Random();
+        int mes = rand.nextInt(12); // 1-12
+        String[] años = {"2026", "2027", "2028", "2029", "2030"};
+        String año = años[rand.nextInt(años.length)];
+
+        String fecha = String.format("%s-%02d-%s", año, mes, dia);
+
+        // Seleccionar médico aleatorio
+        int indice = rand.nextInt(medicos.size());
+        int medicoID = (int) medicos.get(indice)[0];
+
+        String direccionFija = "Hospital Calderon Guardia";
+
+        ConexionSQL conexionSQL = new ConexionSQL();
+        try {
+            Connection con = conexionSQL.conectarSQL();
+
+            // Verificar disponibilidad
+            String sqlVerificar
+                    = "SELECT COUNT(*) FROM Cita WHERE MedicoID = ? AND Fecha = ? AND Hora = ?";
+            PreparedStatement psVerificar = con.prepareStatement(sqlVerificar);
+            psVerificar.setInt(1, medicoID);
+            psVerificar.setString(2, fecha);
+            psVerificar.setString(3, hora);
+            ResultSet rs = psVerificar.executeQuery();
+            rs.next();
+            if (rs.getInt(1) > 0) {
+                JOptionPane.showMessageDialog(this,
+                        "Ese horario ya está ocupado. Seleccione otro.");
+                rs.close();
+                psVerificar.close();
+                return;
+            }
+            rs.close();
+            psVerificar.close();
+
+            // Insertar cita
+            String sqlInsert
+                    = "INSERT INTO Cita (PacienteID, MedicoID, Fecha, Hora, Direccion) "
+                    + "VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement psInsert = con.prepareStatement(sqlInsert);
+            psInsert.setInt(1, pacienteID);
+            psInsert.setInt(2, medicoID);
+            psInsert.setString(3, fecha);
+            psInsert.setString(4, hora);
+            psInsert.setString(5, direccionFija);
+            psInsert.executeUpdate();
+            psInsert.close();
+
+            JOptionPane.showMessageDialog(this, "¡Cita agendada para el " + fecha + " a las " + hora + "!");
+            new _06Citas_Paciente(pacienteID).setVisible(true);
+            this.dispose();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al agendar: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error de conexión: " + ex.getMessage());
+        } finally {
+            conexionSQL.desconectarSQL();
+        }
+
     }//GEN-LAST:event_jAgendarActionPerformed
 
     private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
         // TODO add your handling code here:
+        int fila = jTable1.getSelectedRow();
+        if (fila >= 0) {
+            String dia = (String) jTable1.getValueAt(fila, 0);
+            String hora = (String) jTable1.getValueAt(fila, 1);
+            System.out.println("Seleccionado: Día " + dia + " - Hora " + hora);
+        }
     }//GEN-LAST:event_jTable1MousePressed
 
     public static void main(String args[]) {
@@ -131,8 +247,7 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(() -> new _07NuevaCitaMedicina(0).setVisible(true));
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jAgendar;
