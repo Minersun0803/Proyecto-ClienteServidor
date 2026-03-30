@@ -100,6 +100,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Atender"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAtenderActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JProgressBar" name="JAtenderBarra">
               <Properties>

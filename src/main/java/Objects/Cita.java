@@ -41,32 +41,31 @@ public class Cita {
 
         DefaultTableModel modelo = new DefaultTableModel();
 
-        modelo.addColumn("ID CITA");
-        modelo.addColumn("ID MÉDICO");
-        modelo.addColumn("FECHA");
-        modelo.addColumn("HORA");
-        modelo.addColumn("DIRECCIÓN");
+        modelo.addColumn("ID CITA");   // columna 0 — se usa internamente para cancelar
+        modelo.addColumn("MÉDICO");    // columna 1 — nombre, no ID
+        modelo.addColumn("FECHA");     // columna 2
+        modelo.addColumn("HORA");      // columna 3
+        modelo.addColumn("DIRECCIÓN"); // columna 4
 
-        String datos[] = new String[5];
+        String[] datos = new String[5];
 
         try {
             PreparedStatement ps = conexionSQL.conectarSQL().prepareStatement(
                     "SELECT c.CitaID, "
                     + "CONCAT(pm.FirstName, ' ', pm.LastName) AS NombreMedico, "
-                    + "c.Fecha, c.Hora, c.Direccion "
+                    + // nombre completo
+                    "c.Fecha, c.Hora, c.Direccion "
                     + "FROM Cita c "
                     + "JOIN Medico m ON c.MedicoID = m.MedicoID "
                     + "JOIN Persona pm ON m.PersonaID = pm.PersonaID "
                     + "WHERE c.PacienteID = ?"
             );
-
-            ps.setInt(1, pacienteID); // <-- asignar el ID
-
+            ps.setInt(1, pacienteID);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 datos[0] = rs.getString("CitaID");
-                datos[1] = rs.getString("NombreMedico"); // nombre en lugar de ID
+                datos[1] = rs.getString("NombreMedico"); // <-- nombre del médico
                 datos[2] = rs.getString("Fecha");
                 datos[3] = rs.getString("Hora");
                 datos[4] = rs.getString("Direccion");
@@ -75,9 +74,8 @@ public class Cita {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(frame, "No se pudieron cargar las citas.");
-            System.out.println("Exception: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(frame, "No se pudo establecer conexión con la base de datos.");
+            JOptionPane.showMessageDialog(frame, "No se pudo establecer conexión.");
         } finally {
             conexionSQL.desconectarSQL();
         }

@@ -23,6 +23,7 @@ public class _08CitasMedico extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jAtender.setText("Atender");
+        jAtender.addActionListener(this::jAtenderActionPerformed);
 
         JAtenderBarra.setForeground(new java.awt.Color(102, 255, 102));
 
@@ -125,6 +126,10 @@ public class _08CitasMedico extends javax.swing.JFrame {
         this.dispose();
         
     }//GEN-LAST:event_jAtrasActionPerformed
+
+    private void jAtenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jAtenderActionPerformed
 
     public static void main(String args[]) {
         

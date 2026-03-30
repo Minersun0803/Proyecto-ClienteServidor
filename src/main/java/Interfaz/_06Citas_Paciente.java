@@ -3,6 +3,7 @@ package Interfaz;
 import Objects.Cita;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -128,6 +129,7 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
         jLabel4.setText("Lugar de atencion");
 
         jCancelacion.setText("Cancelar");
+        jCancelacion.addActionListener(this::jCancelacionActionPerformed);
 
         jLimpiar.setText("Limpiar");
         jLimpiar.addActionListener(this::jLimpiarActionPerformed);
@@ -263,6 +265,50 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
 
         limpiar();
     }//GEN-LAST:event_jLimpiarActionPerformed
+
+    private void jCancelacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelacionActionPerformed
+        // TODO add your handling code here:
+        int citaIDSeleccionada = 0;
+         if (citaIDSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione una cita para cancelar.");
+            return;
+        }
+
+        int confirmacion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Desea cancelar la cita del " + txtdia.getText() + " a las " + txthora.getText() + "?",
+                "Confirmar cancelación",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        Conexiones.ConexionSQL conexionSQL = new Conexiones.ConexionSQL();
+        try {
+            java.sql.Connection con = conexionSQL.conectarSQL();
+
+            String sql = "DELETE FROM Cita WHERE CitaID = ? AND PacienteID = ?";
+            java.sql.PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, citaIDSeleccionada);
+            ps.setInt(2, pacienteID); // seguridad: solo puede cancelar sus propias citas
+            ps.executeUpdate();
+            ps.close();
+
+            JOptionPane.showMessageDialog(this, "Cita cancelada exitosamente.");
+            citaIDSeleccionada = -1;
+            cargarCitas();
+            limpiar();
+
+        } catch (java.sql.SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cancelar: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error de conexión: " + ex.getMessage());
+        } finally {
+            conexionSQL.desconectarSQL();
+        }
+    }//GEN-LAST:event_jCancelacionActionPerformed
 
     public static void main(String args[]) {
 
