@@ -1,6 +1,4 @@
-
 package Objects;
-
 
 public abstract class Ubicación {
     protected String provincia;
@@ -35,7 +33,5 @@ public abstract class Ubicación {
 
     public void setDistrito(String Distrito) {
         this.Distrito = Distrito;
-    }
-    
-    
+    } 
 }

@@ -18,10 +18,10 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
         setLocationRelativeTo(null); // centrar ventana
 
         // Configuración de la tabla
-        tbCitas.setRowHeight(25);
+        tbCitas.setRowHeight(20);
         tbCitas.getTableHeader().setReorderingAllowed(false);
-        tbCitas.getTableHeader().setFont(new Font("Verdana", Font.PLAIN, 18));
-        tbCitas.getTableHeader().setForeground(new Color(102, 153, 0));
+        tbCitas.getTableHeader().setFont(new Font("Verdana", Font.PLAIN, 14));
+        tbCitas.getTableHeader().setForeground(new Color(0, 102, 204));
 
         DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tbCitas.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);

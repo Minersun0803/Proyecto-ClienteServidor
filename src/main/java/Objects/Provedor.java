@@ -1,6 +1,4 @@
-
 package Objects;
-
 
 public class Provedor extends Inventario {
     private String Nombre;

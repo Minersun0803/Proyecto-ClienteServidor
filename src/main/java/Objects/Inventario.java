@@ -37,7 +37,5 @@ public abstract class Inventario  {
 
     public void setProducto(String producto) {
         this.producto = producto;
-    }
-    
-    
+    }   
 }
