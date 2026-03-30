@@ -7,7 +7,7 @@ CREATE TABLE Persona (
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     Cedula INT NOT NULL UNIQUE,
-    AñoNacimiento INT NOT NULL, -- Poner una rango entre 1 año a 80 años
+    AñoNacimiento INT NOT NULL, 
     Telefono VARCHAR(15),
     Correo VARCHAR(100),
     Ubicacion VARCHAR(255),
@@ -50,8 +50,9 @@ CREATE TABLE Cita (
     CitaID INT PRIMARY KEY AUTO_INCREMENT,
     PacienteID INT,
     MedicoID INT,
-    Fecha DATETIME NOT NULL,
-    Motivo TEXT,
+    Fecha varchar(10) NOT NULL,
+    Hora varchar(5) NOT NULL,
+    Direccion VARCHAR(255) NOT NULL,
     FOREIGN KEY (PacienteID) REFERENCES Paciente(PacienteID),
     FOREIGN KEY (MedicoID) REFERENCES Medico(MedicoID)
 );
@@ -97,6 +98,8 @@ INSERT INTO Persona (FirstName, LastName, Cedula, AñoNacimiento, Telefono, Corr
 
 INSERT INTO Medico (PersonaID, Especialidad) VALUES
 (4, 'Farmaceutico');
+
+
 INSERT INTO Paciente (PersonaID) VALUES
 (2);
 
