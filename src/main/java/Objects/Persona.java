@@ -1,9 +1,5 @@
 package Objects;
 
-/**
- *
- * Persona
- */
 
 public abstract class Persona {
         

@@ -1,12 +1,15 @@
 package Objects;
 
+import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
-public class Medico extends Persona {
+public class Medico extends Persona implements Runnable {
 
     private int medicoID;
     private String especialidad;
+    private JProgressBar barra;
+    private JLabel lbEstado;
 
     //Contructor para mostrar medico 
     public Medico(int medicoID, String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion, String Contraseña, int AñoNacimiento, String Especialidad) {
@@ -28,7 +31,8 @@ public class Medico extends Persona {
     this.medicoID = medicoID;
     this.especialidad = especialidad;
 }
-
+    
+    
     public int getMedicoID() {
         return medicoID;
     }
@@ -45,12 +49,41 @@ public class Medico extends Persona {
         this.especialidad = especialidad;
     }
 
-    void setBarra(JProgressBar jProgressBar) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setBarra(JProgressBar barra) {
+        this.barra=barra;
     }
 
-    void setLabel(JLabel jLabel) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setLabel(JLabel label) {
+        this.lbEstado=label;
     }
+    
+    private void actualizarlabel(String texto, Color color){
+        if (lbEstado!=null) {
+            lbEstado.setText(texto);
+            lbEstado.setForeground(color);
+        }
+    }
+    
+    @Override
+    public void run() {
+        actualizarlabel(getNombre()+"Atendiendo al paciente.....", new Color(27,22,4));
+        int tiempototal=5000;
+        barra.setMinimum(0);
+        barra.setMaximum(tiempototal);
+        
+        try {
+            for (int i = 0; i < tiempototal; i+= 100) {
+                Thread.sleep(100);
+                barra.setValue(i);
+            }
+            barra.setValue(tiempototal);
+            actualizarlabel(getNombre()+"ha terminado la consulta",new Color(27,157,15));
+            
+        }catch(InterruptedException ex) {
+            System.out.println("Error: "+ ex.getMessage());
+        } 
+    }
+    
+    
 
 }
