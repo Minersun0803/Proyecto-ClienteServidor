@@ -90,34 +90,25 @@ CREATE TABLE Historial (
     FOREIGN KEY (PacienteID) REFERENCES Paciente(PacienteID)
 );
 
-INSERT INTO Persona (FirstName, LastName, Cedula, AñoNacimiento, Telefono, Correo, Direccion, Contraseña) VALUES
-('Juan', 'Perez', 87654321, 1980, '555-1234', 'juan.perez@email.com', '123 Main St', 'password123');
+INSERT INTO Persona (FirstName, LastName, Cedula, AñoNacimiento, Telefono, Correo, Ubicacion, Contraseña) VALUES
+('Juan', 'Perez', 87654321, 1980, '555-1234', 'juan.perez@email.com', '123 Main St', 'password123'),
+('Maria', 'Gomez', 87654322, 1990, '555-5678', 'maria.gomez@email.com', '456 Oak Ave', 'password456');
 
-INSERT INTO Persona (FirstName, LastName, Cedula, AñoNacimiento, Telefono, Correo, Direccion, Contraseña) VALUES
-('Maria', 'Gomez', 87654321, 1990, '555-5678', 'maria.gomez@email.com', '456 Oak Ave', 'password456');
-
+-- Médicos
 INSERT INTO Medico (PersonaID, Especialidad) VALUES
-(4, 'Farmaceutico');
+(1, 'General'),
+(2, 'Farmaceutico');
 
-
-INSERT INTO Paciente (PersonaID) VALUES
-(2);
-
+-- Inventario
 INSERT INTO Inventario (Nombre, Descripcion, Cantidad) VALUES
-('Aspirina', 'Medicamento para el dolor y la inflamación', 100);    
-INSERT INTO Provedor (Nombre, Cedula, Producto, Precio, Cantidad, ProductoID) VALUES
-('Proveedor A', 123456789, 'Aspirina', 0.10, 1000, 1);
+('Aspirina', 'Medicamento para el dolor y la inflamación', 100);
 
-INSERT INTO Cita (PacienteID, MedicoID, Fecha, Motivo) VALUES
-(1, 1, '2024-07-01 10:00:00', 'Consulta de rutina');
-INSERT INTO Distrito (Nombre) VALUES
-('San José');
-INSERT INTO Canton (Nombre, DistritoID) VALUES
-('Central', 1);
-INSERT INTO Provincia (Nombre, CantonID) VALUES
-('San José', 1);
-INSERT INTO Historial (PacienteID, Nombre, Apellido, Edad, Genero, Antecedentes, Tratamiento, Habitos, Notas, Consultas) VALUES
-(2, 'Maria', 'Gomez', 34, 'Femenino', 'Diabetes', 'Insulina', 'No fuma, ejercicio regular', 'Paciente estable', 'Consulta de rutina el 2024-07-01');
+-- Proveedor
+INSERT INTO Provedor (Nombre, Cedula, Producto, Cantidad, ProductoID) VALUES
+('Proveedor A', 123456789, 'Aspirina', 1000, 1);
+
+INSERT INTO Cita (PacienteID, MedicoID, Fecha, Hora, Direccion) VALUES
+(1, 1, '2026-07-01', '10:00', 'Hospital Calderon Guardia');
 
 
 
