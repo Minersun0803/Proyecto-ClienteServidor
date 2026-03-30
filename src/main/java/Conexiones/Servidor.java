@@ -1,4 +1,3 @@
-
 package Conexiones;
 
 import java.io.DataInputStream;
@@ -7,17 +6,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
 
-/**
- *
- * @author Eduardo Corrales
- */
 public class Servidor {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
         ServerSocket servidor = null; //este es el socket del servior
         Socket cliente = null; // Socket del cliente
 

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Conexiones;
 
 import java.io.DataInputStream;
@@ -10,10 +6,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Random;
 
-/**
- *
- * @author Eduardo Corrales
- */
 public class ManejadorCliente extends Thread{
     private Socket cliente;
 
