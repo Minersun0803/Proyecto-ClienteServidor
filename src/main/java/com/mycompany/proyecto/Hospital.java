@@ -4,15 +4,16 @@
  */
 package com.mycompany.proyecto;
 
+import Interfaz._01PantallaInicio;
+
 /**
  *
  * @author Eduardo Corrales
  */
 public class Hospital {
     
-    public static void main(String args[]) {
-        
-        
+    public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(() -> new _01PantallaInicio().setVisible(true));
     }
     
 }

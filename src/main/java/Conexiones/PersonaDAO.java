@@ -4,6 +4,8 @@
  */
 package Conexiones;
 
+import Red.AuthResultado;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,31 +21,51 @@ public class PersonaDAO {
     
 
     public boolean IniciarSesion(String cedula, String contraseña) throws Exception {
-        boolean acceso = false;
-        PreparedStatement ps = null;
-        
-        try {
-            ps = conexion.conectarSQL()
-                    .prepareStatement("SELECT * FROM Persona WHERE Cedula = ? AND Contraseña = ?");
-
-            ps.setString(1, cedula);       // primer parámetro
-            ps.setString(2, contraseña);   // segundo parámetro
-
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                // Si hay resultado, significa que el usuario existe con esa contraseña
-                acceso = true;
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al iniciar sesión: " + ex.getMessage());
-        } finally {
-            conexion.desconectarSQL();
-        }
-        return acceso;
+        AuthResultado resultado = iniciarSesionClienteServidor(cedula, contraseña);
+        return resultado.isValido();
     }
     
+        public AuthResultado iniciarSesionClienteServidor(String cedula, String contraseña) throws Exception {
+        String sql = """
+                SELECT p.PersonaID,
+                       m.MedicoID,
+                       pa.PacienteID,
+                       m.Especialidad
+                FROM Persona p
+                LEFT JOIN Medico m ON p.PersonaID = m.PersonaID
+                LEFT JOIN Paciente pa ON p.PersonaID = pa.PersonaID
+                WHERE p.Cedula = ? AND p.Contraseña = ?
+                """;
+
+        try (Connection con = new ConexionSQL().conectarSQL();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, cedula);
+            ps.setString(2, contraseña);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    if (rs.getObject("MedicoID") != null) {
+                        return new AuthResultado(true, "MEDICO", rs.getString("Especialidad"));
+                    }
+
+                    if (rs.getObject("PacienteID") != null) {
+                        int pacienteID = rs.getInt("PacienteID"); // <-- obtenerlo del ResultSet
+    return new AuthResultado(true, "PACIENTE", null, pacienteID); // <-- pasarlo
+                    }
+                }
+            }
+
+            return new AuthResultado(false, "", null);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al iniciar sesión: " + ex.getMessage());
+            throw ex;
+        }
+    }
+}
+
+    
     
 
-}
+

@@ -7,6 +7,9 @@ package Interfaz;
 import Objects.Paciente;
 import javax.swing.JOptionPane;
 import Conexiones.PacienteDAO;
+import Red.ClienteSocket;
+import Red.Respuesta;
+import Red.Solicitud;
 
 /**
  *
@@ -256,19 +259,17 @@ public class _02Registro extends javax.swing.JFrame {
             String correo = txtCorreo.getText();
             int añoNacimiento = Integer.parseInt(jaños.getSelectedItem().toString());
 
-            
             String ubicacion = txtDireccion.getText();
 
             Paciente paciente = new Paciente(nombre, apellidos, cedula, telefono, correo, ubicacion, txtConstraseña.getText(), añoNacimiento);
+            ClienteSocket clienteSocket = new ClienteSocket("localhost", 5000);
 
-            PacienteDAO dao = new PacienteDAO();
-            boolean activo = dao.AgregarPaciente(paciente);
+            Respuesta respuesta = clienteSocket.enviarSolicitud(new Solicitud("REGISTRAR_PACIENTE", paciente));
 
-            if (activo) {
-                JOptionPane.showMessageDialog(this, "Persona registrada con éxito");
-               
+            if (respuesta.isExito()) {
+                JOptionPane.showMessageDialog(this, respuesta.getMensaje());
             } else {
-                JOptionPane.showMessageDialog(this, "Error al registrar paciente.");
+                JOptionPane.showMessageDialog(this, respuesta.getMensaje());
             }
 
         } catch (Exception ex) {

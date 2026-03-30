@@ -6,10 +6,16 @@ package Interfaz;
 
 import Conexiones.ConexionSQL;
 import Conexiones.PersonaDAO;
+import Red.AuthResultado;
+import Red.ClienteSocket;
+import Red.Respuesta;
+import Red.Solicitud;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
@@ -136,59 +142,42 @@ public class _03InicioSesion extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
         try {
-            String usuario = txtUsuario.getText(); // aquí debe ser la cédula
-            String contraseña = new String(txtConstraseña.getPassword());
+            String usuario = txtUsuario.getText().trim();
+            String contrasena = new String(txtConstraseña.getPassword());
 
-            PersonaDAO dao = new PersonaDAO();
-            boolean acceso = dao.IniciarSesion(usuario, contraseña);
+            Map<String, String> datos = new HashMap<>();
+            datos.put("cedula", usuario);
+            datos.put("contrasena", contrasena);
 
-            if (acceso) {
-                ConexionSQL con = new ConexionSQL();
-                Connection conexion = con.conectarSQL();
-                String cedulaBuscada = usuario;
+            ClienteSocket clienteSocket = new ClienteSocket("localhost", 5000);
+            Respuesta respuesta = clienteSocket.enviarSolicitud(new Solicitud("LOGIN", datos));
 
-                // Consulta primero en doctor
-                String sqlDoctor = "SELECT m.Especialidad "
-                        + "FROM Medico m INNER JOIN Persona p ON m.PersonaID = p.PersonaID "
-                        + "WHERE p.Cedula = ?";
-                PreparedStatement psDoctor = conexion.prepareStatement(sqlDoctor);
-                psDoctor.setString(1, cedulaBuscada);
-                ResultSet rsDoctor = psDoctor.executeQuery();
-
-                if (rsDoctor.next()) {
-                    String especialidad = rsDoctor.getString("Especialidad");
-                    if ("Farmaceutico".equalsIgnoreCase(especialidad)) {
-                        new MenuFarmacia().setVisible(true);
-                    } else {
-                        new _05MenuMedico().setVisible(true);
-                    }
-                    this.dispose();
-                } else {
-                    // Si no está en doctor, buscar en paciente
-                    String sqlPaciente = "SELECT p.PacienteID "
-                            + "FROM Paciente p INNER JOIN Persona pe ON p.PersonaID = pe.PersonaID "
-                            + "WHERE pe.Cedula = ?";
-                    PreparedStatement psPaciente = conexion.prepareStatement(sqlPaciente);
-                    psPaciente.setString(1, cedulaBuscada);
-                    ResultSet rsPaciente = psPaciente.executeQuery();
-
-                    if (rsPaciente.next()) {
-                        int pacienteID = rsPaciente.getInt("PacienteID");// obtenermos el id del paciente
-                        new _04PacienteMenu(pacienteID).setVisible(true); //le pasamos el id para que sepa quien es todo el tiempo
-                        this.dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
-                    }
-
-                    rsPaciente.close();
-                    psPaciente.close();
-                }
-
-                rsDoctor.close();
-                psDoctor.close();
+            if (!respuesta.isExito()) {
+                JOptionPane.showMessageDialog(this, respuesta.getMensaje());
+                return;
             }
+
+            AuthResultado resultado = (AuthResultado) respuesta.getDatos();
+
+            if ("MEDICO".equalsIgnoreCase(resultado.getTipoUsuario())) {
+                if ("Farmaceutico".equalsIgnoreCase(resultado.getEspecialidad())) {
+                    new MenuFarmacia().setVisible(true);
+                } else {
+                    new _05MenuMedico().setVisible(true);
+                }
+                this.dispose();
+
+            } else if ("PACIENTE".equalsIgnoreCase(resultado.getTipoUsuario())) {
+                int pacienteID = resultado.getPacienteID();// obtenermos el id del paciente
+                new _04PacienteMenu(pacienteID).setVisible(true); //le pasamos el id para que sepa quien es todo el tiempo
+                this.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo determinar el tipo de usuario.");
+            }
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error de comunicación con el servidor: " + ex.getMessage());
         }
 
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
