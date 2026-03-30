@@ -10,14 +10,21 @@ package Interfaz;
  */
 public class _07NuevaCitaMedicina extends javax.swing.JFrame {
     
+    private int pacienteID;
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_07NuevaCitaMedicina.class.getName());
 
     /**
      * Creates new form NuevaCitaMedicina
      */
-    public _07NuevaCitaMedicina() {
+    public _07NuevaCitaMedicina(int pacienteID) {
+        this.pacienteID = pacienteID;
         initComponents();
+        setLocationRelativeTo(null);
+        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,6 +54,11 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
                 "Dia", "Hora"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jAgendar.setText("Agendar");
@@ -102,7 +114,7 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
 
     private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
         // TODO add your handling code here:
-        _06Citas_Paciente citas_Paciente = new _06Citas_Paciente();
+        _06Citas_Paciente citas_Paciente = new _06Citas_Paciente(pacienteID);
         citas_Paciente.setVisible(true);
         
         this.dispose();
@@ -114,6 +126,10 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
         //Agregar logica para agregar una cita nueva.
         
     }//GEN-LAST:event_jAgendarActionPerformed
+
+    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MousePressed
 
     /**
      * @param args the command line arguments
@@ -137,8 +153,10 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new _07NuevaCitaMedicina().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _07NuevaCitaMedicina(0).setVisible(true));
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jAgendar;

@@ -173,7 +173,8 @@ public class _03InicioSesion extends javax.swing.JFrame {
                     ResultSet rsPaciente = psPaciente.executeQuery();
 
                     if (rsPaciente.next()) {
-                        new _04PacienteMenu().setVisible(true);
+                        int pacienteID = rsPaciente.getInt("PacienteID");// obtenermos el id del paciente
+                        new _04PacienteMenu(pacienteID).setVisible(true); //le pasamos el id para que sepa quien es todo el tiempo
                         this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");

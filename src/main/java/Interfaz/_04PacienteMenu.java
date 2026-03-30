@@ -10,13 +10,16 @@ package Interfaz;
  */
 public class _04PacienteMenu extends javax.swing.JFrame {
     
+    private int pacienteID; // guardamos el ID
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_04PacienteMenu.class.getName());
 
     /**
      * Creates new form Hospital_Menú
      */
-    public _04PacienteMenu() {
+    public _04PacienteMenu(int pacienteID) {
+        this.pacienteID = pacienteID;
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -97,7 +100,7 @@ public class _04PacienteMenu extends javax.swing.JFrame {
 
     private void jCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCitasActionPerformed
         // TODO add your handling code here:
-        _06Citas_Paciente citas_Paciente = new _06Citas_Paciente();
+        _06Citas_Paciente citas_Paciente = new _06Citas_Paciente(pacienteID);
         citas_Paciente.setVisible(true);
         
         this.dispose();
@@ -127,7 +130,7 @@ public class _04PacienteMenu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new _04PacienteMenu().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _04PacienteMenu(0).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
