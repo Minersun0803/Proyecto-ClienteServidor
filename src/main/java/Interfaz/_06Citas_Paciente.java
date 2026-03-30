@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class _06Citas_Paciente extends javax.swing.JFrame {
 
     private int pacienteID;
+    private int citaIDSeleccionada;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_06Citas_Paciente.class.getName());
 
@@ -40,6 +41,7 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
         txthora.setText("");
         txtmedico.setText("");
         txtlugar.setText("");
+        this.citaIDSeleccionada = -1; // Esto para que no haya ninguna cita seleccionada 
 
         //Poner un boton, si es true, si se puede activar, si esta false no se puede activar
         jNuevaCita.setEnabled(true);
@@ -249,6 +251,8 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
     private void tbCitasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCitasMousePressed
 
         int fila = tbCitas.getSelectedRow();
+        
+        this.citaIDSeleccionada = Integer.parseInt(tbCitas.getValueAt(fila, 0).toString());
 
         txtdia.setText(tbCitas.getValueAt(fila, 2).toString());    // FECHA
         txthora.setText(tbCitas.getValueAt(fila, 3).toString());   // HORA
