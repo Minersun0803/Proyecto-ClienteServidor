@@ -179,7 +179,7 @@ public class _08CitasMedico extends javax.swing.JFrame {
             btnAtender.setEnabled(true);
 
         } catch (Exception ex) {
-            System.out.println("Error al seleccionar ID de la tabla.." + ex.getMessage());
+            System.out.println("Error al seleccionar la cita " + ex.getMessage());
         }
 
     }

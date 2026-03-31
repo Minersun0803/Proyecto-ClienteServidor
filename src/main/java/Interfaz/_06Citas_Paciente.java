@@ -251,7 +251,7 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
     private void tbCitasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCitasMousePressed
 
         int fila = tbCitas.getSelectedRow();
-        
+
         this.citaIDSeleccionada = Integer.parseInt(tbCitas.getValueAt(fila, 0).toString());
 
         txtdia.setText(tbCitas.getValueAt(fila, 2).toString());    // FECHA
@@ -272,8 +272,7 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
 
     private void jCancelacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelacionActionPerformed
         // TODO add your handling code here:
-        int citaIDSeleccionada = 0;
-         if (citaIDSeleccionada == -1) {
+        if (citaIDSeleccionada == 0) {
             JOptionPane.showMessageDialog(this, "Seleccione una cita para cancelar.");
             return;
         }
@@ -301,7 +300,7 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
             ps.close();
 
             JOptionPane.showMessageDialog(this, "Cita cancelada exitosamente.");
-            citaIDSeleccionada = -1;
+            citaIDSeleccionada = 0;
             cargarCitas();
             limpiar();
 

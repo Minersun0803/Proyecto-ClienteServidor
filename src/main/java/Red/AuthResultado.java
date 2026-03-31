@@ -17,10 +17,12 @@ public class AuthResultado implements Serializable {
     private String tipoUsuario;
     private String especialidad;
     private int pacienteID;
+    private int medicoID;
 
     public AuthResultado() {
     }
 
+    
     public AuthResultado(boolean valido, String tipoUsuario, String especialidad) {
         this.valido = valido;
         this.tipoUsuario = tipoUsuario;
@@ -33,6 +35,10 @@ public class AuthResultado implements Serializable {
         this.especialidad = especialidad;
         this.pacienteID = pacienteID;
     }
+        
+
+        
+        
 
     public boolean isValido() {
         return valido;
@@ -65,6 +71,16 @@ public class AuthResultado implements Serializable {
     public void setPacienteID(int pacienteID) {
         this.pacienteID = pacienteID;
     }
+
+    public int getMedicoID() {
+        return medicoID;
+    }
+
+    public void setMedicoID(int medicoID) {
+        this.medicoID = medicoID;
+    }
+    
+    
     
     
 }
