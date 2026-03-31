@@ -82,6 +82,51 @@ public class Cita {
 
         return modelo;
     }
+    //Consultas para el medico
+    public static DefaultTableModel consultarPorMedico(JFrame frame, int medicoID) {
+    ConexionSQL conexionSQL = new ConexionSQL();
+    DefaultTableModel modelo = new DefaultTableModel();
+
+    modelo.addColumn("ID CITA");
+    modelo.addColumn("PACIENTE");
+    modelo.addColumn("FECHA");
+    modelo.addColumn("HORA");
+    modelo.addColumn("DIRECCIÓN");
+
+    String[] datos = new String[5];
+
+    try {
+        PreparedStatement ps = conexionSQL.conectarSQL().prepareStatement(
+            "SELECT c.CitaID, " +
+            "CONCAT(pp.FirstName, ' ', pp.LastName) AS NombrePaciente, " +
+            "c.Fecha, c.Hora, c.Direccion " +
+            "FROM Cita c " +
+            "JOIN Paciente p ON c.PacienteID = p.PacienteID " +
+            "JOIN Persona pp ON p.PersonaID = pp.PersonaID " +
+            "WHERE c.MedicoID = ?" // <-- filtro por médico
+        );
+        ps.setInt(1, medicoID);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            datos[0] = rs.getString("CitaID");
+            datos[1] = rs.getString("NombrePaciente");
+            datos[2] = rs.getString("Fecha");
+            datos[3] = rs.getString("Hora");
+            datos[4] = rs.getString("Direccion");
+            modelo.addRow(datos);
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(frame, "No se pudieron cargar las citas.");
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(frame, "Error de conexión.");
+    } finally {
+        conexionSQL.desconectarSQL();
+    }
+
+    return modelo;
+}
 
     public int getCitaID() {
         return citaID;

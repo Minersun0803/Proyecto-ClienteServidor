@@ -36,17 +36,18 @@ public class PersonaDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     if (rs.getObject("MedicoID") != null) {
-                        return new AuthResultado(true, "MEDICO", rs.getString("Especialidad"));
+                        int medicoID = rs.getInt("MedicoID"); // obtenemos el id del medico para mas tarde
+                        return new AuthResultado(true, "MEDICO", rs.getString("Especialidad"), 0 , medicoID);
                     }
 
                     if (rs.getObject("PacienteID") != null) {
                         int pacienteID = rs.getInt("PacienteID"); // <-- obtenerlo del ResultSet
-                        return new AuthResultado(true, "PACIENTE", null, pacienteID); // <-- pasarlo
+                        return new AuthResultado(true, "PACIENTE", null, pacienteID, 0); // <-- pasarlo
                     }
                 }
             }
 
-            return new AuthResultado(false, "", null);
+            return new AuthResultado(false, "", null, 0, 0);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error al iniciar sesión: " + ex.getMessage());

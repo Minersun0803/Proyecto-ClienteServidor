@@ -9,20 +9,20 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
-
 public class _08CitasMedico extends javax.swing.JFrame {
 
     private int medicoID;
     private int pacienteID;
-    private int citaIDSeleccionada;
+    private int citaIDSeleccionada = 0;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_08CitasMedico.class.getName());
 
-    public _08CitasMedico() {
+    public _08CitasMedico(int medicoID) {
+        this.medicoID = medicoID;
         initComponents();
-        btnAtender.setEnabled(false); 
-        
-         // Configuración de la tabla
+        setLocationRelativeTo(null);
+
+        // Configuración de la tabla
         tbCitas.setRowHeight(25);
         tbCitas.getTableHeader().setReorderingAllowed(false);
         tbCitas.getTableHeader().setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -30,9 +30,9 @@ public class _08CitasMedico extends javax.swing.JFrame {
 
         DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tbCitas.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        cargarCitas();
     }
-        
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -94,6 +94,11 @@ public class _08CitasMedico extends javax.swing.JFrame {
                 "Cita", "Hora"
             }
         ));
+        tbCitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbCitasMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbCitas);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -145,64 +150,106 @@ public class _08CitasMedico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Logica para cargar las citas para el médico loqueado
+    public void cargarCitas() {
+        tbCitas.setModel(Cita.consultarPorMedico(this, medicoID));
+        // Ajustar columnas 
+        tbCitas.getColumnModel().getColumn(1).setPreferredWidth(200); // PACIENTE
+        tbCitas.getColumnModel().getColumn(2).setPreferredWidth(100); // FECHA
+        tbCitas.getColumnModel().getColumn(3).setPreferredWidth(60);  // HORA
+        tbCitas.getColumnModel().getColumn(4).setPreferredWidth(150); // DIRECCIÓN
+    }
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
 
-        _05MenuMedico menuMedico = new _05MenuMedico();
-        menuMedico.setVisible(true);
+        new _05MenuMedico(medicoID).setVisible(true);
 
         this.dispose();
 
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnAtenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtenderActionPerformed
-        int fila = tbCitas.getSelectedRow();
-
-        if (fila == -1) {
+        if (citaIDSeleccionada == 0) {
             JOptionPane.showMessageDialog(this, "Seleccione una cita para atender.");
             return;
         }
-        Medico medicoActual = medicos.get(0);
-
-        medicoActual.setBarra(JAtenderBarra);
-
-        Thread hilo = new Thread(medicoActual);
-        hilo.start();
 
         btnAtender.setEnabled(false);
+        JAtenderBarra.setValue(0);
+
+        // Hilo para animar la barra de progreso
+        Thread hilo = new Thread(() -> {
+            try {
+                for (int i = 0; i <= 100; i++) {
+                    final int valor = i;
+                    javax.swing.SwingUtilities.invokeLater(()
+                            -> JAtenderBarra.setValue(valor));
+                    Thread.sleep(30);
+                }
+                
+                // Eliminar la cita de la BD
+            Conexiones.ConexionSQL conexionSQL = new Conexiones.ConexionSQL();
+            try {
+                java.sql.Connection con = conexionSQL.conectarSQL();
+                String sql = "DELETE FROM Cita WHERE CitaID = ? AND MedicoID = ?";
+                java.sql.PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, citaIDSeleccionada);
+                ps.setInt(2, medicoID); // seguridad: solo borra sus propias citas
+                ps.executeUpdate();
+                ps.close();
+            } finally {
+                conexionSQL.desconectarSQL();
+            }
+                javax.swing.SwingUtilities.invokeLater(() -> {
+                    JOptionPane.showMessageDialog(this, "Paciente atendido.");
+                    btnAtender.setEnabled(true);
+                    JAtenderBarra.setValue(0);
+                    citaIDSeleccionada = -1;
+                });
+            } catch (InterruptedException ex) {
+                System.out.println("Hilo interrumpido: " + ex.getMessage());
+            }catch (Exception ex) {
+            javax.swing.SwingUtilities.invokeLater(() ->
+                JOptionPane.showMessageDialog(this, "Error al eliminar la cita: " + ex.getMessage()));
+        }
+        });
+        hilo.start();
     }//GEN-LAST:event_btnAtenderActionPerformed
- private void tbCitasMousePressed(java.awt.event.MouseEvent evt) {
-    int fila = tbCitas.getSelectedRow();
-    if (fila != -1) {
+
+    private void tbCitasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCitasMousePressed
+        // TODO add your handling code here:
+        int fila = tbCitas.getSelectedRow();
+        if (fila < 0) {
+            return;
+        }
 
         try {
-            this.citaIDSeleccionada = Integer.parseInt(tbCitas.getValueAt(fila, 0).toString());
+            citaIDSeleccionada = Integer.parseInt(
+                    tbCitas.getValueAt(fila, 0).toString());
             btnAtender.setEnabled(true);
-
         } catch (Exception ex) {
-            System.out.println("Error al seleccionar la cita " + ex.getMessage());
+            System.out.println("Error al seleccionar cita: " + ex.getMessage());
         }
+    }//GEN-LAST:event_tbCitasMousePressed
 
-    }
-} 
     public static void main(String args[]) {
 
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-     */
-    try {
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-    } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-        logger.log(java.util.logging.Level.SEVERE, null, ex);
+        //</editor-fold>
+        java.awt.EventQueue.invokeLater(() -> new _08CitasMedico(0).setVisible(true));
     }
-    //</editor-fold>
-    java.awt.EventQueue.invokeLater(() -> new _08CitasMedico().setVisible(true));
-}
     ArrayList<Cita> citas;
     ArrayList<Medico> medicos;
     // Variables declaration - do not modify//GEN-BEGIN:variables

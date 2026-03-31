@@ -144,10 +144,11 @@ public class _03InicioSesion extends javax.swing.JFrame {
             AuthResultado resultado = (AuthResultado) respuesta.getDatos();
 
             if ("MEDICO".equalsIgnoreCase(resultado.getTipoUsuario())) {
+                int medicoID = resultado.getMedicoID(); //Obteneos el id del medico 
                 if ("Farmaceutico".equalsIgnoreCase(resultado.getEspecialidad())) {
                     new MenuFarmacia().setVisible(true);
                 } else {
-                    new _05MenuMedico().setVisible(true);
+                    new _05MenuMedico(medicoID).setVisible(true); //se lo pasamos al siquiente menu
                 }
                 this.dispose();
 

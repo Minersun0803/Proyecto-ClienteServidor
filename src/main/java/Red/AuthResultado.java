@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @author Eduardo Corrales
  */
 public class AuthResultado implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private boolean valido;
@@ -22,23 +23,25 @@ public class AuthResultado implements Serializable {
     public AuthResultado() {
     }
 
-    
-    public AuthResultado(boolean valido, String tipoUsuario, String especialidad) {
+    public AuthResultado(boolean valido, String tipoUsuario, String especialidad, int id) {
         this.valido = valido;
         this.tipoUsuario = tipoUsuario;
         this.especialidad = especialidad;
+        // Asignar según tipo
+        if ("MEDICO".equalsIgnoreCase(tipoUsuario)) {
+            this.medicoID = id;
+        } else {
+            this.pacienteID = id;
+        }
     }
     
-        public AuthResultado(boolean valido, String tipoUsuario, String especialidad, int pacienteID) {
-        this.valido = valido;
-        this.tipoUsuario = tipoUsuario;
-        this.especialidad = especialidad;
-        this.pacienteID = pacienteID;
-    }
-        
-
-        
-        
+    public AuthResultado(boolean valido, String tipoUsuario, String especialidad, int pacienteID, int medicoID) {
+    this.valido = valido;
+    this.tipoUsuario = tipoUsuario;
+    this.especialidad = especialidad;
+    this.pacienteID = pacienteID;
+    this.medicoID = medicoID;
+}
 
     public boolean isValido() {
         return valido;
@@ -79,9 +82,5 @@ public class AuthResultado implements Serializable {
     public void setMedicoID(int medicoID) {
         this.medicoID = medicoID;
     }
-    
-    
-    
-    
-}
 
+}

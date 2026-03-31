@@ -1,11 +1,16 @@
 package Interfaz;
 
 public class _05MenuMedico extends javax.swing.JFrame {
+
+    //Declaramos el id del medico
+    private int medicoID;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_05MenuMedico.class.getName());
-
-    public _05MenuMedico() {
+    
+    public _05MenuMedico(int medicoID) {
+        this.medicoID = medicoID;
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     @SuppressWarnings("unchecked")
@@ -77,19 +82,18 @@ public class _05MenuMedico extends javax.swing.JFrame {
         
         _01PantallaInicio pantalla_Inicio = new _01PantallaInicio();
         pantalla_Inicio.setVisible(true);
-
+        
         this.dispose();
     }//GEN-LAST:event_jSalirActionPerformed
 
     private void jCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCitasActionPerformed
         
-        _08CitasMedico citasMedico = new _08CitasMedico();
-        citasMedico.setVisible(true);
-    
+        new _08CitasMedico(medicoID).setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_jCitasActionPerformed
-
-    public static void main(String args[]) {      
+    
+    public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -105,7 +109,7 @@ public class _05MenuMedico extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        java.awt.EventQueue.invokeLater(() -> new _05MenuMedico().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _05MenuMedico(0).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
