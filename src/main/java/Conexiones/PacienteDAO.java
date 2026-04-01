@@ -13,7 +13,7 @@ public class PacienteDAO {
 
         String sql = """
                SELECT pa.PacienteID, p.FirstName, p.LastName, p.Cedula,
-                       p.Telefono, p.Correo, p.Ubicacion, p.Contraseña, p.AñoNacimiento
+                       p.Telefono, p.Correo, p.Ubicacion, p.Contraseña, p.AñoNacimiento, p.genero
                 FROM Persona p
                 INNER JOIN Paciente pa ON p.PersonaID = pa.PersonaID;
                 """;
@@ -30,7 +30,8 @@ public class PacienteDAO {
                         rs.getString("Correo"),
                         rs.getString("Ubicacion"),
                         rs.getString("Contraseña"),
-                        rs.getInt("AñoNacimiento")
+                        rs.getInt("AñoNacimiento"),
+                        rs.getString("Genero")
                 ));
             }
 
@@ -45,8 +46,8 @@ public class PacienteDAO {
     public boolean AgregarPaciente(Paciente paciente) {
 
         String sqlPerson = """
-INSERT INTO Persona (FirstName, LastName, Cedula, Telefono, Correo, Ubicacion, Contraseña, AñoNacimiento)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+INSERT INTO Persona (FirstName, LastName, Cedula, Telefono, Correo, Ubicacion, Contraseña, AñoNacimiento, Genero)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
         String sqlPaciente = """

@@ -11,7 +11,7 @@ public class MedicoDAO {
         List<Medico> lista = new ArrayList<>();
         String sql = """
                 SELECT m.MedicoID, p.FirstName, p.LastName, p.Cedula,
-                       p.Telefono, p.Correo, m.Especialidad
+                       p.Telefono, p.Correo, m.Especialidad,p.Genero
                 FROM Persona p
                 INNER JOIN Medico m ON p.PersonaID = m.PersonaID
                 """;
@@ -26,7 +26,8 @@ public class MedicoDAO {
                         rs.getString("Cedula"),
                         rs.getString("Telefono"),
                         rs.getString("Correo"),
-                        rs.getString("Especialidad")));
+                        rs.getString("Especialidad"),
+                rs.getString("Genero")));
             }
 
         } catch (Exception ex) {
