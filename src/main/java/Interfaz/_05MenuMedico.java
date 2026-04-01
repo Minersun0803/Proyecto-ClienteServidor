@@ -30,6 +30,7 @@ public class _05MenuMedico extends javax.swing.JFrame {
         jCitas.addActionListener(this::jCitasActionPerformed);
 
         Consulta.setText("Consultar Historial");
+        Consulta.addActionListener(this::ConsultaActionPerformed);
 
         jSalir.setText("Salir");
         jSalir.addActionListener(this::jSalirActionPerformed);
@@ -92,6 +93,13 @@ public class _05MenuMedico extends javax.swing.JFrame {
         
         this.dispose();
     }//GEN-LAST:event_jCitasActionPerformed
+
+    private void ConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultaActionPerformed
+        // TODO add your handling code here:
+                new _09Historial_Paciente_Doctor(medicoID).setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_ConsultaActionPerformed
     
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

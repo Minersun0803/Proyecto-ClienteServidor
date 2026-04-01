@@ -121,6 +121,7 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
         jCrear = new javax.swing.JButton();
         jLimpiar = new javax.swing.JButton();
         jeditar = new javax.swing.JButton();
+        jAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -253,6 +254,9 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
         jeditar.setToolTipText("");
         jeditar.addActionListener(this::jeditarActionPerformed);
 
+        jAtras.setText("<Atras");
+        jAtras.addActionListener(this::jAtrasActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -267,7 +271,8 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
                     .addComponent(txtNumeroCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jeditar)
                     .addComponent(jLimpiar)
-                    .addComponent(jCrear))
+                    .addComponent(jCrear)
+                    .addComponent(jAtras))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -292,6 +297,8 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
                                 .addComponent(jeditar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jCrear)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jAtras)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane1))))
                 .addContainerGap())
@@ -380,6 +387,13 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCrearActionPerformed
 
+    private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
+        // TODO add your handling code here:
+                new _05MenuMedico(medicoID).setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_jAtrasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -406,6 +420,7 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jAtras;
     private javax.swing.JButton jCrear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

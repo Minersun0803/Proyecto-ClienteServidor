@@ -91,6 +91,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Consultar Historial"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ConsultaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jSalir">
           <Properties>
