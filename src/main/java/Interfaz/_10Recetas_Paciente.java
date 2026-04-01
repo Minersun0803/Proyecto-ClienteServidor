@@ -8,14 +8,14 @@ package Interfaz;
  *
  * @author Eduardo Corrales
  */
-public class Recetas_Paciente extends javax.swing.JFrame {
+public class _10Recetas_Paciente extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Recetas_Paciente.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_10Recetas_Paciente.class.getName());
 
     /**
      * Creates new form Recetas_Paciente
      */
-    public Recetas_Paciente() {
+    public _10Recetas_Paciente() {
         initComponents();
     }
 
@@ -126,7 +126,7 @@ public class Recetas_Paciente extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Recetas_Paciente().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _10Recetas_Paciente().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
