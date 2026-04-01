@@ -76,6 +76,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Recetas"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRecetasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jCitas">
           <Properties>

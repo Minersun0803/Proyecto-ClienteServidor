@@ -24,6 +24,7 @@ public class _04PacienteMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jRecetas.setText("Recetas");
+        jRecetas.addActionListener(this::jRecetasActionPerformed);
 
         jCitas.setText("Citas");
         jCitas.addActionListener(this::jCitasActionPerformed);
@@ -91,6 +92,13 @@ public class _04PacienteMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jCitasActionPerformed
 
+    private void jRecetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRecetasActionPerformed
+        _10Recetas_Paciente recetasPaciente = new _10Recetas_Paciente(pacienteID);
+        recetasPaciente.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jRecetasActionPerformed
+    
+    
     //No se encuntra del de receta paciente, despues lo busco.
 
     public static void main(String args[]) {       
