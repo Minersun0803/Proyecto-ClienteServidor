@@ -100,14 +100,27 @@ CREATE TABLE Historial (
     FOREIGN KEY (PacienteID) REFERENCES Paciente(PacienteID)
 );
 
-INSERT INTO Persona (FirstName, LastName, Cedula, AñoNacimiento, Telefono, Correo, Ubicacion, Contraseña) VALUES
-('Juan', 'Perez', 87654321, 1980, '555-1234', 'juan.perez@email.com', '123 Main St', 'password123'),
-('Maria', 'Gomez', 87654322, 1990, '555-5678', 'maria.gomez@email.com', '456 Oak Ave', 'password456');
+INSERT INTO Persona (FirstName, LastName, Cedula, AñoNacimiento, genero, Telefono, Correo, Ubicacion, Contraseña) VALUES
+('Carlos', 'Ramirez', 87654323, 1975, 'Masculino', '555-1111', 'carlos.ramirez@email.com', '789 Pine Rd', 'medico123'),
+('Laura', 'Fernandez', 87654324, 1985, 'Femenino', '555-2222', 'laura.fernandez@email.com', '321 Maple St', 'medico456'),
+('Pedro', 'Sanchez', 87654325, 1995, 'Masculino', '555-3333', 'pedro.sanchez@email.com', '654 Elm St', 'paciente789');
+
 
 -- Médicos
 INSERT INTO Medico (PersonaID, Especialidad) VALUES
-(1, 'General'),
-(2, 'Farmaceutico');
+(1, 'Cardiología'),
+(2, 'Pediatría');
+
+-- Paciente (Pedro)
+INSERT INTO Paciente (PersonaID) VALUES
+(3);
+
+INSERT INTO Historial (PacienteID, Nombre, Apellido, Edad, Genero, Antecedentes, Tratamiento, Habitos, Notas) VALUES
+(1, 'Pedro', 'Sanchez', 31, 'Masculino',
+ 'Antecedentes familiares de hipertensión. No alergias conocidas.',
+ 'Tratamiento actual: Paracetamol 500mg cada 8 horas por 5 días.',
+ 'No fuma, consume alcohol ocasionalmente, realiza ejercicio moderado 3 veces por semana.',
+ 'Paciente presenta dolor de cabeza recurrente, se recomienda seguimiento en consulta de control.');
 
 -- Inventario
 INSERT INTO Inventario (Nombre, Descripcion, Cantidad) VALUES
