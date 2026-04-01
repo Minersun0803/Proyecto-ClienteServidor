@@ -13,9 +13,10 @@ public abstract class Persona {
     protected String Ubicacion;
     protected String Contraseña;
     protected int AñoNacimiento;
+    protected String Genero;
 
     //mostar persona
-    public Persona(int IDPersona, String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion, String Contraseña, int AñoNacimiento) {
+    public Persona(int IDPersona, String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion, String Contraseña, int AñoNacimiento, String Genero) {
         this.IDPersona = IDPersona;
         this.Nombre = Nombre;
         this.Apellidos = Apellidos;
@@ -25,10 +26,11 @@ public abstract class Persona {
         this.Ubicacion = Ubicacion;
         this.Contraseña = Contraseña;
         this.AñoNacimiento = AñoNacimiento;
+        this.Genero = Genero;
     }
     
     //Crear persona
-    public Persona(String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion, String Contraseña, int AñoNacimiento) {
+    public Persona(String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion, String Contraseña, int AñoNacimiento, String Genero) {
         this.Nombre = Nombre;
         this.Apellidos = Apellidos;
         this.Cedula = Cedula;
@@ -37,6 +39,7 @@ public abstract class Persona {
         this.Ubicacion = Ubicacion;
         this.Contraseña = Contraseña;
         this.AñoNacimiento = AñoNacimiento;
+        this.Genero = Genero;
     }
     
     //Mostar persona medico
@@ -128,6 +131,16 @@ public abstract class Persona {
     public void setAñoNacimiento(int AñoNacimiento) {
         this.AñoNacimiento = AñoNacimiento;
     }
+
+    public String getGenero() {
+        return Genero;
+    }
+
+    public void setGenero(String Genero) {
+        this.Genero = Genero;
+    }
+    
+    
 
     
     

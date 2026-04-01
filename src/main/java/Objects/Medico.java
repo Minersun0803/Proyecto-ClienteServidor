@@ -12,22 +12,22 @@ public class Medico extends Persona implements Runnable {
     private JLabel lbEstado;
 
     //Contructor para mostrar medico 
-    public Medico(int medicoID, String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion, String Contraseña, int AñoNacimiento, String Especialidad) {
-        super(Nombre, Apellidos, Cedula, Telefono, Correo, Ubicacion, Contraseña, AñoNacimiento);
+    public Medico(int medicoID, String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion, String Contraseña, int AñoNacimiento, String Especialidad, String Genero) {
+        super(Nombre, Apellidos, Cedula, Telefono, Correo, Ubicacion, Contraseña, AñoNacimiento, Genero);
         this.medicoID = medicoID;
         this.especialidad = Especialidad;
     }
 
     //crear medico
-    public Medico(String especialidad, String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion, String Contraseña, int AñoNacimiento) {
-        super(Nombre, Apellidos, Cedula, Telefono, Correo, Ubicacion, Contraseña, AñoNacimiento);
+    public Medico(String especialidad, String Nombre, String Apellidos, String Cedula, String Telefono, String Correo, String Ubicacion, String Contraseña, int AñoNacimiento, String Genero) {
+        super(Nombre, Apellidos, Cedula, Telefono, Correo, Ubicacion, Contraseña, AñoNacimiento, Genero);
         this.especialidad = especialidad;
     }
     
     // para listar
     public Medico(int medicoID, String nombre, String apellidos, String cedula,
-              String telefono, String correo, String especialidad) {
-    super(nombre, apellidos, cedula, telefono, correo, null, null, 0);
+              String telefono, String correo, String especialidad, String genero) {
+    super(nombre, apellidos, cedula, telefono, correo, null, null, 0, genero);
     this.medicoID = medicoID;
     this.especialidad = especialidad;
 }
