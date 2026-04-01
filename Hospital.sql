@@ -37,6 +37,15 @@ CREATE TABLE Inventario (ProductoID INT PRIMARY KEY AUTO_INCREMENT,
     Cantidad INT NOT NULL
 );
 
+CREATE TABLE Receta (RecetaID INT PRIMARY KEY AUTO_INCREMENT, 
+    PacienteID INT, 
+    MedicoID INT, 
+    Fecha DATE NOT NULL, 
+    Detalles VARCHAR(1000) NOT NULL,
+    FOREIGN KEY (PacienteID) REFERENCES Paciente(PacienteID),
+    FOREIGN KEY (MedicoID) REFERENCES Medico(MedicoID)
+);
+
 CREATE TABLE Provedor (ProvedorID INT PRIMARY KEY AUTO_INCREMENT, 
     Nombre VARCHAR(100) NOT NULL,
     Cedula INT NOT NULL UNIQUE, 
