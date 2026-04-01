@@ -29,8 +29,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel1" min="-2" pref="276" max="-2" attributes="0"/>
-                  <Component id="JHistorial" min="-2" max="-2" attributes="0"/>
+                  <Component id="jrevisar" min="-2" max="-2" attributes="0"/>
                   <Component id="txtNumeroCedula" min="-2" pref="217" max="-2" attributes="0"/>
+                  <Component id="jeditar" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLimpiar" min="-2" max="-2" attributes="0"/>
                   <Component id="jCrear" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -52,8 +54,12 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="txtNumeroCedula" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="JHistorial" min="-2" max="-2" attributes="0"/>
+                              <Component id="jrevisar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLimpiar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jeditar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jCrear" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -211,9 +217,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTratamientos">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTratamientosActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -238,7 +241,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="tbHistorial">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="2" rowCount="4">
@@ -247,28 +250,51 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbHistorialMousePressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ingrese el numero de cedula del paciente"/>
+        <Property name="text" type="java.lang.String" value="Numero de cedula"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNumeroCedula">
     </Component>
-    <Component class="javax.swing.JButton" name="JHistorial">
+    <Component class="javax.swing.JButton" name="jrevisar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Revisar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JHistorialActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrevisarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jCrear">
       <Properties>
         <Property name="text" type="java.lang.String" value="Crear historial"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCrearActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jLimpiar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Limpiar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jLimpiarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jeditar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Editar"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jeditarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

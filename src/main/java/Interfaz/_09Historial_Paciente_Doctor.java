@@ -3,22 +3,88 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Interfaz;
-
+import Objects.Historial;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 /**
  *
  * @author Eduardo Corrales
  */
 public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
     
+    private int medicoID;
+    private int pacienteIDSeleccionado = 0;
+    private static int MedicoID = 0;
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_09Historial_Paciente_Doctor.class.getName());
 
     /**
      * Creates new form Historial_Paciente_Doctor
      */
-    public _09Historial_Paciente_Doctor() {
+    public _09Historial_Paciente_Doctor(int medicoID) {
+        this.medicoID = medicoID;
         initComponents();
-    }
+        setLocationRelativeTo(null);
 
+        
+        tbHistorial.setRowHeight(25);
+        tbHistorial.getTableHeader().setReorderingAllowed(false);
+        tbHistorial.getTableHeader().setFont(new Font("Verdana", Font.PLAIN, 18));
+        tbHistorial.getTableHeader().setForeground(new Color(102, 153, 0));
+
+        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tbHistorial.getTableHeader().getDefaultRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        cargarHistoriales();
+        limpiar();
+    }
+    
+    public void cargarHistoriales() {
+        tbHistorial.setModel(Historial.consultarTodos(this));
+        // Ajustar columnas 
+        tbHistorial.getColumnModel().getColumn(1).setPreferredWidth(200); // NOMBRE
+        tbHistorial.getColumnModel().getColumn(2).setPreferredWidth(100); // CÉDULA
+    }
+    
+    //limpiar
+    public void limpiar() {
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtEdad.setText("");
+        txtGenero.setText("");
+        txtCedula.setText("");
+        txtAntecedentes.setText("");
+        txtTratamientos.setText("");
+        txtHabitos.setText("");
+        txtNota.setText("");
+        txtNumeroCedula.setText("");
+        pacienteIDSeleccionado = 0;
+
+        jeditar.setEnabled(false);
+        jCrear.setEnabled(true);
+    }
+    
+    private void buscarHistorial(String cedula) {
+        Historial h = Historial.buscarPorCedula(this, cedula);
+        if (h == null) return;
+
+        pacienteIDSeleccionado = h.getPacienteID();
+        txtNombre.setText(h.getNombre());
+        txtApellido.setText(h.getApellido());
+        txtEdad.setText(String.valueOf(h.getEdad()));
+        txtGenero.setText(h.getGenero());
+        txtCedula.setText(cedula);
+        txtAntecedentes.setText(h.getAntecedentes());
+        txtTratamientos.setText(h.getTratamiento());
+        txtHabitos.setText(h.getHabitos());
+        txtNota.setText(h.getNotas());
+
+        jeditar.setEnabled(true);
+        jCrear.setEnabled(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,11 +114,13 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         txtNota = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbHistorial = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtNumeroCedula = new javax.swing.JTextField();
-        JHistorial = new javax.swing.JButton();
+        jrevisar = new javax.swing.JButton();
         jCrear = new javax.swing.JButton();
+        jLimpiar = new javax.swing.JButton();
+        jeditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,8 +137,6 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
         jLabel5.setText("Genero");
 
         jLabel6.setText("Numero de Cedula");
-
-        txtTratamientos.addActionListener(this::txtTratamientosActionPerformed);
 
         jLabel7.setText("Antecedentes");
 
@@ -154,7 +220,7 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -165,14 +231,27 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
                 "Nombre", "Cedula"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbHistorialMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbHistorial);
 
-        jLabel1.setText("Ingrese el numero de cedula del paciente");
+        jLabel1.setText("Numero de cedula");
 
-        JHistorial.setText("Revisar");
-        JHistorial.addActionListener(this::JHistorialActionPerformed);
+        jrevisar.setText("Revisar");
+        jrevisar.addActionListener(this::jrevisarActionPerformed);
 
         jCrear.setText("Crear historial");
+        jCrear.addActionListener(this::jCrearActionPerformed);
+
+        jLimpiar.setText("Limpiar");
+        jLimpiar.addActionListener(this::jLimpiarActionPerformed);
+
+        jeditar.setText("Editar");
+        jeditar.setToolTipText("");
+        jeditar.addActionListener(this::jeditarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,8 +263,10 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JHistorial)
+                    .addComponent(jrevisar)
                     .addComponent(txtNumeroCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jeditar)
+                    .addComponent(jLimpiar)
                     .addComponent(jCrear))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,8 +285,12 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtNumeroCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(JHistorial)
+                                .addComponent(jrevisar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLimpiar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jeditar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jCrear)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane1))))
@@ -215,13 +300,85 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void JHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JHistorialActionPerformed
+    private void jrevisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrevisarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_JHistorialActionPerformed
+        //buscar la informacion
+        String cedula = txtNumeroCedula.getText().trim();
+        if (cedula.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese una cédula.");
+            return;
+        }
+        buscarHistorial(cedula);
+    }//GEN-LAST:event_jrevisarActionPerformed
 
-    private void txtTratamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTratamientosActionPerformed
+    private void tbHistorialMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbHistorialMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTratamientosActionPerformed
+        //AL hace ckilc en la tabla
+        int fila = tbHistorial.getSelectedRow();
+        if (fila < 0) return;
+
+        pacienteIDSeleccionado = Integer.parseInt(
+            tbHistorial.getValueAt(fila, 0).toString());
+
+        // Poner la cédula en el campo y buscar automáticamente
+        String cedula = tbHistorial.getValueAt(fila, 2).toString();
+        txtNumeroCedula.setText(cedula);
+        buscarHistorial(cedula);
+    }//GEN-LAST:event_tbHistorialMousePressed
+
+    private void jLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLimpiarActionPerformed
+        // TODO add your handling code here
+        limpiar();
+    }//GEN-LAST:event_jLimpiarActionPerformed
+
+    private void jeditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jeditarActionPerformed
+        // TODO add your handling code here:
+        if (pacienteIDSeleccionado == 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un paciente primero.");
+            return;
+        }
+        try {
+            Historial h = new Historial(
+                pacienteIDSeleccionado,
+                txtNombre.getText(),
+                txtApellido.getText(),
+                Integer.parseInt(txtEdad.getText()),
+                txtGenero.getText(),
+                txtAntecedentes.getText(),
+                txtTratamientos.getText(),
+                txtHabitos.getText(),
+                txtNota.getText()
+            );
+            JOptionPane.showMessageDialog(this, h.editar());
+            cargarHistoriales();
+            limpiar();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "La edad debe ser un número.");
+        }
+
+    }//GEN-LAST:event_jeditarActionPerformed
+
+    private void jCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCrearActionPerformed
+        // TODO add your handling code here:
+        try {
+            Historial h = new Historial(
+                Integer.parseInt(txtCedula.getText().trim()), // cedula como referencia temporal
+                txtNombre.getText(),
+                txtApellido.getText(),
+                Integer.parseInt(txtEdad.getText()),
+                txtGenero.getText(),
+                txtAntecedentes.getText(),
+                txtTratamientos.getText(),
+                txtHabitos.getText(),
+                txtNota.getText()
+            );
+            JOptionPane.showMessageDialog(this, h.crear());
+            cargarHistoriales();
+            limpiar();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "La edad debe ser un número.");
+        }
+    }//GEN-LAST:event_jCrearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,11 +402,10 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new _09Historial_Paciente_Doctor().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _09Historial_Paciente_Doctor(MedicoID).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JHistorial;
     private javax.swing.JButton jCrear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -261,9 +417,12 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JButton jLimpiar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton jeditar;
+    private javax.swing.JButton jrevisar;
+    private javax.swing.JTable tbHistorial;
     private javax.swing.JTextField txtAntecedentes;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
