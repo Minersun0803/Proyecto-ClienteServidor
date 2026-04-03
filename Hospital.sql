@@ -47,6 +47,9 @@ CREATE TABLE Receta (RecetaID INT PRIMARY KEY AUTO_INCREMENT,
     FOREIGN KEY (MedicoID) REFERENCES Medico(MedicoID)
 );
 
+ALTER TABLE Receta
+ADD COLUMN Estado VARCHAR(20) NOT NULL DEFAULT 'Pendiente';
+
 CREATE TABLE Provedor (ProvedorID INT PRIMARY KEY AUTO_INCREMENT, 
     Nombre VARCHAR(100) NOT NULL,
     Cedula INT NOT NULL UNIQUE, 
@@ -133,7 +136,8 @@ INSERT INTO Provedor (Nombre, Cedula, Producto, Cantidad, ProductoID) VALUES
 INSERT INTO Cita (PacienteID, MedicoID, Fecha, Hora, Direccion) VALUES
 (1, 1, '2026-07-01', '10:00', 'Hospital Calderon Guardia');
 
-
+INSERT INTO Receta (PacienteID, MedicoID, Fecha, Detalles, Estado)
+VALUES (1, 1, CURDATE(), 'Paracetamol 500mg cada 8 horas por 5 días', 'Pendiente');
 
 
 
