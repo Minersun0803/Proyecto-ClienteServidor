@@ -6,16 +6,25 @@ import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+/*
+En eta pantalla el paciente puede ver y gestionar sus citas
+esta veien desde la interfaz _04PacienteMenu, al precionar el boton Citas
+y esta lleva a la interfaz _07NuevaCitaMedicna cuando se presiona el boton nueva cita
+y nuevamente al menu de _04PacienteMenu al presionar el boton atras
+
+*/
 
 public class _06Citas_Paciente extends javax.swing.JFrame {
 
-    private int pacienteID;
-    private int citaIDSeleccionada;
+    private int pacienteID; //Id del pacinte loqueado, este proviene desdel login a traves de toda la cadean y se filtras por las de manera que WHERE PacienteID = ?
+    private int citaIDSeleccionada; // cuanda la citaID de la fila slecionada, esa vale 0 porque el SQL cuenta con un Auto_INCREMET, y se utiliza un jCancelarActionPerfomaed ara el delet
+    
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_06Citas_Paciente.class.getName());
 
+    //Se recibe el pacienteID, para saber que citas mostar, sin este no se podrian pasar por un filtro.
     public _06Citas_Paciente(int pacienteID) {
-        this.pacienteID = pacienteID;
+        this.pacienteID = pacienteID; //Guarad el id del paciente
         initComponents();
         setLocationRelativeTo(null); // centrar ventana
 
@@ -41,7 +50,7 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
         txthora.setText("");
         txtmedico.setText("");
         txtlugar.setText("");
-        this.citaIDSeleccionada = -1; // Esto para que no haya ninguna cita seleccionada 
+        this.citaIDSeleccionada = -0; // Esto para que no haya ninguna cita seleccionada 
 
         //Poner un boton, si es true, si se puede activar, si esta false no se puede activar
         jNuevaCita.setEnabled(true);
@@ -51,6 +60,7 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
     }
 
     public void cargarCitas() {
+            //Carga especifiamete solo las citas del paciente loqueado, al llamr Cita.consultar(), al hacer un SELECT.. FromCita JOIN Medico JOIN Persona WHERE PacienteID = ?
         tbCitas.setModel(Cita.consultar(this, pacienteID));
         tbCitas.getColumnModel().getColumn(0).setPreferredWidth(100);
         tbCitas.getColumnModel().getColumn(1).setPreferredWidth(300);
@@ -234,20 +244,27 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Abre _07NuevaCitaMedicina pasandole el pacienteID, para que la nuevacita este asociaa a este paciente.
     private void jNuevaCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNuevaCitaActionPerformed
 
         _07NuevaCitaMedicina nuevaCitaMedicina = new _07NuevaCitaMedicina(pacienteID);
         nuevaCitaMedicina.setVisible(true);
 
-        this.dispose();
+        this.dispose();//Ciarra la venta
     }//GEN-LAST:event_jNuevaCitaActionPerformed
 
     private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
 
+        //Regresa al menu principal del paciente
         new _04PacienteMenu(pacienteID).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jAtrasActionPerformed
 
+    
+    /*Este se ejcuta cuando el paciente hace click en una fila de la tabla
+    
+    Guarda el CitaID en la columna O, en citaIDSeleionada, y llena los cambos de texto con los datos de la cita correspondiente.
+    */
     private void tbCitasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCitasMousePressed
 
         int fila = tbCitas.getSelectedRow();
@@ -257,7 +274,7 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
         txtdia.setText(tbCitas.getValueAt(fila, 2).toString());    // FECHA
         txthora.setText(tbCitas.getValueAt(fila, 3).toString());   // HORA
         txtmedico.setText(tbCitas.getValueAt(fila, 1).toString()); // MÉDICO
-        txtlugar.setText(tbCitas.getValueAt(fila, 4).toString());
+        txtlugar.setText(tbCitas.getValueAt(fila, 4).toString());  //Direccion
 
         jNuevaCita.setEnabled(false);
         jCancelacion.setEnabled(true);
@@ -270,13 +287,19 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
         limpiar();
     }//GEN-LAST:event_jLimpiarActionPerformed
 
+    //Cancela (elimina) la cita selecionada en la tabla
+    //Utiliza citaIDSelecionada que se guardo en tbCitasMousePressed
+    //
+            
     private void jCancelacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelacionActionPerformed
         // TODO add your handling code here:
+        //Verificacion de que halla una cita selecionada
         if (citaIDSeleccionada == 0) {
             JOptionPane.showMessageDialog(this, "Seleccione una cita para cancelar.");
             return;
         }
 
+        //Confirmaco antes de eliminar
         int confirmacion = JOptionPane.showConfirmDialog(
                 this,
                 "¿Desea cancelar la cita del " + txtdia.getText() + " a las " + txthora.getText() + "?",
@@ -291,17 +314,17 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
         Conexiones.ConexionSQL conexionSQL = new Conexiones.ConexionSQL();
         try {
             java.sql.Connection con = conexionSQL.conectarSQL();
-
+//DELETE con un doble filtro, CitaID y PacienteID, asi solo se borra la cita perteneciente a el paciente
             String sql = "DELETE FROM Cita WHERE CitaID = ? AND PacienteID = ?";
             java.sql.PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, citaIDSeleccionada);
+            ps.setInt(1, citaIDSeleccionada); //id de la cita eliminada
             ps.setInt(2, pacienteID); // seguridad: solo puede cancelar sus propias citas
             ps.executeUpdate();
             ps.close();
 
             JOptionPane.showMessageDialog(this, "Cita cancelada exitosamente.");
-            citaIDSeleccionada = 0;
-            cargarCitas();
+            citaIDSeleccionada = 0; //Resetea, para que ya no haya citas selecionadas
+            cargarCitas(); //Recarga la tabla sin la cita eliminada
             limpiar();
 
         } catch (java.sql.SQLException ex) {

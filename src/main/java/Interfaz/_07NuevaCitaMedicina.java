@@ -5,6 +5,14 @@ import java.util.Random;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
+/*
+_07NuevaCitaMedicina - esta pantalla es donde el paciente puede agendar una cita nueva
+
+en esta pantalla, all abrir y cargar a los medicos desde la base de datos y genera 4 horarios de manera aletoria
+el paciente seleciona un horario de la tabla
+y preciona agendar para que esta sea agendada en la tabla de citas en la base de datos
+*/
+
 public class _07NuevaCitaMedicina extends javax.swing.JFrame {
 
     private int pacienteID;
@@ -14,12 +22,15 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
     //Lista de medico cargados desde la base de datos
     private java.util.List<Object[]> medicos = new java.util.ArrayList<>();
 
+    //Recibie el paciente id para asocialr al cita neuva ak pacinte correspondiente, pero 
+    // primero carga medicos y luego genera los horarios disponibles
+    
     public _07NuevaCitaMedicina(int pacienteID) {
         this.pacienteID = pacienteID;
         initComponents();
         setLocationRelativeTo(null);
         cargarMedicos();// carga médicos desde la BD
-        cargarArreglos();
+        cargarArreglos(); //Generacion de los 4 horarios aletorios
     }
 
     @SuppressWarnings("unchecked")
@@ -103,6 +114,8 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Carga a todos los medicos extuando a los farmaceuticos, desde la base de datos y lis guarda e una lista interna llamda medicos
+    //No se muestra la tabla solo se una de manera interma para la asignacion de un medico de manera aletoria a la cita
     public void cargarMedicos() {
         ConexionSQL conexionSQL = new ConexionSQL();
         try {
@@ -114,8 +127,11 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
+            //Giarda a cada medico como Object[] en la lista
+            //[0] es ek medico id (int) para hacer INSERTS de la cita
+            //[1] es el nombre del medico (String) por si es necesario llegar a mostrarlo
             while (rs.next()) {
-                medicos.add(new Object[]{
+                medicos.add(new Object[]{//tabla medicos
                     rs.getInt("MedicoID"),
                     rs.getString("Nombre")
                 });
@@ -130,7 +146,20 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
         }
     }
 
+    /*
+    Genera 4 combinaciones aletoias de día y hora y las muestas en la tabla jtable1
+    
+    los arreglos definen los valores posibles
+    - dias: del 01 al 30
+    - horas: de las 09:00 a 17:30 cada hora tiene un intervalo de 30 minutos
+    - meses: estos van desde el 01 al 12 (Estos son usado sla contruit la fecha)
+    - años: van desde el 2026 al 2030 (usado al construit la fecha)
+    
+    se utiliza un Set 'usadas' para evitar que aparezan dos filas con el mismo dia y hora.
+    */
+    
     public void cargarArreglos() {
+        //areglos de los dias
             String[] dias = {"01", "02", "03", "04",
                      "05", "06", "07", "08",
                      "09", "10", "11", "12",
@@ -140,6 +169,7 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
                      "25", "26", "27", "28",
                      "29", "30"};
 
+            //Arreglos de las horas
     String[] horas = {
         "09:00", "09:30", "10:00", "10:30",
         "11:00", "11:30", "12:00", "12:30",
@@ -148,25 +178,30 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
         "17:00", "17:30"
     };
 
+    //arreglos de los meses
     String[] meses = {"01","02","03","04","05","06",
                       "07","08","09","10","11","12"};
+    
+    //areglos de los años
     String[] años  = {"2026","2027","2028","2029","2030"};
 
+    //El modelo de la tabla
     javax.swing.table.DefaultTableModel modelo = 
         new javax.swing.table.DefaultTableModel();
-    modelo.addColumn("Dia");
-    modelo.addColumn("Hora");
+    modelo.addColumn("Dia"); //Solo muestara el dia
+    modelo.addColumn("Hora"); //Solo muestra la hora
 
     // Solo 4 combinaciones aleatorias
     Random rand = new Random();
-    java.util.Set<String> usadas = new java.util.HashSet<>();
-    int count = 0;
+    java.util.Set<String> usadas = new java.util.HashSet<>(); // el HashSet crea una interfaz set y no permite elemtos dublicados u ingnora los elemtos dublicadas
+    int count = 0; //contador de veces
 
-    while (count < 4) {
+    while (count < 4) { //genracion extacta de 4 citas
         String dia  = dias[rand.nextInt(dias.length)];
         String hora = horas[rand.nextInt(horas.length)];
         String clave = dia + hora; // evitar duplicados
 
+        //Solo agregara si la combinacion no a haparecio antes
         if (!usadas.contains(clave)) {
             usadas.add(clave);
             modelo.addRow(new Object[]{dia, hora});
@@ -185,13 +220,27 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jAtrasActionPerformed
 
+    /*
+    Agenda la cita selcionda en la tabla
+    
+    primero verifiaca que haya medicos dispobnibles
+    de segundo verifica que el paciente haya selecionado una fila
+    obtiene dia y hora de la fila selecionada
+    genera mes y año aletaorimete para completar la fecha
+    seleciona un medico aletorimete de la lista 'medicos'
+    verifica que el horario no est ay selcionado en la base de datos
+    intrta la cita en la tabla cita
+    y finalmete regrasa a _06Citas_Paciente donde ya tiene que aparecer la nueva cita
+    */
     private void jAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAgendarActionPerformed
 
+        //Verifica que se hallan cargado medicos en la base de datos
         if (medicos.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay médicos disponibles.");
             return;
         }
 
+        //Verificacion de que el paciente selciono una fila
         int fila = jTable1.getSelectedRow();
         if (fila < 0) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un día y hora en la tabla.");
@@ -203,6 +252,7 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
         String hora = (String) jTable1.getValueAt(fila, 1);
 
         // Generar año y mes aleatorio
+        //contruye la fecha requeriada ne la base de datos
         Random rand = new Random();
         String[] meses = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
         String[] años = {"2026", "2027", "2028", "2029", "2030"};
@@ -214,13 +264,15 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
         int indice = rand.nextInt(medicos.size());
         int medicoID = (int) medicos.get(indice)[0];
 
+        //Direcion fija para todas las citas
         String direccionFija = "Hospital Calderon Guardia";
 
         ConexionSQL conexionSQL = new ConexionSQL();
         try {
             Connection con = conexionSQL.conectarSQL();
 
-            // Verificar disponibilidad
+            // Verificar disponibilidad del medico a esa hora y dia, asi se evitan conflictos
+            //
             String sqlVerificar
                     = "SELECT COUNT(*) FROM Cita WHERE MedicoID = ? AND Fecha = ? AND Hora = ?";
             PreparedStatement psVerificar = con.prepareStatement(sqlVerificar);
@@ -230,6 +282,7 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
             ResultSet rs = psVerificar.executeQuery();
             rs.next();
             if (rs.getInt(1) > 0) {
+                //El horario ya esta ocupada, por ende el paciente debe de selecionar otra cita
                 JOptionPane.showMessageDialog(this,
                         "Ese horario ya está ocupado. Seleccione otro.");
                 rs.close();
@@ -244,10 +297,10 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
                     = "INSERT INTO Cita (PacienteID, MedicoID, Fecha, Hora, Direccion) "
                     + "VALUES (?, ?, ?, ?, ?)";
             PreparedStatement psInsert = con.prepareStatement(sqlInsert);
-            psInsert.setInt(1, pacienteID);
-            psInsert.setInt(2, medicoID);
-            psInsert.setString(3, fecha);
-            psInsert.setString(4, hora);
+            psInsert.setInt(1, pacienteID); //paciente loqueado
+            psInsert.setInt(2, medicoID); //medico asigando aletorimente
+            psInsert.setString(3, fecha); // fecha contruida
+            psInsert.setString(4, hora); //hora selecionada
             psInsert.setString(5, direccionFija);
             psInsert.executeUpdate();
             psInsert.close();
@@ -266,6 +319,7 @@ public class _07NuevaCitaMedicina extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jAgendarActionPerformed
 
+    //Mustras en consla el dia y la hora selecionados
     private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
         // TODO add your handling code here:
         int fila = jTable1.getSelectedRow();

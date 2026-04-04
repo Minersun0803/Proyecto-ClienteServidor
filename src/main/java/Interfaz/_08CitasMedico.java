@@ -9,6 +9,13 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/*
+Esta pantalla es donde el medico ve y atende sus citas asigandas
+
+al abrir, carga las citas asigandas al medico loqueado
+el medico tiene que selecionar una cita de la tabla
+tiene que precionara tender y la brra se animara y eliminara la cita de la base de dtos
+*/
 public class _08CitasMedico extends javax.swing.JFrame {
 
     private int medicoID;
@@ -18,7 +25,8 @@ public class _08CitasMedico extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_08CitasMedico.class.getName());
 
     public _08CitasMedico(int medicoID) {
-        this.medicoID = medicoID;
+        //Recibe el medicoID para filtrar y solo mostrar las citas de medico loqueado
+        this.medicoID = medicoID; //lo guarda para usarlo en la la clase
         initComponents();
         setLocationRelativeTo(null);
 
@@ -151,7 +159,11 @@ public class _08CitasMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     //Logica para cargar las citas para el médico loqueado
+    //LLama a las citas mediente Cita.consultarPorMedico que reliza lo siquiente
+    //SELECT CitaID, nombrePaciente, Fecha, Hora, Direccion FROM Cita JOIN Paciente JOIN Persona
+    //WHERE MedicoID = ?
     public void cargarCitas() {
+        //Consulta de las citas
         tbCitas.setModel(Cita.consultarPorMedico(this, medicoID));
         // Ajustar columnas 
         tbCitas.getColumnModel().getColumn(1).setPreferredWidth(200); // PACIENTE
@@ -167,26 +179,40 @@ public class _08CitasMedico extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    //Atiende a la cita selecionada
+    /*
+    Verifica que haya una cita selecionada
+    anima la barra de pogeso en un hilo separado, esto porque si se animara en el hilo principal la UI se congelaria
+    Elimina la cita de las base de datos al terminar la animacion
+    recarga la tabla sin la cita atentida
+    
+    se utilizan Thread para no bloqur la interfaz durante la animacion
+    SwingUtilities.invokeLater garantiza que los cmbios visuales, se hagan en el hilo de Swing no el hilo secuentadio
+    */
+    
     private void btnAtenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtenderActionPerformed
-        if (citaIDSeleccionada == 0) {
+        if (citaIDSeleccionada == 0) {//verifiacion de la selecion de la cita
             JOptionPane.showMessageDialog(this, "Seleccione una cita para atender.");
             return;
         }
 
+        //Desabilitamos el botn para uqe no halla un doble click
         btnAtender.setEnabled(false);
         JAtenderBarra.setValue(0);
 
         // Hilo para animar la barra de progreso
         Thread hilo = new Thread(() -> {
             try {
+                //Anima la barra desde 0 a 100 con una pause de 30ms entre cada paso
                 for (int i = 0; i <= 100; i++) {
                     final int valor = i;
+                    //Actuliza la UI desde el hilo Swing
                     javax.swing.SwingUtilities.invokeLater(()
                             -> JAtenderBarra.setValue(valor));
-                    Thread.sleep(30);
+                    Thread.sleep(30); //pausa para que la animacion n sea visible
                 }
                 
-                // Eliminar la cita de la BD
+                // Eliminar la cita de la BD, al terminar la animacion
             Conexiones.ConexionSQL conexionSQL = new Conexiones.ConexionSQL();
             try {
                 java.sql.Connection con = conexionSQL.conectarSQL();
@@ -201,9 +227,9 @@ public class _08CitasMedico extends javax.swing.JFrame {
             }
                 javax.swing.SwingUtilities.invokeLater(() -> {
                     JOptionPane.showMessageDialog(this, "Paciente atendido.");
-                    btnAtender.setEnabled(true);
-                    JAtenderBarra.setValue(0);
-                    citaIDSeleccionada = -1;
+                    btnAtender.setEnabled(true); //receta la barra
+                    JAtenderBarra.setValue(0); //reseta la tabla
+                    citaIDSeleccionada = 0; //resetea la seecion
                 });
             } catch (InterruptedException ex) {
                 System.out.println("Hilo interrumpido: " + ex.getMessage());
@@ -215,12 +241,13 @@ public class _08CitasMedico extends javax.swing.JFrame {
         hilo.start();
     }//GEN-LAST:event_btnAtenderActionPerformed
 
+    //se ejcuta cuendo el medico hace click en una fila de la tabla
     private void tbCitasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCitasMousePressed
         // TODO add your handling code here:
         int fila = tbCitas.getSelectedRow();
         if (fila < 0) {
             return;
-        }
+        } //ignora un click fuera de la tabla
 
         try {
             citaIDSeleccionada = Integer.parseInt(
