@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @author Eduardo Corrales
  */
 public class Respuesta implements Serializable {
+    // Esto permite que el objeto se pueda enviar por red (cliente-servidor)
     private static final long serialVersionUID = 1L;
 
     private boolean exito;

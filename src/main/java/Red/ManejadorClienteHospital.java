@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Red;
 
 import Conexiones.PacienteDAO;
@@ -30,12 +27,14 @@ public class ManejadorClienteHospital extends Thread {
 
     @Override
     public void run() {
+        //En esta parte el servidor atiende al cliente
         try (ObjectOutputStream salida = new ObjectOutputStream(socket.getOutputStream());
              ObjectInputStream entrada = new ObjectInputStream(socket.getInputStream())) {
-
+            //REcibe lo que el cliente envio
             Solicitud solicitud = (Solicitud) entrada.readObject();
+            //Procesa lo que el cliente pidio
             Respuesta respuesta = procesarSolicitud(solicitud);
-
+            //Envia la respuesta al cliente
             salida.writeObject(respuesta);
             salida.flush();
 
@@ -52,10 +51,12 @@ public class ManejadorClienteHospital extends Thread {
 
     private Respuesta procesarSolicitud(Solicitud solicitud) {
         try {
+            //Verifica que la solicitud sea valida
             if (solicitud == null || solicitud.getAccion() == null) {
                 return new Respuesta(false, "Solicitud invalida.", null);
             }
-
+            
+            //Dependiendo lo que pide el cliente realiza una accion
             switch (solicitud.getAccion()) {
                 case "LOGIN":
                     return login((Map<String, String>) solicitud.getDatos());
@@ -74,12 +75,15 @@ public class ManejadorClienteHospital extends Thread {
 
     private Respuesta login(Map<String, String> datos) {
         try {
+            // obtiene usuario y contraseña
             String cedula = datos.get("cedula");
             String contrasena = datos.get("contrasena");
-
+            
+            //verifica en base de datos
             PersonaDAO personaDAO = new PersonaDAO();
             AuthResultado resultado = personaDAO.iniciarSesionClienteServidor(cedula, contrasena);
-
+            
+            
             if (resultado.isValido()) {
                 return new Respuesta(true, "Inicio de sesion correcto.", resultado);
             }
@@ -93,6 +97,7 @@ public class ManejadorClienteHospital extends Thread {
 
     private Respuesta registrarPaciente(Paciente paciente) {
         try {
+            //Guarda el paciente en la base de datos
             PacienteDAO dao = new PacienteDAO();
             boolean agregado = dao.AgregarPaciente(paciente);
 

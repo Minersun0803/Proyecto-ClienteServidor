@@ -6,11 +6,8 @@ package Red;
 
 import java.io.Serializable;
 
-/**
- *
- * @author Eduardo Corrales
- */
 public class Solicitud implements Serializable {
+    //Permite que este objeto se pueda enviar por red cliente-servidor
     private static final long serialVersionUID = 1L;
 
     private String accion;
@@ -18,7 +15,7 @@ public class Solicitud implements Serializable {
 
     public Solicitud() {
     }
-
+    //Constructor para crear una solicitud cona ccion y datos.
     public Solicitud(String accion, Object datos) {
         this.accion = accion;
         this.datos = datos;
