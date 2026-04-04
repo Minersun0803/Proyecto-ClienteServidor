@@ -17,7 +17,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Eduardo Corrales
  */
+/*
+esta clase, es el historial medico de un paciente
+
+esta clase es usada en _09Historial_Paciente_Doctor
+*/
 public class Historial {
+    //Atributos para mapear las columnas de a tabla historial
     private int PacienteID;
     private String Nombre;
     private String Apellido;
@@ -28,7 +34,7 @@ public class Historial {
     private String Habitos;
     private String Notas;
 
-    //Constructor para la consulta
+    //Constructor para la consulta o para editarla
     public Historial(int PacienteID, String Nombre, String Apellido, int Edad, String Genero, String Antecedentes, String Tratamiento, String Habitos, String Notas) {
         this.PacienteID = PacienteID;
         this.Nombre = Nombre;
@@ -42,10 +48,16 @@ public class Historial {
     }
     
     //Cargar los historiales, en la tabla
+    /*
+    Esto solo mostrar el nobre y cedula en la tabla , el medico podras bucar el historial compelto con al opcion de revisar
+    
+    
+    */
        public static DefaultTableModel consultarTodos(JFrame frame) {
         ConexionSQL conexionSQL = new ConexionSQL();
         DefaultTableModel modelo = new DefaultTableModel();
 
+        //La columna 0 se oculatada mientra que la 1 y 2 seran visibles
         modelo.addColumn("PACIENTE ID"); // oculta
         modelo.addColumn("NOMBRE");
         modelo.addColumn("CÉDULA");
@@ -54,8 +66,10 @@ public class Historial {
 
         try {
             PreparedStatement ps = conexionSQL.conectarSQL().prepareStatement(
+                    //Se realiza un JOIN triple, de las tablas Historial paciente y persona
+                    //esto para obeneter el nombre y cdula que no estan prsentes en la tabla historial
                 "SELECT h.PacienteID, " +
-                "CONCAT(p.FirstName, ' ', p.LastName) AS Nombre, " +
+                "CONCAT(p.FirstName, ' ', p.LastName) AS Nombre, " + //CONCAT funciona para 
                 "p.Cedula " +
                 "FROM Historial h " +
                 "JOIN Paciente pa ON h.PacienteID = pa.PacienteID " +
@@ -64,7 +78,7 @@ public class Historial {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                datos[0] = rs.getString("PacienteID");
+                datos[0] = rs.getString("PacienteID");//se oculta
                 datos[1] = rs.getString("Nombre");
                 datos[2] = rs.getString("Cedula");
                 modelo.addRow(datos);
@@ -83,6 +97,13 @@ public class Historial {
 
         return modelo;
     }
+       /*
+       busca el historial completo de un paciente mediante la cedula
+       
+       Devulve un objeto Historial con todos los campos llenos o nul si no encuntra historial para esa cedula
+       
+       
+       */
         
         //Buscar u historial por la cedula del paciente
             public static Historial buscarPorCedula(JFrame frame, String cedula) {
@@ -95,12 +116,13 @@ public class Historial {
                 "FROM Historial h " +
                 "JOIN Paciente pa ON h.PacienteID = pa.PacienteID " +
                 "JOIN Persona p ON pa.PersonaID = p.PersonaID " +
-                "WHERE p.Cedula = ?"
+                "WHERE p.Cedula = ?" //Filtra por cedula ingresada
             );
             ps.setString(1, cedula);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+                //Conturlle y devulevo el objeto Historial con todos los datos
                 return new Historial(
                     rs.getInt("PacienteID"),
                     rs.getString("Nombre"),
@@ -112,7 +134,8 @@ public class Historial {
                     rs.getString("Habitos"),
                     rs.getString("Notas")
                 );
-            } else {
+            } else { 
+                //En caso que no exita historial para esa cedula 
                 JOptionPane.showMessageDialog(frame, "No se encontró historial para esa cédula.");
                 return null;
             }
@@ -127,6 +150,12 @@ public class Historial {
             
             //Crear un historial nuevo
             public String crear() {
+                /*
+                Crea un histrial nuevo oara alqun paciente que no tenga uno
+                
+                primero verifica que el paciente esta buscandolo por la cpedula y devolvera un string con el mensaje de éxito o error
+                
+                */
         ConexionSQL conexionSQL = new ConexionSQL();
         try {
             Connection con = conexionSQL.conectarSQL();
@@ -145,11 +174,12 @@ public class Historial {
             rs.close();
             psBuscar.close();
 
+            //Inserta el historial con el pacienteID real
             PreparedStatement ps = con.prepareStatement(
                 "INSERT INTO Historial (PacienteID, Nombre, Apellido, Edad, Genero, " +
                 "Antecedentes, Tratamiento, Habitos, Notas) VALUES (?,?,?,?,?,?,?,?,?)"
             );
-            ps.setInt(1, pid);
+            ps.setInt(1, pid); //ID real del paciente
             ps.setString(2, Nombre);
             ps.setString(3, Apellido);
             ps.setInt(4, Edad);
@@ -171,12 +201,20 @@ public class Historial {
     }
             
             //Editar un historial
+            /*
+            Edita el historial exitente de algun paciente
+            
+            utiliza this.pacienteID para identificar que registro actulizar, este id proviene desde pacienteIDSelecionado en _09Historial, el cual es cudado al hacer click
+            en la tabla o al buscarlo por cedula
+            */
            public String editar() {
         ConexionSQL conexionSQL = new ConexionSQL();
         try {
             Connection con = conexionSQL.conectarSQL();
 
             PreparedStatement ps = con.prepareStatement(
+                    //UPDATE - actuliza todos los campos del historial
+                    //WHERE pacienteID identifa cual historial modificar
                 "UPDATE Historial SET Nombre=?, Apellido=?, Edad=?, Genero=?, " +
                 "Antecedentes=?, Tratamiento=?, Habitos=?, Notas=? " +
                 "WHERE PacienteID=?"
@@ -189,7 +227,7 @@ public class Historial {
             ps.setString(6, Tratamiento);
             ps.setString(7, Habitos);
             ps.setString(8, Notas);
-            ps.setInt(9, PacienteID);
+            ps.setInt(9, PacienteID); //WHERE del historial a actulizar
             ps.executeUpdate();
             ps.close();
 

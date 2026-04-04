@@ -13,6 +13,15 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Eduardo Corrales
  */
+/*
+Esta pantalla es donde el medico consulta, crea y edita los historiales medicos del paciente
+
+La tabla muetras todos los pacientes con historial
+El medico ingresa o selecioan al paciente y precinas revisar
+Lscmapos se llena con la informacion del histial del paciente
+el botnon editat actulizara el historial, crear, realiza la creacion de un nuevo historial
+y limpiar, vacia los campos
+*/
 public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
     
     private int medicoID;
@@ -21,9 +30,10 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_09Historial_Paciente_Doctor.class.getName());
 
-    /**
-     * Creates new form Historial_Paciente_Doctor
-     */
+ 
+    /*
+    Recibe medicoID para poder regresar al menú del médico correcto.
+    */
     public _09Historial_Paciente_Doctor(int medicoID) {
         this.medicoID = medicoID;
         initComponents();
@@ -42,6 +52,13 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
         limpiar();
     }
     
+    /*
+     Carga todos los historiales en la tabla.
+     * 
+     * Llama a Historial.consultarTodos() que hace:
+     * SELECT PacienteID, NombreCompleto, Cedula
+     * FROM Historial JOIN Paciente JOIN Persona
+    */
     public void cargarHistoriales() {
         tbHistorial.setModel(Historial.consultarTodos(this));
         // Ajustar columnas 
@@ -67,10 +84,19 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
         jCrear.setEnabled(true);
     }
     
+    /*
+    Busca y muestra el historial de un paciente por medio de su cedula
+    
+    llama a Historial.buscarPorCedula() que devuelve un objeto
+    Historal con todos los datos, o null si no exite
+    
+    Todo esto se puede hacer haciendo click en el boto revisar o en la tabla
+    */
     private void buscarHistorial(String cedula) {
         Historial h = Historial.buscarPorCedula(this, cedula);
-        if (h == null) return;
+        if (h == null) return; //no exite el historiañ
 
+        //Guada PacienteID para usarlo en editar
         pacienteIDSeleccionado = h.getPacienteID();
         txtNombre.setText(h.getNombre());
         txtApellido.setText(h.getApellido());
@@ -307,6 +333,10 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+        /**
+     * Busca el historial por la cédula ingresada manualmente.
+     * Valida que el campo no esté vacío antes de buscar.
+     */
     private void jrevisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrevisarActionPerformed
         // TODO add your handling code here:
         //buscar la informacion
@@ -318,6 +348,12 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
         buscarHistorial(cedula);
     }//GEN-LAST:event_jrevisarActionPerformed
 
+        /**
+     * Se ejecuta cuando el médico hace click en una fila de la tabla.
+     * 
+     * Obtiene la cédula de la columna 2 y llama a buscarHistorial()
+     * para llenar los campos automáticamente sin escribir la cédula.
+     */
     private void tbHistorialMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbHistorialMousePressed
         // TODO add your handling code here:
         //AL hace ckilc en la tabla
@@ -338,6 +374,12 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
         limpiar();
     }//GEN-LAST:event_jLimpiarActionPerformed
 
+    /**
+     * Edita el historial del paciente seleccionado.
+     * 
+     * Usa pacienteIDSeleccionado (guardado al buscar/seleccionar)
+     * para identificar qué registro actualizar con UPDATE.
+     */
     private void jeditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jeditarActionPerformed
         // TODO add your handling code here:
         if (pacienteIDSeleccionado == 0) {
@@ -345,6 +387,7 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
             return;
         }
         try {
+            // Construir objeto con los datos modificados en los campos txt
             Historial h = new Historial(
                 pacienteIDSeleccionado,
                 txtNombre.getText(),
@@ -365,11 +408,19 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jeditarActionPerformed
 
+     /**
+     * Crea un historial nuevo para un paciente que no tiene uno.
+     * 
+     * Construye un objeto Historial con los datos de los campos txt
+     * y llama a h.crear() que hace el INSERT en la BD.
+     * 
+     * La edad debe ser numérica — se valida con NumberFormatException.
+     */
     private void jCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCrearActionPerformed
         // TODO add your handling code here:
         try {
             Historial h = new Historial(
-                Integer.parseInt(txtCedula.getText().trim()), // cedula como referencia temporal
+                Integer.parseInt(txtCedula.getText()), // cedula como referencia temporal
                 txtNombre.getText(),
                 txtApellido.getText(),
                 Integer.parseInt(txtEdad.getText()),
@@ -380,7 +431,7 @@ public class _09Historial_Paciente_Doctor extends javax.swing.JFrame {
                 txtNota.getText()
             );
             JOptionPane.showMessageDialog(this, h.crear());
-            cargarHistoriales();
+            cargarHistoriales(); //recarga la tabla con un nuevo historial
             limpiar();
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "La edad debe ser un número.");
