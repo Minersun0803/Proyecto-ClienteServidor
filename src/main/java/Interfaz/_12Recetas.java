@@ -8,14 +8,14 @@ package Interfaz;
  *
  * @author Eduardo Corrales
  */
-public class Recetas extends javax.swing.JFrame {
+public class _12Recetas extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Recetas.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_12Recetas.class.getName());
 
     /**
      * Creates new form Recetas
      */
-    public Recetas() {
+    public _12Recetas() {
         initComponents();
     }
 
@@ -34,7 +34,7 @@ public class Recetas extends javax.swing.JFrame {
         jProcesar = new javax.swing.JButton();
         jRechazar = new javax.swing.JButton();
         jAtras = new javax.swing.JButton();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        jbarraProsecesar = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,13 +49,21 @@ public class Recetas extends javax.swing.JFrame {
                 "Receta", "Descripcion"
             }
         ));
+        jRecetas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jRecetasMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jRecetas);
 
         jProcesar.setText("Procesar");
+        jProcesar.addActionListener(this::jProcesarActionPerformed);
 
         jRechazar.setText("Rechazar");
+        jRechazar.addActionListener(this::jRechazarActionPerformed);
 
         jAtras.setText("< Atras");
+        jAtras.addActionListener(this::jAtrasActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -70,7 +78,7 @@ public class Recetas extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jProcesar)
                             .addComponent(jRechazar)
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jbarraProsecesar, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jAtras))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
@@ -84,7 +92,7 @@ public class Recetas extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jProcesar)
                         .addGap(18, 18, 18)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbarraProsecesar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
                         .addComponent(jRechazar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -111,6 +119,27 @@ public class Recetas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
+        // TODO add your handling code here:
+        _11MenuFarmacia menufarmacia = new _11MenuFarmacia();
+        
+        menufarmacia.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_jAtrasActionPerformed
+
+    private void jProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProcesarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jProcesarActionPerformed
+
+    private void jRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRechazarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRechazarActionPerformed
+
+    private void jRecetasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRecetasMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRecetasMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -133,16 +162,16 @@ public class Recetas extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Recetas().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _12Recetas().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jAtras;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jProcesar;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTable jRecetas;
     private javax.swing.JButton jRechazar;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JProgressBar jbarraProsecesar;
     // End of variables declaration//GEN-END:variables
 }

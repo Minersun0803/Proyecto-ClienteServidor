@@ -8,14 +8,14 @@ package Interfaz;
  *
  * @author Eduardo Corrales
  */
-public class MenuFarmacia extends javax.swing.JFrame {
+public class _11MenuFarmacia extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuFarmacia.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_11MenuFarmacia.class.getName());
 
     /**
      * Creates new form MenuFarmacia
      */
-    public MenuFarmacia() {
+    public _11MenuFarmacia() {
         initComponents();
     }
 
@@ -42,6 +42,7 @@ public class MenuFarmacia extends javax.swing.JFrame {
         jSalir.addActionListener(this::jSalirActionPerformed);
 
         jRecetas1.setText("Recetas");
+        jRecetas1.addActionListener(this::jRecetas1ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -89,6 +90,10 @@ public class MenuFarmacia extends javax.swing.JFrame {
 
     private void InventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InventarioActionPerformed
         // TODO add your handling code here:
+        _13Sistema_Inventario sistema_inventario = new _13Sistema_Inventario();
+        sistema_inventario.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_InventarioActionPerformed
 
     private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
@@ -98,6 +103,14 @@ public class MenuFarmacia extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_jSalirActionPerformed
+
+    private void jRecetas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRecetas1ActionPerformed
+        // TODO add your handling code here:
+        _12Recetas recetas = new _12Recetas();
+        recetas.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_jRecetas1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,7 +134,7 @@ public class MenuFarmacia extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MenuFarmacia().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _11MenuFarmacia().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
