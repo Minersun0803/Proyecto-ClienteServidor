@@ -9,14 +9,16 @@ package Interfaz;
  * @author Eduardo Corrales
  */
 public class _11MenuFarmacia extends javax.swing.JFrame {
-    
+    private int medicoID;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_11MenuFarmacia.class.getName());
 
     /**
      * Creates new form MenuFarmacia
      */
-    public _11MenuFarmacia() {
+    public _11MenuFarmacia( int medicoID) {
+        this.medicoID = medicoID;
         initComponents();
+         setLocationRelativeTo(null);
     }
 
     /**
@@ -90,7 +92,7 @@ public class _11MenuFarmacia extends javax.swing.JFrame {
 
     private void InventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InventarioActionPerformed
         // TODO add your handling code here:
-        _13Sistema_Inventario sistema_inventario = new _13Sistema_Inventario();
+        _13Sistema_Inventario sistema_inventario = new _13Sistema_Inventario(medicoID);
         sistema_inventario.setVisible(true);
         
         this.dispose();
@@ -134,7 +136,7 @@ public class _11MenuFarmacia extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new _11MenuFarmacia().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _11MenuFarmacia(0).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

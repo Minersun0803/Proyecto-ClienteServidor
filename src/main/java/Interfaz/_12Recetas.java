@@ -4,19 +4,45 @@
  */
 package Interfaz;
 
+import Objects.Receta;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+
 /**
  *
  * @author Eduardo Corrales
  */
 public class _12Recetas extends javax.swing.JFrame {
-    
+
+    private int medicoID;
+    private int recetaIDSeleccionada = 0;
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_12Recetas.class.getName());
 
     /**
      * Creates new form Recetas
      */
     public _12Recetas() {
+        this.medicoID = medicoID;
         initComponents();
+        setLocationRelativeTo(null);
+
+        jRecetas.setRowHeight(25);
+        jRecetas.getTableHeader().setReorderingAllowed(false);
+        jRecetas.getTableHeader().setFont(new Font("Verdana", Font.PLAIN, 14));
+        jRecetas.getTableHeader().setForeground(new Color(102, 153, 0));
+        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) jRecetas.getTableHeader().getDefaultRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        cargarRecetas();
+
+        // Botones deshabilitados hasta seleccionar una receta
+        jProcesar.setEnabled(false);
+        jRechazar.setEnabled(false);
+
     }
 
     /**
@@ -121,23 +147,113 @@ public class _12Recetas extends javax.swing.JFrame {
 
     private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
         // TODO add your handling code here:
-        _11MenuFarmacia menufarmacia = new _11MenuFarmacia();
-        
+        _11MenuFarmacia menufarmacia = new _11MenuFarmacia(medicoID);
+
         menufarmacia.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_jAtrasActionPerformed
+    public void cargarRecetas() {
+        jRecetas.setModel(Receta.consultarTodos(this));
+
+
+        // Ajustar anchos de columnas visibles
+        jRecetas.getColumnModel().getColumn(1).setPreferredWidth(150); // PACIENTE
+        jRecetas.getColumnModel().getColumn(2).setPreferredWidth(80);  // FECHA
+        jRecetas.getColumnModel().getColumn(3).setPreferredWidth(250); // DETALLES
+        jRecetas.getColumnModel().getColumn(4).setPreferredWidth(80);  // ESTADO
+
+        // Resetear selección al recargar
+        recetaIDSeleccionada = 0;
+        jProcesar.setEnabled(false);
+        jRechazar.setEnabled(false);
+    }
 
     private void jProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProcesarActionPerformed
         // TODO add your handling code here:
+        if (recetaIDSeleccionada == 0) {
+            JOptionPane.showMessageDialog(this,
+                "Seleccione una receta para procesar.");
+            return;
+        }
+
+        // Deshabilitar botones durante el proceso
+        jProcesar.setEnabled(false);
+        jRechazar.setEnabled(false);
+        jbarraProsecesar.setValue(0);
+
+        // Hilo secundario para animar la barra sin congelar la UI
+        Thread hilo = new Thread(() -> {
+            try {
+                // Animar barra de 0 a 100
+                for (int i = 0; i <= 100; i++) {
+                    final int valor = i;
+                    javax.swing.SwingUtilities.invokeLater(() ->
+                        jbarraProsecesar.setValue(valor));
+                    Thread.sleep(30);
+                }
+
+                // Eliminar la receta de la BD al terminar la animación
+                boolean eliminado = Receta.eliminar(this, recetaIDSeleccionada);
+
+                // Actualizar UI en el hilo de Swing (EDT)
+                javax.swing.SwingUtilities.invokeLater(() -> {
+                    if (eliminado) {
+                        JOptionPane.showMessageDialog(this,
+                            "Receta entregada exitosamente.");
+                    }
+                    jbarraProsecesar.setValue(0);
+                    cargarRecetas(); // recargar tabla sin la receta procesada
+                });
+
+            } catch (InterruptedException ex) {
+                System.out.println("Hilo interrumpido: " + ex.getMessage());
+            }
+        });
+        hilo.start();
     }//GEN-LAST:event_jProcesarActionPerformed
 
     private void jRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRechazarActionPerformed
         // TODO add your handling code here:
+        if (recetaIDSeleccionada == 0) {
+            JOptionPane.showMessageDialog(this,
+                "Seleccione una receta para rechazar.");
+            return;
+        }
+
+        // Confirmar antes de rechazar
+        int confirmacion = JOptionPane.showConfirmDialog(
+            this,
+            "¿Está seguro que desea rechazar esta receta?",
+            "Confirmar rechazo",
+            JOptionPane.YES_NO_OPTION
+        );
+        if (confirmacion != JOptionPane.YES_OPTION) return;
+
+        // Eliminar directamente sin animación
+        boolean eliminado = Receta.eliminar(this, recetaIDSeleccionada);
+        if (eliminado) {
+            JOptionPane.showMessageDialog(this, "Receta rechazada y eliminada.");
+            cargarRecetas();
+        }
     }//GEN-LAST:event_jRechazarActionPerformed
 
     private void jRecetasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRecetasMousePressed
         // TODO add your handling code here:
+        int fila = jRecetas.getSelectedRow();
+        if (fila < 0) return;
+
+        try {
+            // Columna 0 oculta contiene el RecetaID
+            recetaIDSeleccionada = Integer.parseInt(
+                jRecetas.getValueAt(fila, 0).toString());
+
+            // Habilitar botones al seleccionar una receta
+            jProcesar.setEnabled(true);
+            jRechazar.setEnabled(true);
+        } catch (Exception ex) {
+            System.out.println("Error al seleccionar receta: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jRecetasMousePressed
 
     /**

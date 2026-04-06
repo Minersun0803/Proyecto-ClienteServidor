@@ -4,19 +4,30 @@
  */
 package Interfaz;
 
+import Objects.Inventario;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
  */
 public class _13Sistema_Inventario extends javax.swing.JFrame {
 
+     private int medicoID;
+    
+    private int productoIDSeleccionado = 0;
+    
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_13Sistema_Inventario.class.getName());
 
     /**
      * Creates new form Sistema_Inventario
      */
-    public _13Sistema_Inventario() {
+    public _13Sistema_Inventario(int medicoID) { 
+            this.medicoID = medicoID;
         initComponents();
+        setLocationRelativeTo(null);
+        cargarInventario();
     }
 
     /**
@@ -212,13 +223,61 @@ public class _13Sistema_Inventario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
+    public void cargarInventario() {
+        tabInventario.setModel(Inventario.consultarTodos(this));
+        tabInventario.getColumnModel().getColumn(1).setPreferredWidth(150); // NOMBRE
+        tabInventario.getColumnModel().getColumn(2).setPreferredWidth(80);  // CANTIDAD
+        tabInventario.getColumnModel().getColumn(3).setPreferredWidth(300); // DESCRIPCIÓN
 
+        // Resetear selección
+        productoIDSeleccionado = 0;
+    }
+    
+    public void limpiar() {
+        txtNombre.setText("");
+        txtCantidad.setText("");
+        txtDescripcion.setText("");
+        productoIDSeleccionado = 0;
+    }
+    
+    private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
+ if (productoIDSeleccionado == 0) {
+            JOptionPane.showMessageDialog(this,
+                "Seleccione un producto de la tabla primero.");
+            return;
+        }
+
+        String cantidadTxt = txtCantidad.getText().trim();
+        if (cantidadTxt.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                "Ingrese la nueva cantidad.");
+            return;
+        }
+
+        try {
+            int nuevaCantidad = Integer.parseInt(cantidadTxt);
+
+            // Crear objeto con el ID seleccionado y la nueva cantidad
+              Inventario inventario = new Inventario(
+            productoIDSeleccionado,
+            txtNombre.getText(),
+            txtDescripcion.getText(),
+            nuevaCantidad
+        );
+            JOptionPane.showMessageDialog(this, inventario.recargarCantidad());
+
+            cargarInventario(); // recargar tabla con la cantidad actualizada
+            limpiar();
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                "La cantidad debe ser un número.");
+        }
     }//GEN-LAST:event_btnRecargarActionPerformed
 
     private void btnvolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvolverActionPerformed
         // TODO add your handling code here:
-        _11MenuFarmacia menufarmacia = new _11MenuFarmacia();
+        _11MenuFarmacia menufarmacia = new _11MenuFarmacia(medicoID);
 
         menufarmacia.setVisible(true);
 
@@ -227,10 +286,58 @@ public class _13Sistema_Inventario extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
+        String nombre      = txtNombre.getText();
+        String descripcion = txtDescripcion.getText();
+        String cantidadTxt = txtCantidad.getText();
+
+        // Validar campos vacíos
+        if (nombre.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese el nombre.");
+        return;
+    }
+    if (descripcion.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese la descripción.");
+        return;
+    }
+    if (cantidadTxt.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese la cantidad.");
+        return;
+    }
+
+        try {
+            int cantidad = Integer.parseInt(cantidadTxt);
+
+            // Crear objeto y llamar agregar() que hace el INSERT
+            Inventario inventario = new Inventario(nombre, descripcion, cantidad);
+            JOptionPane.showMessageDialog(this, inventario.agregar());
+
+            cargarInventario(); // recargar tabla con el nuevo producto
+            limpiar();
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                "La cantidad debe ser un número.");
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tabInventarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabInventarioMousePressed
         // TODO add your handling code here:
+         int fila = tabInventario.getSelectedRow();
+        if (fila < 0) return;
+
+        try {
+            // Columna 0 oculta — contiene el ProductoID
+            productoIDSeleccionado = Integer.parseInt(
+                tabInventario.getValueAt(fila, 0).toString());
+
+            // Llenar campos con los datos del producto seleccionado
+            txtNombre.setText(tabInventario.getValueAt(fila, 1).toString());
+            txtCantidad.setText(tabInventario.getValueAt(fila, 2).toString());
+            txtDescripcion.setText(tabInventario.getValueAt(fila, 3).toString());
+
+        } catch (Exception ex) {
+            System.out.println("Error al seleccionar producto: " + ex.getMessage());
+        }
     }//GEN-LAST:event_tabInventarioMousePressed
 
     /**
@@ -255,7 +362,7 @@ public class _13Sistema_Inventario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new _13Sistema_Inventario().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new _13Sistema_Inventario(0).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
