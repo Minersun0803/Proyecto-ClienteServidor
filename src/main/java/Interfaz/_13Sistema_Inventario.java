@@ -223,6 +223,9 @@ public class _13Sistema_Inventario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    Carga todos los productos desde la BD
+    */
     public void cargarInventario() {
         tabInventario.setModel(Inventario.consultarTodos(this));
         tabInventario.getColumnModel().getColumn(1).setPreferredWidth(150); // NOMBRE
@@ -240,6 +243,11 @@ public class _13Sistema_Inventario extends javax.swing.JFrame {
         productoIDSeleccionado = 0;
     }
     
+    /*
+    equiere que el usuario haya seleccionado un producto
+     * de la tabla primero (click en fila).
+     * Solo actualiza la cantidad — nombre y descripción no cambian.
+    */
     private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
  if (productoIDSeleccionado == 0) {
             JOptionPane.showMessageDialog(this,
@@ -283,7 +291,9 @@ public class _13Sistema_Inventario extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
-
+/*
+     Carga todos los productos desde la BD.
+    */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         String nombre      = txtNombre.getText();
