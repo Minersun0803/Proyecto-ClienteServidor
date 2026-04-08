@@ -93,6 +93,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&lt; Atras"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAtrasActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -111,6 +114,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable1MousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -118,6 +124,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Activar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jActivarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

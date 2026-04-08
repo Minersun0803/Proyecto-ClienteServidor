@@ -234,7 +234,7 @@ public class _02Registro extends javax.swing.JFrame {
                 String contraseña = txtConstraseña.getText();
 
                 // Expresión regular: mínimo 8 caracteres, al menos una mayúscula, una minúscula, un número y un símbolo
-                String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+                String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^A-Za-z\\d]).{8,}$";
 
                 if (!contraseña.matches(regex)) {
                     JOptionPane.showMessageDialog(this,

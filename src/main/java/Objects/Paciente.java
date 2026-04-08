@@ -1,6 +1,8 @@
 package Objects;
 
-public class Paciente extends Persona {
+import java.io.Serializable;
+
+public class Paciente extends Persona implements Serializable{
 
     private int pacienteID;
 

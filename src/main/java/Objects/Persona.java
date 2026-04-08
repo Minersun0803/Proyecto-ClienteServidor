@@ -1,7 +1,9 @@
 package Objects;
 
+import java.io.Serializable;
 
-public abstract class Persona {
+
+public abstract class Persona implements Serializable{
         
 
     protected int IDPersona;

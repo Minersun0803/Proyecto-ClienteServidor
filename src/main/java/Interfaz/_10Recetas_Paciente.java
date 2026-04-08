@@ -65,6 +65,7 @@ public class _10Recetas_Paciente extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Medicamentos"));
 
         jAtras.setText("< Atras");
+        jAtras.addActionListener(this::jAtrasActionPerformed);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,9 +78,15 @@ public class _10Recetas_Paciente extends javax.swing.JFrame {
                 "Dia", "Estado", "Medicamentos"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jActivar.setText("Activar");
+        jActivar.addActionListener(this::jActivarActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,16 +133,15 @@ public class _10Recetas_Paciente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {
-        int fila = jTable1.getSelectedRow();
 
-        if (fila >= 0) {
-            recetaIDSeleccionada = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
-            jActivar.setEnabled(true);
-        }
-    }
-            
-    private void jActivarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtrasActionPerformed
+        // TODO add your handling code here:
+        new _04PacienteMenu(pacienteID).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jAtrasActionPerformed
+
+    private void jActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActivarActionPerformed
+        // TODO add your handling code here:
         if (recetaIDSeleccionada == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione una receta primero.");
             return;
@@ -147,12 +153,22 @@ public class _10Recetas_Paciente extends javax.swing.JFrame {
         cargarRecetas();
         recetaIDSeleccionada = -1;
         jActivar.setEnabled(false);
-    }
+    }//GEN-LAST:event_jActivarActionPerformed
+
+    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
+        // TODO add your handling code here:
+        int fila = jTable1.getSelectedRow();
+
+        if (fila >= 0) {
+            recetaIDSeleccionada = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
+            jActivar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTable1MousePressed
+    
+            
+    
        
-    private void jAtrasActionPerformed(java.awt.event.ActionEvent evt) {
-        new _04PacienteMenu(pacienteID).setVisible(true);
-        this.dispose();
-    }
+    
   
 
     public static void main(String args[]) {
