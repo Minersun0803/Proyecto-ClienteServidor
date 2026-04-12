@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class _10Recetas_Paciente extends javax.swing.JFrame {
     
     private int pacienteID;
-    private int recetaIDSeleccionada = -1;
+    private int recetaIDSeleccionada = 0;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(_10Recetas_Paciente.class.getName());
     
@@ -142,7 +142,7 @@ public class _10Recetas_Paciente extends javax.swing.JFrame {
 
     private void jActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActivarActionPerformed
         // TODO add your handling code here:
-        if (recetaIDSeleccionada == -1) {
+        if (recetaIDSeleccionada == 0) {
             JOptionPane.showMessageDialog(this, "Seleccione una receta primero.");
             return;
         }
@@ -151,7 +151,7 @@ public class _10Recetas_Paciente extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, mensaje);
 
         cargarRecetas();
-        recetaIDSeleccionada = -1;
+        recetaIDSeleccionada = 0;
         jActivar.setEnabled(false);
     }//GEN-LAST:event_jActivarActionPerformed
 

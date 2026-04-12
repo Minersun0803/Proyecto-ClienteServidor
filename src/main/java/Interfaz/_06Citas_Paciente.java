@@ -50,7 +50,7 @@ public class _06Citas_Paciente extends javax.swing.JFrame {
         txthora.setText("");
         txtmedico.setText("");
         txtlugar.setText("");
-        this.citaIDSeleccionada = -0; // Esto para que no haya ninguna cita seleccionada 
+        this.citaIDSeleccionada = 0; // Esto para que no haya ninguna cita seleccionada 
 
         //Poner un boton, si es true, si se puede activar, si esta false no se puede activar
         jNuevaCita.setEnabled(true);
