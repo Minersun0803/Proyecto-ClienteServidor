@@ -229,7 +229,8 @@ public class _08CitasMedico extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Paciente atendido.");
                     btnAtender.setEnabled(true); //receta la barra
                     JAtenderBarra.setValue(0); //reseta la tabla
-                    citaIDSeleccionada = 0; //resetea la seecion
+                    citaIDSeleccionada = 0;
+                    cargarCitas();//resetea la seecion
                 });
             } catch (InterruptedException ex) {
                 System.out.println("Hilo interrumpido: " + ex.getMessage());
